@@ -27,10 +27,10 @@
 
 	& .MainPageContent {
 		padding: 0.5rem 1rem;
-		overflow: scroll;
 		height: calc(100% - 7.1rem);
+		overflow: auto;
 		display: flex;
-		flex-direction: column;
+		flex-direction: column-reverse;
 		gap: 1rem;
 
 		& .ChatBubble {
