@@ -9,7 +9,7 @@
 .DashboardChatMain {
 	width: calc(100% - 20vw);
 	height: calc(100% - 8vh);
-
+	overflow: hidden;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
 		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 	border-radius: 10px;
@@ -23,9 +23,11 @@
 
 .DashboardMainPage {
 	width: calc(100% - 15rem);
+	
 	& .MainPageHeading{
 		padding: 0.5rem 1rem;
 		cursor: pointer;
+		height: 3.5rem;
 
 		& .GroupName{
 			color: black;
@@ -43,5 +45,52 @@
 		}
 	}
 
+	& .MainPageContent{
+		padding: 0.5rem 1rem;
+		overflow: scroll;
+		height: calc(100% - 7.1rem);
+	}
 
+	& .MainPageFooter{
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		height: 3.5rem;
+		display: flex;
+		align-items: center;
+    gap: 0.5rem;
+	
+
+		& .TextHolder{
+			border: 2px solid lightgray;
+			height: 100%;
+			width: 100%;
+			border-radius: 8px;
+
+			& .TextAreaInput{
+				border: none;
+				height: 100% !important;
+				padding-top: 7px;
+
+				&:focus{
+					box-shadow: none;
+				}
+				
+				&:focus-within{
+					box-shadow: none;
+				}
+			}
+		}
+
+		& .SendChatBtn{
+
+			& button {
+				background-color: black;
+				height: 36px;
+				width: 36px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
 }
