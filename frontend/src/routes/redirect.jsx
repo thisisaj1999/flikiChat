@@ -1,12 +1,23 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobalStore } from "../utils/store";
 
 const Redirect = () => {
+
+	const State = {
+		GlobalStore: {
+			isAuthenticated: useGlobalStore((State) => State.isAuthenticated),
+		},
+	};
 
 	const navigate = useNavigate();
 	
 	useEffect(() => {
-		navigate("/login");
+		if(State.GlobalStore.isAuthenticated){
+			navigate("/dashboard");
+		} else if(!State.GlobalStore.isAuthenticated){
+			navigate("/login")
+		}
 	}, []);
 
 	return null;

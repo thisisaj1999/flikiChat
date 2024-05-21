@@ -2,17 +2,22 @@ import { useMemo } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Dashboard from "../components/Dashboard";
+import { useGlobalStore } from "../utils/store";
 
 const RoutesConfig = () => {
 
-	const User = false;
+	const State = {
+		GlobalStore: {
+			isAuthenticated: useGlobalStore((State) => State.isAuthenticated),
+		},
+	};
 
 	return useMemo(() => {
 		// public routes
 		let routesArray = [];
 
 		// protected routes
-		if (User) {
+		if (State.GlobalStore.isAuthenticated) {
 			routesArray = [
 				...routesArray,
 				{
@@ -23,7 +28,7 @@ const RoutesConfig = () => {
 			];
 		}
 		
-		if(!User) {
+		if(!State.GlobalStore.isAuthenticated) {
 			routesArray = [
 				...routesArray,
 				{
@@ -40,7 +45,7 @@ const RoutesConfig = () => {
 		}
 
 		return routesArray;
-	}, [User]);
+	}, [State.GlobalStore.isAuthenticated]);
 
 	// return routes
 };
