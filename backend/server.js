@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const expressRoutes = require('./routes');
 require('./config/migration');
-
+const socketio = require('socket.io');
 
 const app = express();
 
@@ -23,6 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/v1', expressRoutes.user);
 
-app.listen(8080, () => {
-    console.log('Server is running on port 8080');
+const server = app.listen(8080, () => {
+    console.log('Server is running on http://localhost:8080');
+})
+
+const io = socketio(server)
+
+io.on('connection', (socket) => {
+    console.log('New Connection')
 })
