@@ -3,10 +3,11 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+	flex-direction: column;
 }
 
 .AuthFormMain {
-	width: 25rem;
+	transition: width .3s ease-in-out;
 	padding: 2rem;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
 		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -73,5 +74,35 @@
 	.AuthFormLink,
 	.AuthFormCheckbox {
 		justify-content: flex-start;
+	}
+}
+
+.GroupListHeading{
+	padding: 0 0 8px;
+	&::before{
+		display: inline-block;
+    margin-inline-end: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: "*";
+	}
+}
+
+.GroupsList{
+	max-height: 18rem;
+	border: 1px solid #d9d9d9;
+	border-radius: 6px;
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	justify-items: center;
+	overflow: hidden;
+	overflow-y: scroll;
+	gap: 2rem;
+
+	& .GroupsName {
+		font-size: 12px;
 	}
 }

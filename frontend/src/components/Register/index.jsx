@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Register.module.scss";
 
 // ANTD
-import { Button, Form, Input, Tooltip, Typography, Divider } from "antd";
+import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
 
 // Hooks
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,7 +13,7 @@ import { useSnackbar } from "notistack";
 import { getRandomColor } from "../../utils/other";
 
 const index = () => {
-	const [layout, setLayout] = useState(0)
+	const [layout, setLayout] = useState(1)
 	const { enqueueSnackbar } = useSnackbar();
 	const navigate = useNavigate();
 
@@ -38,12 +38,41 @@ const index = () => {
     console.log(values)
 	};
 
+	// temp
+	const renderDivs = () => {
+    const divs = [];
+
+	
+
+	for(let i = 0; i < 100; i++){
+		divs.push(
+			<div className={styles.GroupInfoHeader}>
+								<Avatar
+									style={{
+										backgroundColor: "dodgerblue",
+										verticalAlign: "middle",
+									}}
+									size={70}
+									gap={0}
+								>
+									G
+								</Avatar>
+								<p>Test Group</p>
+							</div>
+		)
+	}
+
+	return divs
+}
+	// temp
+
 	return (
 		<div className={styles.AuthBgMain}>
 			<div
 				className={styles.AuthFormMain}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
+				style={layout === 0 ? {width: '25rem'} : {width: '45rem'}}
 			>
 				<h1 className={styles.AuthFormHeading}>
 					Regis
@@ -53,9 +82,6 @@ const index = () => {
 				</h1>
 				<Form
 					layout="vertical"
-					style={{
-						maxWidth: 600,
-					}}
 					onFinish={onFinish}
 					autoComplete="on"
 				>
@@ -163,22 +189,25 @@ const index = () => {
 								placeholder="John Doe"
 							/>
 						</Form.Item>
-						<Form.Item
-							label="Name"
-							name="name"
-							rules={[
-								{
-									required: true,
-									message: "Please input your Name",
-								},
-							]}
-						>
-							<Input
-								style={{ height: "40px" }}
-								type="text"
-								placeholder="John Doe"
-							/>
-						</Form.Item>
+						
+						<p className={styles.GroupListHeading}>Join Groups</p>
+						<div className={styles.GroupsList}>
+							{/* <div className={styles.GroupInfoHeader}>
+								<Avatar
+									style={{
+										backgroundColor: "dodgerblue",
+										verticalAlign: "middle",
+									}}
+									size={70}
+									gap={0}
+								>
+									G
+								</Avatar>
+								<p>Test Group</p>
+							</div> */}
+								 {renderDivs()}
+							
+						</div>
 
 						<div className={styles.AuthFormStepsSubmitBtns}>
 							<Form.Item>
