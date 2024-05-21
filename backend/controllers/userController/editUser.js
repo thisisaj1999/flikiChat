@@ -29,7 +29,7 @@ const editUser = async (req, res) => {
 	const password = userData?.password;
 	const joinned_group_ids = userData?.joinned_group_ids;
 
-	const newUserData = [name, email, password, joinned_group_ids];
+	const newUserData = [name, email, password, joinned_group_ids, userId];
 
 	const update_user_dataQuery = fs
 		.readFileSync(
