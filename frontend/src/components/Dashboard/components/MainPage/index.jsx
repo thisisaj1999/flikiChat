@@ -8,12 +8,11 @@ import Send from "../../../../assets/send.svg";
 
 import { useGlobalStore } from "../../../../utils/store";
 
-const index = () => {
+const index = ({ socket }) => {
 	const [form] = Form.useForm();
-	const [messages, setMessages] = useState([]);
-
-
-
+	const [showMessages, setShowMessages] = useState([]);
+	const [sendMessage, setSendMessage] = useState("");
+	
 	const Update = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore(
@@ -27,6 +26,15 @@ const index = () => {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
 		},
 	};
+
+	useEffect(() => {
+		socket.on("messageResponse", (data) =>
+			setShowMessages([...showMessages, data])
+		);
+	}, [socket, showMessages]);
+
+
+
 
 	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true);
 
@@ -42,7 +50,17 @@ const index = () => {
 
 	const onFinish = (values) => {
 		console.log(values);
+		if (sendMessage.trim()) {
+      socket.emit('message', {
+        text: values.message,
+        name: 'test user 1',
+        id: `${socket.id}${Math.random()}`,
+        socketID: socket.id,
+      });
+    }
+    setSendMessage('');
 		form.resetFields();
+		console.log(showMessages)
 	};
 
 	return (

@@ -9,7 +9,7 @@ import GroupInfo from "./components/GroupInfo";
 import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
 
-const index = () => {
+const index = ({ socket }) => {
 
 	const State = {
 		GlobalStore: {
@@ -28,7 +28,7 @@ const index = () => {
 					style={{ height: "100%", margin: "0px" }}
 				/>
 
-				<MainPage />
+				<MainPage socket={socket}/>
 
 				{State.GlobalStore.isGroupInfoOpen && (
 					<>
