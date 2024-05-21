@@ -13,7 +13,7 @@ import { useSnackbar } from "notistack";
 import { getRandomColor } from "../../utils/other";
 
 const index = () => {
-	const [layout, setLayout] = useState(1)
+	const [layout, setLayout] = useState(0)
 	const { enqueueSnackbar } = useSnackbar();
 	const navigate = useNavigate();
 
