@@ -40,30 +40,26 @@ const index = () => {
 
 	// temp
 	const renderDivs = () => {
-    const divs = [];
-
-	
-
-	for(let i = 0; i < 100; i++){
-		divs.push(
-			<div className={styles.GroupInfoHeader}>
-								<Avatar
-									style={{
-										backgroundColor: "dodgerblue",
-										verticalAlign: "middle",
-									}}
-									size={70}
-									gap={0}
-								>
-									G
-								</Avatar>
-								<p>Test Group</p>
-							</div>
-		)
+		const divs = [];
+		for(let i = 0; i < 100; i++){
+			divs.push(
+				<div className={styles.GroupInfoHeader}>
+					<Avatar
+						style={{
+							backgroundColor: "dodgerblue",
+							verticalAlign: "middle",
+						}}
+						size={70}
+						gap={0}
+					>
+						G
+					</Avatar>
+					<p>Test Group</p>
+				</div>
+			)
+		}
+		return divs
 	}
-
-	return divs
-}
 	// temp
 
 	return (
