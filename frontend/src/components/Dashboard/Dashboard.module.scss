@@ -18,11 +18,26 @@
 
 .DashboardSidebar {
 	width: 15rem;
-	// padding: 1rem;
 
 	& .SidebarGroups{
-		padding: 0.5rem 1rem;
 		height: calc(100% - 56px);
+
+		& .SidebarHeader{
+			padding: 0.5rem 1rem;
+			box-shadow: rgba(0, 0, 0, 0.16) -1px 1px 4px;
+			height: 3.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		
+		& .ListGroupMain{
+			& .ListGroup{
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+		}
 	}
 
 	& .SidebarOptions{
