@@ -34,40 +34,46 @@ const MainPage = () => {
 
 			<div className={styles.MainPageContent}>
 			{/* Dummy Chats */}
-				<div className={`${styles.chatBubble} ${styles.chatBubbleLeft}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>5:34 pm</p>
 				</div>
 
-				<div className={`${styles.chatBubble} ${styles.chatBubbleRight}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>5:36 pm</p>
 				</div>
 				
-				<div className={`${styles.chatBubble} ${styles.chatBubbleLeft}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>5:36 pm</p>
 				</div>
 
-				<div className={`${styles.chatBubble} ${styles.chatBubbleRight}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>5:40 pm</p>
 				</div>
 				
-				<div className={`${styles.chatBubble} ${styles.chatBubbleLeft}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>6:04 pm</p>
 				</div>
 
-				<div className={`${styles.chatBubble} ${styles.chatBubbleRight}`}>
-					<div className={styles.chatText}>
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}>
+					<div className={styles.ChatText}>
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
+					<p className={styles.TimeStamp}>6:10 pm</p>
 				</div>
 
 			</div>

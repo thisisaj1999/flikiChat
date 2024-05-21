@@ -98,7 +98,7 @@
 		flex-direction: column;
 		gap: 1rem;
 
-		& .chatBubble{
+		& .ChatBubble{
 			border-radius: 6px;
 			-webkit-border-radius: 6px;
 			-moz-border-radius: 6px;
@@ -110,8 +110,8 @@
 			background-color: #2d2d30;
 			box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-			& .chatText{
-				padding: 1em;
+			& .ChatText{
+				padding: 0.8rem 0.8rem 0.3rem 0.8rem; 
 				text-align: left;
 				line-height: 1.5em;
 				font-size: 14px;
@@ -121,9 +121,16 @@
 					-webkit-margin-after: 0em;
 				}
 			}
+
+			& .TimeStamp{
+				font-size: 10px;
+				text-align: right;
+				padding-right: 0.8rem;
+				padding-bottom: 0.2rem;
+			}
 		}
 
-		& .chatBubbleLeft{
+		& .ChatBubbleLeft{
 			align-self: flex-start;
 			margin-left: 0.5rem;
 			&:after{
@@ -141,7 +148,7 @@
 			}
 		}
 
-		& .chatBubbleRight{
+		& .ChatBubbleRight{
 			align-self: flex-end;
 			margin-right: 0.5rem;
 			&:after{
