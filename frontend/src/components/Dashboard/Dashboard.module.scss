@@ -18,7 +18,23 @@
 
 .DashboardSidebar {
 	width: 15rem;
-	padding: 1rem;
+	// padding: 1rem;
+
+	& .SidebarGroups{
+		padding: 0.5rem 1rem;
+		height: calc(100% - 56px);
+	}
+
+	& .SidebarOptions{
+		padding: 0.5rem 1rem;
+		display: flex;
+		gap: 1rem;
+
+		& button {
+			background-color: black;
+			height: 36px;
+		}
+	}
 }
 
 .DashboardMainPage {

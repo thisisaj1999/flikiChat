@@ -13,7 +13,25 @@ const index = () => {
 	return (
 		<div className={styles.DashboardBgMain}>
 			<div className={styles.DashboardChatMain}>
-				<div className={styles.DashboardSidebar}>Sidebar</div>
+				<div className={styles.DashboardSidebar}>
+					<div className={styles.SidebarGroups}>
+						{/* group 1 */}
+						{/* group 2 */}
+						Listed Groups
+					</div>
+					
+					{/* <Divider style={{width: '100%', margin: '0px'}}/> */}
+
+					<div className={styles.SidebarOptions}>
+						<Button type="primary" block>
+							Create
+						</Button>
+						<Button type="primary" block>
+							Join
+						</Button>
+					</div>
+				</div>
+				
 				<Divider type="vertical" style={{height: '100%', margin: '0px'}}/>
 				
 				<div className={styles.DashboardMainPage}>
