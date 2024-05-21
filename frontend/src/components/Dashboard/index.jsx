@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import styles from "./Dashboard.module.scss";
 
 const index = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+	return (
+		<div className={styles.DashboardBgMain}>
+			<div className={styles.DashboardChatMain}>test</div>
+		</div>
+	);
+};
 
-export default index
+export default index;
