@@ -1,0 +1,107 @@
+.AuthBgMain{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.AuthFormMain {
+	width: 25rem;
+	padding: 2rem;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	border-radius: 10px;
+}
+
+.AuthFormHeading {
+	margin-bottom: 2rem;
+}
+
+.AuthFormSubmitBtn {
+	margin-top: 0.5rem;
+	background-color: black;
+	height: 40px;
+}
+
+.AuthFormSubmitBtn:hover {
+	background-color: rgb(48, 48, 48) !important;
+}
+
+.AuthFormChecksAndLinks {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.AuthFormCheckbox{
+	user-select: none;
+}
+
+.AuthFormLink,
+.AuthFormCheckbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.AuthFormLink {
+	margin-top: 0.5rem;
+	font-weight: 600;
+}
+
+@media screen and (max-width: 425px) {
+    .AuthFormHeading {
+        text-align: center;
+    }
+    
+	.AuthFormMain {
+		width: 90%;
+	}
+
+	.AuthFormChecksAndLinks {
+		justify-content: flex-start;
+	}
+
+	.AuthFormLink,
+	.AuthFormCheckbox {
+		justify-content: flex-start;
+	}
+}
+
+
+.AuthFormOAuthBtns {
+	margin: 2rem 0;
+}
+
+.AuthFormOAuthBtns img {
+	width: 1.2rem;
+}
+
+.AuthFormGoogleBtn {
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+	transition: all 0.3s ease-in-out;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	height: 40px;
+}
+
+.AuthFormGoogleBtn{
+	background-color: #fff;
+	color: black;
+}
+
+.AuthFormFacebookBtn{
+	background-color: dodgerblue;
+	color: white;
+}
+
+.AuthFormGoogleBtn:hover{
+	background-color: #f6f6f6 !important;
+	color: black !important;
+	transition: all 0.3s ease-in-out;
+	transform: scale(1.01);
+}
