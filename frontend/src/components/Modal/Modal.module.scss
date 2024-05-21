@@ -1,0 +1,76 @@
+.ModalMain {
+	& :global(.ant-modal-body) {
+		margin-top: 1rem;
+	}
+}
+
+.GroupListHeading {
+	padding: 0 0 8px;
+	&::before {
+		display: inline-block;
+		margin-inline-end: 4px;
+		color: #ff4d4f;
+		font-size: 14px;
+		font-family: SimSun, sans-serif;
+		line-height: 1;
+		content: "*";
+	}
+}
+
+.GroupsList {
+	max-height: 20rem;
+	border: 1px solid #d9d9d9;
+	border-radius: 6px;
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	justify-items: center;
+	overflow: hidden;
+	overflow-y: scroll;
+	gap: 1.5rem;
+
+	& .GroupInfoHeader {
+		box-shadow: rgba(217, 217, 217, 0.66) 0px 1px 4px;
+		border-radius: 6px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+    justify-content: space-evenly;
+		align-items: center;
+		padding: 0.6rem;
+		height: 7.5rem;
+	}
+
+	& .GroupsName {
+		font-size: 12px;
+	}
+}
+
+.AuthFormSubmitBtn {
+	background-color: black;
+	margin-bottom: 0.8rem;
+	height: 40px;
+	cursor: pointer;
+	margin: 0;
+}
+
+.AuthFormSubmitBtn:hover {
+	background-color: rgb(48, 48, 48) !important;
+}
+
+.AuthFormStepsSubmitBtns {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1.5rem;
+}
+
+.AuthFormStepsSubmitBtns button {
+	margin: 0;
+}
+
+@media screen and (max-width: 425px) {
+	.AuthFormMain {
+		width: 90%;
+	}
+}

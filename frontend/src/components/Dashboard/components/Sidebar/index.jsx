@@ -36,7 +36,7 @@ const index = () => {
 		console.log('handleJoinGroups')
 		Update.GlobalStore.checkModal({
 			isOpen: true,
-			name: "Join Groups"
+			layout: 0
 		})
 	}
 	
@@ -45,7 +45,7 @@ const index = () => {
 		console.log('handleCreateGroup')
 		Update.GlobalStore.checkModal({
 			isOpen: true,
-			name: "Create Group"
+			layout: 1
 		})
 	}
  

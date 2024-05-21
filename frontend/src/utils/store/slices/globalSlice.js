@@ -4,7 +4,7 @@ export const globalSlice = (set) => ({
 	isGroupInfoOpen: false,
 	checkModal: {
 		isOpen: false,
-		name: ""
+		layout: null
 	},
 	setIsAuthenticated: (State) => set((store) => ({ isAuthenticated: State})),
 	setIsGroupInfoOpen: (State) => set((store) => ({ isGroupInfoOpen: State})),
