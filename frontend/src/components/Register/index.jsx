@@ -13,9 +13,8 @@ import { useSnackbar } from "notistack";
 import { getRandomColor } from "../../utils/other";
 
 const index = () => {
-
+	const [layout, setLayout] = useState(0)
 	const { enqueueSnackbar } = useSnackbar();
-	const location = useLocation();
 	const navigate = useNavigate();
 
 	const [isHovered, setIsHovered] = useState(false);
@@ -60,91 +59,150 @@ const index = () => {
 					onFinish={onFinish}
 					autoComplete="on"
 				>
-					<Form.Item
-						label="Email"
-						name="email"
-						rules={[
-							{
-								type: "email",
-								message: "The input is not valid Email",
-							},
-							{
-								required: true,
-								message: "Please input your Email",
-							},
-						]}
-					>
-						<Input
-							style={{ height: "40px" }}
-							type="email"
-							placeholder="johndoe@email.com"
-						/>
-					</Form.Item>
-
-					<Form.Item
-						label="Password"
-						name="password"
-						rules={[
-							{
-								required: true,
-								message: "Please input your password!",
-							},
-							{
-								min: 8,
-								message:
-									"Password must contain atlease 8 characters",
-							},
-						]}
-						hasFeedback
-					>
-						<Input.Password style={{ height: "40px" }} />
-					</Form.Item>
-
-					<Form.Item
-						label="Confirm password"
-						name="confirm"
-						dependencies={["password"]}
-						rules={[
-							{
-								required: true,
-								message: "Please confirm your password!",
-							},
-							{
-								min: 8,
-								message:
-									"Password must contain atlease 8 characters",
-							},
-							({ getFieldValue }) => ({
-								validator(_, value) {
-									if (
-										!value ||
-										getFieldValue("password") === value
-									) {
-										return Promise.resolve();
-									}
-									return Promise.reject(
-										new Error(
-											"The new password that you entered do not match!"
-										)
-									);
+					{layout === 0 ? <>
+						<Form.Item
+							label="Email"
+							name="email"
+							rules={[
+								{
+									type: "email",
+									message: "The input is not valid Email",
 								},
-							}),
-						]}
-					>
-						<Input.Password style={{ height: "40px" }} />
-					</Form.Item>
-
-					<div className={styles.AuthFormStepsSubmitBtns}>
-						<Form.Item>
-							<Button
-								type="primary"
-								className={styles.AuthFormSubmitBtn}
-								htmlType="submit"
-							>
-								Next
-							</Button>
+								{
+									required: true,
+									message: "Please input your Email",
+								},
+							]}
+						>
+							<Input
+								style={{ height: "40px" }}
+								type="email"
+								placeholder="johndoe@email.com"
+							/>
 						</Form.Item>
-					</div>
+
+						<Form.Item
+							label="Password"
+							name="password"
+							rules={[
+								{
+									required: true,
+									message: "Please input your password!",
+								},
+								{
+									min: 8,
+									message:
+										"Password must contain atlease 8 characters",
+								},
+							]}
+							hasFeedback
+						>
+							<Input.Password style={{ height: "40px" }} />
+						</Form.Item>
+
+						<Form.Item
+							label="Confirm password"
+							name="confirm"
+							dependencies={["password"]}
+							rules={[
+								{
+									required: true,
+									message: "Please confirm your password!",
+								},
+								{
+									min: 8,
+									message:
+										"Password must contain atlease 8 characters",
+								},
+								({ getFieldValue }) => ({
+									validator(_, value) {
+										if (
+											!value ||
+											getFieldValue("password") === value
+										) {
+											return Promise.resolve();
+										}
+										return Promise.reject(
+											new Error(
+												"The new password that you entered do not match!"
+											)
+										);
+									},
+								}),
+							]}
+						>
+							<Input.Password style={{ height: "40px" }} />
+						</Form.Item>
+
+						<div className={styles.AuthFormStepsSubmitBtns}>
+							<Form.Item>
+								<Button
+									type="primary"
+									className={styles.AuthFormSubmitBtn}
+									onClick={(e) => setLayout(1)}
+								>
+									Next
+								</Button>
+							</Form.Item>
+						</div>
+					</> : 
+					<>
+						<Form.Item
+							label="Name"
+							name="name"
+							rules={[
+								{
+									required: true,
+									message: "Please input your Name",
+								},
+							]}
+						>
+							<Input
+								style={{ height: "40px" }}
+								type="text"
+								placeholder="John Doe"
+							/>
+						</Form.Item>
+						<Form.Item
+							label="Name"
+							name="name"
+							rules={[
+								{
+									required: true,
+									message: "Please input your Name",
+								},
+							]}
+						>
+							<Input
+								style={{ height: "40px" }}
+								type="text"
+								placeholder="John Doe"
+							/>
+						</Form.Item>
+
+						<div className={styles.AuthFormStepsSubmitBtns}>
+							<Form.Item>
+								<Button
+									type="primary"
+									className={styles.AuthFormSubmitBtn}
+									onClick={(e) => setLayout(0)}
+								>
+									Back
+								</Button>
+							</Form.Item>
+							<Form.Item>
+								<Button
+									type="primary"
+									className={styles.AuthFormSubmitBtn}
+									htmlType="submit"
+								>
+									Finish
+								</Button>
+							</Form.Item>
+						</div>
+					</>
+					}
+
 					<div className={styles.AuthFormLink}>
 						<Tooltip title="Log In">
 							<Typography.Link onClick={navigateToLogin}>
