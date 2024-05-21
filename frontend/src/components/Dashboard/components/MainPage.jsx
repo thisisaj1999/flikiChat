@@ -6,14 +6,37 @@ const { TextArea } = Input;
 
 import Send from '../../../assets/send.svg'
 
+import { useGlobalStore } from "../../../utils/store";
 
 const MainPage = () => {
 
-	const [value, setValue] = useState('');
+	const Update = {
+		GlobalStore: {
+			isGroupInfoOpen: useGlobalStore((State) => State.setIsGroupInfoOpen),
+		},
+	};
+
+	const State = {
+		GlobalStore: {
+			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
+		},
+	};
+
+	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(!State.GlobalStore.isGroupInfoOpen)
+
+	const GroupOpenInfoWidth = {
+		width: "calc(100% - 30rem)",
+		transition: "width 0.3s ease-in-out",
+	};
+
+	const GroupCloseInfoWidth = {
+		width: "calc(100% - 15rem)",
+		transition: "width 0.3s ease-out",
+	};
 	
 	return (
-		<div className={styles.DashboardMainPage}>
-			<div className={styles.MainPageHeading}>
+		<div className={styles.DashboardMainPage} style={State.GlobalStore.isGroupInfoOpen ? GroupOpenInfoWidth : GroupCloseInfoWidth}>
+			<div className={styles.MainPageHeading} onClick={handleOpenGroupInfo}>
 				<Avatar
 					style={{
 						backgroundColor: "dodgerblue",
@@ -60,6 +83,34 @@ const MainPage = () => {
 						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
 					</div>
 					<p className={styles.TimeStamp}>5:40 pm</p>
+				</div>
+				
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>
+					<div className={styles.ChatText}>
+						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+					</div>
+					<p className={styles.TimeStamp}>6:04 pm</p>
+				</div>
+
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}>
+					<div className={styles.ChatText}>
+						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+					</div>
+					<p className={styles.TimeStamp}>6:10 pm</p>
+				</div>
+				
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>
+					<div className={styles.ChatText}>
+						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+					</div>
+					<p className={styles.TimeStamp}>6:04 pm</p>
+				</div>
+
+				<div className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}>
+					<div className={styles.ChatText}>
+						<p>This one adds a right triangle on the left, flush at the top by using .tri-right and .left-top to specify the location.</p>
+					</div>
+					<p className={styles.TimeStamp}>6:10 pm</p>
 				</div>
 				
 				<div className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}>

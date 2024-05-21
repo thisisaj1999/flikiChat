@@ -6,7 +6,16 @@ import { Button, Avatar, Dropdown, Divider } from 'antd';
 import Menu from '../../../assets/menu.svg'
 import Logout from '../../../assets/logout.svg'
 
+import { useGlobalStore } from "../../../utils/store";
+
 const Sidebar = () => {
+
+	const State = {
+		GlobalStore: {
+			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
+		},
+	};
+
 
 	const MenuItems = [
 		{
@@ -17,7 +26,7 @@ const Sidebar = () => {
 	];
 
 	return (
-		<div className={styles.DashboardSidebar}>
+		<div className={styles.DashboardSidebar} style={State.GlobalStore.isGroupInfoOpen ? {width: '18rem'} : {width: '15rem'}}>
 			<div className={styles.SidebarGroups}>
 				<div className={styles.SidebarHeader}>
 					<Avatar

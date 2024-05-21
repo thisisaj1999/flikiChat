@@ -17,8 +17,6 @@
 }
 
 .DashboardSidebar {
-	width: 15rem;
-
 	& .SidebarGroups{
 		height: calc(100% - 56px);
 
@@ -61,7 +59,7 @@
 }
 
 .DashboardMainPage {
-	width: calc(100% - 15rem);
+
 	
 	& .MainPageHeading{
 		padding: 0.5rem 1rem;
@@ -209,4 +207,8 @@
 			}
 		}
 	}
+}
+
+.DashboardGroupInfo {
+
 }
