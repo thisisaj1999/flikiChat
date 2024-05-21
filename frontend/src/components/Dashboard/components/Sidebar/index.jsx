@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 
-import { Button, Avatar, Dropdown, Divider } from 'antd';
+import { Button, Avatar, Dropdown } from 'antd';
 
 import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
@@ -16,6 +16,12 @@ const index = () => {
 		},
 	};
 
+	const Update = {
+		GlobalStore: {
+			checkModal: useGlobalStore((State) => State.setCheckModal),
+		},
+	};
+
 
 	const MenuItems = [
 		{
@@ -25,6 +31,24 @@ const index = () => {
 		},
 	];
 
+	const handleJoinGroups = (e) => {
+		e.preventDefault()
+		console.log('handleJoinGroups')
+		Update.GlobalStore.checkModal({
+			isOpen: true,
+			name: "Join Groups"
+		})
+	}
+	
+	const handleCreateGroup = (e) => {
+		e.preventDefault()
+		console.log('handleCreateGroup')
+		Update.GlobalStore.checkModal({
+			isOpen: true,
+			name: "Create Group"
+		})
+	}
+ 
 	return (
 		<div className={styles.DashboardSidebar} style={State.GlobalStore.isGroupInfoOpen ? {width: '18rem'} : {width: '15rem'}}>
 			<div className={styles.SidebarGroups}>
@@ -65,10 +89,10 @@ const index = () => {
 			</div>
 
 			<div className={styles.SidebarOptions}>
-				<Button type="primary" block>
+				<Button type="primary" block onClick={(e) => handleCreateGroup(e)}>
 					Create
 				</Button>
-				<Button type="primary" block>
+				<Button type="primary" block onClick={(e) => handleJoinGroups(e)}>
 					Join
 				</Button>
 			</div>

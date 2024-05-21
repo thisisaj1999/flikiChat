@@ -6,7 +6,7 @@ import { Divider } from "antd";
 import Sidebar from "./components/Sidebar";
 import MainPage from "./components/MainPage";
 import GroupInfo from "./components/GroupInfo";
-
+import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
 
 const index = () => {
@@ -41,6 +41,7 @@ const index = () => {
 					</>
 				)}
 			</div>
+			<Modal/>
 		</div>
 	);
 };
