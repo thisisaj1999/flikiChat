@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import styles from "../Dashboard.module.scss";
+import React from "react";
+import styles from "./MainPage.module.scss";
 
 import { Divider, Input, Button, Avatar} from 'antd';
 const { TextArea } = Input;
 
-import Send from '../../../assets/send.svg'
+import Send from '../../../../assets/send.svg'
 
-import { useGlobalStore } from "../../../utils/store";
+import { useGlobalStore } from "../../../../utils/store";
 
-const MainPage = () => {
+const index = () => {
 
 	const Update = {
 		GlobalStore: {
@@ -22,7 +22,7 @@ const MainPage = () => {
 		},
 	};
 
-	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(!State.GlobalStore.isGroupInfoOpen)
+	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true)
 
 	const GroupOpenInfoWidth = {
 		width: "calc(100% - 30rem)",
@@ -149,4 +149,4 @@ const MainPage = () => {
 	);
 };
 
-export default MainPage;
+export default index;

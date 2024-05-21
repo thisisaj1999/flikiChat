@@ -1,0 +1,145 @@
+.DashboardMainPage {
+	& .MainPageHeading {
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		height: 3.5rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		& .GroupDetails {
+			& .GroupName {
+				color: black;
+				transition: color 0.3s ease-in;
+			}
+
+			&:hover .GroupName {
+				color: dodgerblue;
+				transition: color 0.3s ease-out;
+			}
+
+			& .GroupParticipantName {
+				font-size: 12px;
+				color: gray;
+			}
+		}
+	}
+
+	& .MainPageContent {
+		padding: 0.5rem 1rem;
+		overflow: scroll;
+		height: calc(100% - 7.1rem);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		& .ChatBubble {
+			border-radius: 6px;
+			-webkit-border-radius: 6px;
+			-moz-border-radius: 6px;
+			display: inline-block;
+			position: relative;
+			width: 300px;
+			height: auto;
+			color: white;
+			background-color: #2d2d30;
+			box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+			& .ChatText {
+				padding: 0.8rem 0.8rem 0.3rem 0.8rem;
+				text-align: left;
+				line-height: 1.5em;
+				font-size: 14px;
+
+				& p {
+					-webkit-margin-before: 0em;
+					-webkit-margin-after: 0em;
+				}
+			}
+
+			& .TimeStamp {
+				font-size: 10px;
+				text-align: right;
+				padding-right: 0.8rem;
+				padding-bottom: 0.2rem;
+			}
+		}
+
+		& .ChatBubbleLeft {
+			align-self: flex-start;
+			margin-left: 0.5rem;
+			&:after {
+				content: " ";
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-radius: 4px;
+				left: -15px;
+				right: auto;
+				top: 0px;
+				bottom: auto;
+				border: 22px solid;
+				border-color: #2d2d30 transparent transparent transparent;
+			}
+		}
+
+		& .ChatBubbleRight {
+			align-self: flex-end;
+			margin-right: 0.5rem;
+			&:after {
+				content: " ";
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-radius: 4px;
+				left: auto;
+				right: -15px;
+				top: 0px;
+				bottom: auto;
+				border: 22px solid;
+				border-color: #2d2d30 transparent transparent transparent;
+			}
+		}
+	}
+
+	& .MainPageFooter {
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+		height: 3.5rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		& .TextHolder {
+			border: 2px solid lightgray;
+			height: 100%;
+			width: 100%;
+			border-radius: 8px;
+
+			& .TextAreaInput {
+				border: none;
+				height: 100% !important;
+				padding-top: 7px;
+
+				&:focus {
+					box-shadow: none;
+				}
+
+				&:focus-within {
+					box-shadow: none;
+				}
+			}
+		}
+
+		& .SendChatBtn {
+			& button {
+				background-color: black;
+				height: 36px;
+				width: 36px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+}

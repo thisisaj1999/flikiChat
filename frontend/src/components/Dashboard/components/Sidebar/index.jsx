@@ -1,14 +1,14 @@
 import React from "react";
-import styles from "../Dashboard.module.scss";
+import styles from "./Sidebar.module.scss";
 
 import { Button, Avatar, Dropdown, Divider } from 'antd';
 
-import Menu from '../../../assets/menu.svg'
-import Logout from '../../../assets/logout.svg'
+import Menu from '../../../../assets/menu.svg'
+import Logout from '../../../../assets/logout.svg'
+import ProfileCards from '../../../ProfileCards'
+import { useGlobalStore } from "../../../../utils/store";
 
-import { useGlobalStore } from "../../../utils/store";
-
-const Sidebar = () => {
+const index = () => {
 
 	const State = {
 		GlobalStore: {
@@ -53,49 +53,15 @@ const Sidebar = () => {
 					</Dropdown>
 				</div>
 
-				<p className={styles.GroupsHeading}>Groups</p>
+				<div className={styles.GroupScrollStyles}>
+					<p className={styles.GroupsHeading}>Groups</p>
 
-				<div className={styles.ListGroupMain}>
-					<div className={styles.ListGroup}>
-						<Avatar
-							style={{
-								backgroundColor: "#f56a00",
-								verticalAlign: "middle",
-							}}
-							size="medium"
-							gap={0}
-						>
-							A
-						</Avatar>
-
-						<div className={styles.GroupDetails}>
-							<p>Test Group1</p>
-						</div>
+					<div className={styles.ListGroupMain}>	
+						<ProfileCards/>
+						<ProfileCards/>
 					</div>
-
-					<Divider style={{width: '100%', margin: '0px'}}/>
-
-					<div className={styles.ListGroup}>
-						<Avatar
-							style={{
-								backgroundColor: "#f56a00",
-								verticalAlign: "middle",
-							}}
-							size="medium"
-							gap={0}
-						>
-							A
-						</Avatar>
-
-						<div className={styles.GroupDetails}>
-							<p>Test Group1</p>
-						</div>
-					</div>
-
-					<Divider style={{width: '100%', margin: '0px'}}/>
-
-					
 				</div>
+
 			</div>
 
 			<div className={styles.SidebarOptions}>
@@ -110,4 +76,4 @@ const Sidebar = () => {
 	);
 };
 
-export default Sidebar;
+export default index;

@@ -1,0 +1,41 @@
+.DashboardSidebar {
+	& .SidebarGroups {
+		height: calc(100% - 56px);
+
+		& .SidebarHeader {
+			padding: 0.5rem 1rem;
+			box-shadow: rgba(0, 0, 0, 0.16) -1px 1px 4px;
+			height: 3.5rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		& .GroupsHeading {
+			padding: 0.5rem 1rem;
+			font-size: 14px;
+			font-weight: 600;
+		}
+
+		& .ListGroupMain {
+			& .ListGroup {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem 1rem;
+				height: 3.5rem;
+			}
+		}
+	}
+
+	& .SidebarOptions {
+		padding: 0.5rem 1rem;
+		display: flex;
+		gap: 1rem;
+
+		& button {
+			background-color: black;
+			height: 36px;
+		}
+	}
+}

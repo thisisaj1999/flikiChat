@@ -1,0 +1,51 @@
+.DashboardGroupInfo {
+	& .GroupInfoCloseBtn {
+		padding: 0.5rem 1rem;
+		box-shadow: rgba(0, 0, 0, 0.16) -1px 1px 4px;
+		height: 3.5rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		& p {
+			font-size: 14px;
+		}
+	}
+
+	& .GroupInfoScrollStyles {
+		overflow: scroll;
+		height: calc(100% - 3.5rem);
+
+		& .GroupInfoHeader {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 12rem;
+			gap: 1rem;
+
+			& p {
+				font-size: 20px;
+			}
+		}
+
+		& .GroupInfoDescription {
+			padding: 0 1rem 1rem 1rem;
+			& p {
+				font-size: 14px;
+			}
+
+			& .CreatedBy {
+				color: gray;
+				font-size: 12px;
+			}
+		}
+
+		& .GroupInfoParticipants {
+			& .GroupsParticipantsHeading {
+				padding: 0 1rem 0 1rem;
+				font-size: 14px;
+			}
+		}
+	}
+}
