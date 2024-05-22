@@ -7,9 +7,14 @@ import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
 import ProfileCards from '../../../ProfileCards'
 import { useGlobalStore } from "../../../../utils/store";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const index = () => {
 
+	const navigate = useNavigate();
+	const { enqueueSnackbar } = useSnackbar();
+	
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
@@ -19,6 +24,7 @@ const index = () => {
 	const Update = {
 		GlobalStore: {
 			checkModal: useGlobalStore((State) => State.setCheckModal),
+			isAuthenticated: useGlobalStore((State) => State.setIsAuthenticated),
 		},
 	};
 
@@ -27,7 +33,14 @@ const index = () => {
 		{
 			label: <>Sign Out</>,
 			key: '0',
-			icon: <img src={Logout} alt="Sign Out" width={20}/>
+			icon: <img src={Logout} alt="Sign Out" width={20}/>,
+			onClick: () => {
+				localStorage.setItem('isAuth', false);
+				localStorage.removeItem('AuthenticatedUser');
+				Update.GlobalStore.isAuthenticated(false)
+				navigate("/dashboard");
+				enqueueSnackbar("Sign Out successfull", { variant: 'info' });
+			}
 		},
 	];
 

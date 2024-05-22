@@ -8,5 +8,32 @@ const getRandomColor = () => {
 	return color;
 };
 
+const storeUserData = (response) => {
+	const userData = response?.data;
 
-export { getRandomColor };
+	const authenticatedUser = {
+			...userData,
+			isAuth: true  
+	};
+
+	const userDataString = JSON.stringify(authenticatedUser);
+
+	localStorage.setItem('AuthenticatedUser', userDataString);
+};
+
+
+const isUserAuthenticated = () => {
+	const storedDataString = localStorage.getItem('AuthenticatedUser');
+	
+	if (storedDataString) {
+			const storedData = JSON.parse(storedDataString);
+			
+			return storedData.isAuth === true;
+	}
+	
+	return false;
+};
+
+
+
+export { getRandomColor, storeUserData, isUserAuthenticated };

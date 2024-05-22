@@ -18,7 +18,7 @@ const Redirect = () => {
 		} else if(!State.GlobalStore.isAuthenticated){
 			navigate("/login")
 		}
-	}, []);
+	}, [, State.GlobalStore.isAuthenticated]);
 
 	return null;
 };

@@ -9,15 +9,22 @@ import StepFinal from "./layouts/StepFinal";
 // Hooks
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { useGlobalStore } from '../../utils/store'
 
 // APIs
 import { registerUser, getGroups } from "../../utils/requests"
 
 // Other functions
-import { getRandomColor } from "../../utils/other";
+import { getRandomColor, storeUserData } from "../../utils/other";
 
 
 const index = () => {
+
+	const Update = {
+		GlobalStore: {
+			isAuthenticated: useGlobalStore((State) => State.setIsAuthenticated),
+		},
+	};
 	
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
@@ -65,7 +72,11 @@ const index = () => {
 		setFormData(finalData);
 		const response = await registerUser(finalData)
 		if (response?.status === 200) {
+			storeUserData(response)
+			localStorage.setItem('isAuth', true);
+			Update.GlobalStore.isAuthenticated(true)
 			navigate("/dashboard");
+			enqueueSnackbar("Sign Up successfull", { variant: 'success' });
 		}
 		console.log("Final Form Data:", finalData);
 	};

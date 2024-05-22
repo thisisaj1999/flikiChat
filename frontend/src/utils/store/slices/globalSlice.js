@@ -1,6 +1,6 @@
 
 export const globalSlice = (set) => ({
-	isAuthenticated: true,
+	isAuthenticated: false,
 	isGroupInfoOpen: false,
 	checkModal: {
 		isOpen: false,

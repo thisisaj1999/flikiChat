@@ -7,14 +7,21 @@ import { Button, Form, Input, Tooltip, Typography, Divider } from "antd";
 // Hooks
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
+import { useGlobalStore } from '../../utils/store'
 
 
-import { getRandomColor } from "../../utils/other";
+import { getRandomColor, storeUserData } from "../../utils/other";
 
 import { userLogin } from "../../utils/requests"
 
 
 const index = () => {
+
+	const Update = {
+		GlobalStore: {
+			isAuthenticated: useGlobalStore((State) => State.setIsAuthenticated),
+		},
+	};
 
   const { enqueueSnackbar } = useSnackbar();
 	const location = useLocation()
@@ -39,8 +46,11 @@ const index = () => {
 	const onFinish = async (values) => {
     const response = await userLogin(values)
 		if (response?.status === 200) {
-			console.log(response)
+			storeUserData(response)
+			localStorage.setItem('isAuth', true);
+			Update.GlobalStore.isAuthenticated(true)
 			navigate("/dashboard");
+			enqueueSnackbar("Log In successfull", { variant: 'success' });
 		}
   };
 
