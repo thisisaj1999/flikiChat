@@ -51,6 +51,7 @@ io.on("connection", onConnection);
 
 // Routes
 app.use("/api/v1", expressRoutes.user);
+app.use("/api/v1", expressRoutes.group);
 
 http.listen(8080, () => {
 	console.log("Server is running on http://localhost:8080");
