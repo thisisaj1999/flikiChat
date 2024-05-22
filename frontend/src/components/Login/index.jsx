@@ -24,7 +24,6 @@ const index = () => {
 	};
 
   const { enqueueSnackbar } = useSnackbar();
-	const location = useLocation()
   const navigate = useNavigate()
 
 	const [isHovered, setIsHovered] = useState(false);
