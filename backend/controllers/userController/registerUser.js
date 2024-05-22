@@ -1,6 +1,9 @@
 const fs = require("fs");
 const db = require("../../config/dbConnection");
 const path = require("path");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 
 const registerUser = async (req, res) => {
 	const userData = req.body;
@@ -16,7 +19,7 @@ const registerUser = async (req, res) => {
 
 	const name = userData?.name;
 	const email = userData?.email;
-	const password = userData?.password;
+	const password = await bcrypt.hash(userData?.password, 15);
 	const joinned_group_ids = userData?.joinned_group_ids;
 
 	const insert_users_table = fs
@@ -48,10 +51,21 @@ const registerUser = async (req, res) => {
 					await db.query(`INSERT INTO group_memberships (user_id, group_id) VALUES ($1, $2)`, [userId, groupId]);
 				}
 
+				// Authenticate user with jwt
+        const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+					expiresIn: process.env.JWT_REFRESH_EXPIRATION
+				});
+	
 				console.log(`🟢  registerUser : Data inserted to users table`);
 				res.json({
 					status: 200,
 					message: `Data inserted to users table`,
+					data: {
+						id: userId,
+						name: name,
+						email: email,
+						accessToken: token,
+					}
 				});
 			}
 		} else {
