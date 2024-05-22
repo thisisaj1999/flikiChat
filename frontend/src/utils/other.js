@@ -28,12 +28,10 @@ const isUserAuthenticated = () => {
 	if (storedDataString) {
 			const storedData = JSON.parse(storedDataString);
 			
-			return storedData.isAuth === true;
+			return storedData;
 	}
 	
 	return false;
 };
-
-
 
 export { getRandomColor, storeUserData, isUserAuthenticated };

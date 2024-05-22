@@ -26,12 +26,28 @@ const loginUser = async (req, res) => {
 
     if (isUserExists?.rows.length > 0) {
 			const fetchedUserData = isUserExists?.rows[0];
+			const userId = isUserExists.rows[0]?.id;
+
+			const getAllGroupsQuery = await db.query(`SELECT * FROM group_memberships WHERE user_id = $1`, [userId]);
+			const getAllGroups = getAllGroupsQuery.rows;
+
+			const getGroupsDataPromises = getAllGroups.map(async (group) => {
+					const groupDataQuery = await db.query(`SELECT * FROM groups WHERE id = $1`, [group?.group_id]);
+					return groupDataQuery.rows[0];
+			});
+
+			// Wait for all group data queries to complete
+			const getGroupsData = await Promise.all(getGroupsDataPromises);
 
 			console.log(`🟢  loginUser : User data fetched successfully`);
 			res.json({
-				status: 200,
-				message: `User data fetched successfully`,
-				data: fetchedUserData,
+					status: 200,
+					message: `User data fetched successfully`,
+					data: {
+							userData: fetchedUserData,
+							joinedGroups: getAllGroups,
+							joinedGroupData: getGroupsData
+					},
 			});
 			
 		} else {

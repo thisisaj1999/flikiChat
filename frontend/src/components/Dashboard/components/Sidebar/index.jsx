@@ -9,12 +9,13 @@ import ProfileCards from '../../../ProfileCards'
 import { useGlobalStore } from "../../../../utils/store";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { isUserAuthenticated } from '../../../../utils/other'
 
 const index = () => {
-
 	const navigate = useNavigate();
 	const { enqueueSnackbar } = useSnackbar();
-	
+	const getLocalStorageData = isUserAuthenticated()
+
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
@@ -93,9 +94,10 @@ const index = () => {
 				<div className={styles.GroupScrollStyles}>
 					<p className={styles.GroupsHeading}>Groups</p>
 
-					<div className={styles.ListGroupMain}>	
-						<ProfileCards/>
-						<ProfileCards/>
+					<div className={styles.ListGroupMain}>
+							{getLocalStorageData?.joinedGroupData?.map(group => (
+								<ProfileCards avatarSrc={group?.profile_image_url} groupName={group?.group_name}/>
+							))}
 					</div>
 				</div>
 
