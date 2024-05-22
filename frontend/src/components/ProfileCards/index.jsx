@@ -25,12 +25,12 @@ const index = ({ avatarSrc, groupName }) => {
 						size="medium"
 						gap={0}
 					>
-						{groupName[0].toUpperCase()}
+						{groupName ? groupName[0].toUpperCase() : 'V'}
 					</Avatar>
 				)}
 
 				<div className={styles.GroupDetails}>
-					<p>{groupName}</p>
+					<p>{groupName || 'Temp'}</p>
 				</div>
 			</div>
 			<Divider style={{ width: "100%", margin: "0px" }} />
