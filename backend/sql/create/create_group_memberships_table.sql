@@ -1,0 +1,8 @@
+CREATE TABLE
+  IF NOT EXISTS group_memberships (
+    group_id INTEGER NOT NULL REFERENCES groups (id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+    is_admin BOOLEAN DEFAULT FALSE,
+    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (group_id, user_id)
+  );
