@@ -1,5 +1,5 @@
 import axios from "axios";
-const BaseUrl = `localhost:8080/api/v1/`;
+const BaseUrl = `http://localhost:8080/api/v1`;
 
 const Endpoints = {
 	GET_USERS: `${BaseUrl}/users-list/`,
@@ -7,19 +7,11 @@ const Endpoints = {
 	ADD_USER: `${BaseUrl}/add-user`,
 	UPDATE_USER: `${BaseUrl}/edit-user/1`,
 	DELETE_USER: `${BaseUrl}/delete-user/1`,
+
+	GET_GROUPS: `${BaseUrl}/groups-list/`
 };
 
-// const getUsers = async () => {
-// 	try {
-// 		const response = await axios.get(Endpoints.GET_USERS);
-// 		const data = response.data;
-// 		return data;
-// 	} catch (error) {
-// 		console.log("getUsers: Failed to fetch the Users:", error.message);
-// 		return;
-// 	}
-// };
-
+// Login Requests
 const userLogin = async (payload) => {
 	console.log("userLogin", payload);
 	try {
@@ -39,8 +31,19 @@ const userLogin = async (payload) => {
 	}
 };
 
+// Register Requests
+const getGroups = async () => {
+	try {
+		const response = await axios.get(Endpoints.GET_GROUPS);
+		const data = response.data;
+		return data;
+	} catch (error) {
+		console.log("getUsers: Failed to fetch the Users:", error.message);
+		return;
+	}
+};
+
 const registerUser = async (payload) => {
-	console.log("registerUser", payload);
 	try {
 		if (payload) {
 			const response = await axios.post(Endpoints.ADD_USER, payload);
@@ -49,6 +52,23 @@ const registerUser = async (payload) => {
 		}
 	} catch (error) {
 		console.log("registerUser: Failed to register the user:", error.message);
+		return;
+	}
+};
+
+
+// Dashboard Requests
+const userLogout = async () => {
+	console.log('LoggedOut')
+}
+
+const getUsers = async () => {
+	try {
+		const response = await axios.get(Endpoints.GET_USERS);
+		const data = response.data;
+		return data;
+	} catch (error) {
+		console.log("getUsers: Failed to fetch the Users:", error.message);
 		return;
 	}
 };
@@ -87,4 +107,6 @@ const deleteUserAccount = async (payload) => {
 	}
 };
 
-export { userLogin, registerUser, updateUserProfile, deleteUserAccount };
+
+
+export { userLogin, getGroups, registerUser, userLogout, getUsers, updateUserProfile, deleteUserAccount };

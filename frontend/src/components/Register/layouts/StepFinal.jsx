@@ -56,7 +56,7 @@ const index = ({ form, handleBack, handleConfirm }) => {
   const onFinish = (values) => {
 		const newValues = {
 			name: values?.name,
-			joinnedGroups: checkedItems
+			joinned_group_ids: checkedItems
 		}
     handleConfirm(newValues);
   };

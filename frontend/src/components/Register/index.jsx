@@ -6,11 +6,14 @@ import StepFinal from "./layouts/StepFinal";
 import { Form } from "antd";
 
 // Hooks
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 // Other functions
 import { getRandomColor } from "../../utils/other";
+
+// APIs
+import { registerUser } from "../../utils/requests"
 
 const index = () => {
 	const [formData, setFormData] = useState({});
@@ -18,6 +21,7 @@ const index = () => {
 	const { enqueueSnackbar } = useSnackbar();
 	const [form] = Form.useForm();
 	const [isHovered, setIsHovered] = useState(false);
+	const navigate = useNavigate();
 
 	const hoveredStyle = {
 		color: getRandomColor(),
@@ -32,7 +36,7 @@ const index = () => {
 	const handleNext = (values) => {
 		setFormData({
 			...formData,
-			[`step${step}`]: values,
+			...values,
 		});
 		setStep(step + 1);
 	};
@@ -41,20 +45,28 @@ const index = () => {
 		setStep(step - 1);
 	};
 
-	const handleConfirm = (values) => {
+	const handleConfirm = async (values) => {
 		const finalData = {
 			...formData,
-			stepFinal: values,
+			...values,
 		};
 		setFormData(finalData);
-		// message.success("Form submitted successfully!");
+		const response = await registerUser(finalData)
+		if (response?.status === 200) {
+			navigate("/dashboard");
+		}
 		console.log("Final Form Data:", finalData);
 	};
 
 	const steps = [
 		<StepOne key="1" form={form} handleNext={handleNext} />,
-		<StepFinal key="2" form={form} handleBack={handleBack} handleConfirm={handleConfirm}/>,
-];
+		<StepFinal
+			key="2"
+			form={form}
+			handleBack={handleBack}
+			handleConfirm={handleConfirm}
+		/>,
+	];
 
 	return (
 		<div className={styles.AuthBgMain}>
@@ -70,7 +82,7 @@ const index = () => {
 						ter
 					</span>
 				</h1>
-					{steps[step - 1]}
+				{steps[step - 1]}
 			</div>
 		</div>
 	);
