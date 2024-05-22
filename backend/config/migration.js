@@ -13,6 +13,7 @@ const dbMigration = new Client(databaseMigration);
 const create_users_table = fs.readFileSync("./sql/create/create_users_table.sql").toString();
 const create_groups_table = fs.readFileSync("./sql/create/create_groups_table.sql").toString();
 const create_messages_table = fs.readFileSync("./sql/create/create_messages_table.sql").toString();
+const create_group_memberships_table = fs.readFileSync("./sql/create/create_group_memberships_table.sql").toString();
 
 
 dbMigration.connect((err) => {
@@ -82,6 +83,14 @@ dbMigration.connect((err) => {
 				return;
 			}
 			console.log(`🟢  Messages Table Created`);
+		});
+		
+		db.query(create_group_memberships_table, (err, res) => {
+			if (err) {
+				console.log(`🔴  Unable to create Group Memberships Table : \n`, err);
+				return;
+			}
+			console.log(`🟢  Group Memberships Table Created`);
 		});
 
 	});
