@@ -111,8 +111,40 @@
     justify-content: center;
     align-items: center;
     padding: 0.6rem;
+		position: relative;
+		cursor: pointer;
+		transition: box-shadow 0.3s;
+
+		&:hover{
+			box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+
+			& .roundCheckbox {
+				display: block;
+				transform: scale(1.1);
+				opacity: 1;
+			}
+		}
+
+		& .roundCheckbox {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			display: none;
+			transition: transform 0.3s, opacity 0.3s;
+		}
+
+		& .visible {
+			display: block !important;
+			opacity: 1 !important;
+		}
 	}
 
+	& .checked {
+		& .roundCheckbox {
+			display: block;
+		}
+	}
+	
 	& .GroupsName {
 		font-size: 12px;
 	}

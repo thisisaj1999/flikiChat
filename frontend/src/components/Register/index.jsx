@@ -53,7 +53,7 @@ const index = () => {
 
 	const steps = [
 		<StepOne key="1" form={form} handleNext={handleNext} />,
-		<StepFinal key="2" form={form} handleBack={handleBack} handleConfirm={handleConfirm} />
+		<StepFinal key="2" form={form} handleBack={handleBack} handleConfirm={handleConfirm}/>,
 ];
 
 	return (
