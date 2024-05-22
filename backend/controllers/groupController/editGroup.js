@@ -28,10 +28,10 @@ const editGroup = async (req, res) => {
 	const owner_id = groupData?.owner_id;
 	const profile_image_url = groupData?.profile_image_url;
 	const description = groupData?.description;
-	const participant_ids = groupData?.participant_ids;
 	const group_id = groupData?.group_id;
+	const participant_ids = groupData?.participant_ids;
 
-	const newGroupData = [group_name, owner_id, profile_image_url, description, participant_ids, group_id];
+	const newGroupData = [group_name, owner_id, profile_image_url, description, group_id];
 
 	const update_group_dataQuery = fs
 		.readFileSync(

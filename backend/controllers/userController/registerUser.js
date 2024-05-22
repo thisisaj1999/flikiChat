@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
 
 		if (isUserExists?.rowCount === 0) {
 
-			const userValues = [name, email, password, joinned_group_ids];
+			const userValues = [name, email, password];
 
 			const create_newUser = await db.query(
 				insert_users_table,

@@ -28,7 +28,7 @@ const createGroup = async (req, res) => {
 
 	try {
 
-		const groupValues = [group_name, owner_id, profile_image_url, description, participant_ids];
+		const groupValues = [group_name, owner_id, profile_image_url, description];
 
 		const create_newGroup = await db.query(
 			insert_groups_table,
