@@ -49,9 +49,9 @@ const index = ({ socket }) => {
 
 	const onFinish = (values) => {
 		socket.emit('message:create', {
-			text: values.message,
-			name: 'test user 1',
-			id: `${socket.id}${Math.random()}`,
+			message: values.message,
+			sender_id: 5,
+			group_id: 32,
 			socketID: socket.id,
 		});
     setSendMessage('');
