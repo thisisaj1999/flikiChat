@@ -1,7 +1,19 @@
 const db = require("../../config/dbConnection");
 
 const getAllUsers = async (req, res) => {
-	const allUsersData = await db.query("Select * from users");
+	const userId = req.params.id;
+
+	let query;
+	let params = [];
+
+	if (userId) {
+		query = "SELECT * FROM users WHERE id != $1";
+		params = [userId];
+	} else {
+		query = "SELECT * FROM users";
+	}
+
+	const allUsersData = await db.query(query, params);
 
 	if (allUsersData?.rows.length > 0) {
 		console.log(`🟢  getAllUsers : All users data fetched successfully`);

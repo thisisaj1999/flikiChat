@@ -3,7 +3,9 @@ const router = express.Router();
 
 const { registerUser, deleteUser, editUser, loginUser, getAllUsers } = require('../controllers/userController');
 
-router.get('/users-list', getAllUsers)
+router.get('/users-list/:id?', (req, res) => {
+    getAllUsers(req, res)
+}) //id is optional
 
 router.post('/login-user/', (req, res) => {
     loginUser(req, res)
