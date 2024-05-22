@@ -1,24 +1,18 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGlobalStore } from "../utils/store";
+import { useAuth } from "../utils/AuthProvider";
 
 const Redirect = () => {
-
-	const State = {
-		GlobalStore: {
-			isAuthenticated: useGlobalStore((State) => State.isAuthenticated),
-		},
-	};
-
+  const user = useAuth()
 	const navigate = useNavigate();
 	
 	useEffect(() => {
-		if(State.GlobalStore.isAuthenticated){
+		if(user.token){
 			navigate("/dashboard");
-		} else if(!State.GlobalStore.isAuthenticated){
+		} else if(!user.token){
 			navigate("/login")
 		}
-	}, [, State.GlobalStore.isAuthenticated]);
+	}, [user.token]);
 
 	return null;
 };

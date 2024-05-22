@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { isUserAuthenticated } from '../../../../utils/other'
 
+import { useAuth } from "../../../../utils/AuthProvider";
+
 const index = () => {
-	const navigate = useNavigate();
+	const auth = useAuth()
 	const { enqueueSnackbar } = useSnackbar();
 	const getLocalStorageData = isUserAuthenticated()
 
@@ -25,7 +27,6 @@ const index = () => {
 	const Update = {
 		GlobalStore: {
 			checkModal: useGlobalStore((State) => State.setCheckModal),
-			isAuthenticated: useGlobalStore((State) => State.setIsAuthenticated),
 		},
 	};
 
@@ -36,10 +37,7 @@ const index = () => {
 			key: '0',
 			icon: <img src={Logout} alt="Sign Out" width={20}/>,
 			onClick: () => {
-				localStorage.setItem('isAuth', false);
-				localStorage.removeItem('AuthenticatedUser');
-				Update.GlobalStore.isAuthenticated(false)
-				navigate("/dashboard");
+				auth.logOutUser()
 				enqueueSnackbar("Sign Out successfull", { variant: 'info' });
 			}
 		},

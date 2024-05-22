@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.scss";
 
 // ANTD
-import { Button, Form, Input, Tooltip, Typography, Divider } from "antd";
+import { Button, Form, Input, Tooltip, Typography } from "antd";
 
 // Hooks
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
-import { useGlobalStore } from '../../utils/store'
+import { useAuth } from "../../utils/AuthProvider";
 
-
-import { getRandomColor, storeUserData } from "../../utils/other";
-
-import { userLogin } from "../../utils/requests"
+import { getRandomColor } from "../../utils/other";
 
 
 const index = () => {
-
-	const Update = {
-		GlobalStore: {
-			isAuthenticated: useGlobalStore((State) => State.setIsAuthenticated),
-		},
-	};
+	const Auth = useAuth()
 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate()
@@ -43,12 +35,8 @@ const index = () => {
 	}
 
 	const onFinish = async (values) => {
-    const response = await userLogin(values)
+    const response = await Auth.userLogin(values)
 		if (response?.status === 200) {
-			storeUserData(response)
-			localStorage.setItem('isAuth', true);
-			Update.GlobalStore.isAuthenticated(true)
-			navigate("/dashboard");
 			enqueueSnackbar("Log In successfull", { variant: 'success' });
 		}
   };

@@ -1,7 +1,7 @@
 import axios from "axios";
 const BaseUrl = `http://localhost:8080/api/v1`;
 
-const Endpoints = {
+export const Endpoints = {
 	GET_USERS: `${BaseUrl}/users-list`,
 	LOGIN_USER: `${BaseUrl}/login-user/`,
 	REGISTER_USER: `${BaseUrl}/register-user/`,
@@ -14,25 +14,7 @@ const Endpoints = {
 	AVAILABLE_GROUPS: `${BaseUrl}/available-groups`,
 };
 
-// Login Requests
-const userLogin = async (payload) => {
-	console.log("userLogin", payload);
-	try {
-		if (payload) {
-			const response = await axios.post(Endpoints.LOGIN_USER, payload);
-			const data = response.data;
-			return data;
-		}
-	} catch (error) {
-		console.log(
-			"userLogin: Failed to fetch the user data:",
-			error.message
-		);
-		return;
-	}
-};
-
-// Register Requests
+// Requests
 const getGroups = async () => {
 	try {
 		const response = await axios.get(Endpoints.GET_GROUPS);
@@ -44,21 +26,6 @@ const getGroups = async () => {
 	}
 };
 
-const registerUser = async (payload) => {
-	try {
-		if (payload) {
-			const response = await axios.post(Endpoints.REGISTER_USER, payload);
-			const data = response.data;
-			return data;
-		}
-	} catch (error) {
-		console.log("registerUser: Failed to register the user:", error.message);
-		return;
-	}
-};
-
-
-// Dashboard Requests
 const getUsersOrExceptId = async (userId) => {
 	try {
 
@@ -158,4 +125,11 @@ const createGroup = async (payload) => {
 	}
 };
 
-export { userLogin, getGroups, registerUser, getUsersOrExceptId, updateUserProfile, deleteUserAccount, getAvailableGroupsToJoin, joinGroups, createGroup};
+export { 
+	getGroups, 
+	getUsersOrExceptId, 
+	updateUserProfile, 
+	deleteUserAccount, 
+	getAvailableGroupsToJoin, 
+	joinGroups, 
+	createGroup};
