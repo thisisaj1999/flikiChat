@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Register.module.scss";
+import StepOne from "./layouts/StepOne";
+import StepFinal from "./layouts/StepFinal";
 
-// ANTD
-import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
+import { Form } from "antd";
 
 // Hooks
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
-
 // Other functions
 import { getRandomColor } from "../../utils/other";
 
 const index = () => {
-	const [layout, setLayout] = useState(0)
+	const [formData, setFormData] = useState({});
+	const [step, setStep] = useState(1);
 	const { enqueueSnackbar } = useSnackbar();
-	const navigate = useNavigate();
-
+	const [form] = Form.useForm();
 	const [isHovered, setIsHovered] = useState(false);
-
 
 	const hoveredStyle = {
 		color: getRandomColor(),
@@ -30,37 +29,32 @@ const index = () => {
 		transition: "all 1s ease-in-out",
 	};
 
-	const navigateToLogin = () => {
-		navigate("/login");
+	const handleNext = (values) => {
+		setFormData({
+			...formData,
+			[`step${step}`]: values,
+		});
+		setStep(step + 1);
 	};
 
-	const onFinish = async (values) => {
-    console.log(values)
+	const handleBack = () => {
+		setStep(step - 1);
 	};
 
-	// temp
-	const renderDivs = () => {
-		const divs = [];
-		for(let i = 0; i < 100; i++){
-			divs.push(
-				<div className={styles.GroupInfoHeader}>
-					<Avatar
-						style={{
-							backgroundColor: "dodgerblue",
-							verticalAlign: "middle",
-						}}
-						size={70}
-						gap={0}
-					>
-						G
-					</Avatar>
-					<p>Test Group</p>
-				</div>
-			)
-		}
-		return divs
-	}
-	// temp
+	const handleConfirm = (values) => {
+		const finalData = {
+			...formData,
+			stepFinal: values,
+		};
+		setFormData(finalData);
+		// message.success("Form submitted successfully!");
+		console.log("Final Form Data:", finalData);
+	};
+
+	const steps = [
+		<StepOne key="1" form={form} handleNext={handleNext} />,
+		<StepFinal key="2" form={form} handleBack={handleBack} handleConfirm={handleConfirm} />
+];
 
 	return (
 		<div className={styles.AuthBgMain}>
@@ -68,7 +62,7 @@ const index = () => {
 				className={styles.AuthFormMain}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
-				style={layout === 0 ? {width: '25rem'} : {width: '45rem'}}
+				style={step === 1 ? { width: "25rem" } : { width: "45rem" }}
 			>
 				<h1 className={styles.AuthFormHeading}>
 					Regis
@@ -76,166 +70,7 @@ const index = () => {
 						ter
 					</span>
 				</h1>
-				<Form
-					layout="vertical"
-					onFinish={onFinish}
-					autoComplete="on"
-				>
-					{layout === 0 ? <>
-						<Form.Item
-							label="Email"
-							name="email"
-							rules={[
-								{
-									type: "email",
-									message: "The input is not valid Email",
-								},
-								{
-									required: true,
-									message: "Please input your Email",
-								},
-							]}
-						>
-							<Input
-								style={{ height: "40px" }}
-								type="email"
-								placeholder="johndoe@email.com"
-							/>
-						</Form.Item>
-
-						<Form.Item
-							label="Password"
-							name="password"
-							rules={[
-								{
-									required: true,
-									message: "Please input your password!",
-								},
-								{
-									min: 8,
-									message:
-										"Password must contain atlease 8 characters",
-								},
-							]}
-							hasFeedback
-						>
-							<Input.Password style={{ height: "40px" }} />
-						</Form.Item>
-
-						<Form.Item
-							label="Confirm password"
-							name="confirm"
-							dependencies={["password"]}
-							rules={[
-								{
-									required: true,
-									message: "Please confirm your password!",
-								},
-								{
-									min: 8,
-									message:
-										"Password must contain atlease 8 characters",
-								},
-								({ getFieldValue }) => ({
-									validator(_, value) {
-										if (
-											!value ||
-											getFieldValue("password") === value
-										) {
-											return Promise.resolve();
-										}
-										return Promise.reject(
-											new Error(
-												"The new password that you entered do not match!"
-											)
-										);
-									},
-								}),
-							]}
-						>
-							<Input.Password style={{ height: "40px" }} />
-						</Form.Item>
-
-						<div className={styles.AuthFormStepsSubmitBtns}>
-							<Form.Item>
-								<Button
-									type="primary"
-									className={styles.AuthFormSubmitBtn}
-									onClick={(e) => setLayout(1)}
-								>
-									Next
-								</Button>
-							</Form.Item>
-						</div>
-					</> : 
-					<>
-						<Form.Item
-							label="Name"
-							name="name"
-							rules={[
-								{
-									required: true,
-									message: "Please input your Name",
-								},
-							]}
-						>
-							<Input
-								style={{ height: "40px" }}
-								type="text"
-								placeholder="John Doe"
-							/>
-						</Form.Item>
-						
-						<p className={styles.GroupListHeading}>Join Groups</p>
-						<div className={styles.GroupsList}>
-							{/* <div className={styles.GroupInfoHeader}>
-								<Avatar
-									style={{
-										backgroundColor: "dodgerblue",
-										verticalAlign: "middle",
-									}}
-									size={70}
-									gap={0}
-								>
-									G
-								</Avatar>
-								<p>Test Group</p>
-							</div> */}
-								 {renderDivs()}
-							
-						</div>
-
-						<div className={styles.AuthFormStepsSubmitBtns}>
-							<Form.Item>
-								<Button
-									type="primary"
-									className={styles.AuthFormSubmitBtn}
-									onClick={(e) => setLayout(0)}
-								>
-									Back
-								</Button>
-							</Form.Item>
-							<Form.Item>
-								<Button
-									type="primary"
-									className={styles.AuthFormSubmitBtn}
-									htmlType="submit"
-								>
-									Finish
-								</Button>
-							</Form.Item>
-						</div>
-					</>
-					}
-
-					<div className={styles.AuthFormLink}>
-						<Tooltip title="Log In">
-							<Typography.Link onClick={navigateToLogin}>
-								You already have an account ?
-							</Typography.Link>
-						</Tooltip>
-					</div>
-				</Form>
+					{steps[step - 1]}
 			</div>
 		</div>
 	);
