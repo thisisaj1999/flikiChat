@@ -33,8 +33,7 @@ const index = ({ socket }) => {
 		);
 	}, [socket, showMessages]);
 
-
-
+	console.log(socket)
 
 	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true);
 
@@ -49,19 +48,17 @@ const index = ({ socket }) => {
 	};
 
 	const onFinish = (values) => {
-		console.log(values);
-		if (sendMessage.trim()) {
-      socket.emit('message', {
-        text: values.message,
-        name: 'test user 1',
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
-      });
-    }
+		socket.emit('message:create', {
+			text: values.message,
+			name: 'test user 1',
+			id: `${socket.id}${Math.random()}`,
+			socketID: socket.id,
+		});
     setSendMessage('');
 		form.resetFields();
-		console.log(showMessages)
 	};
+
+	console.log(showMessages)
 
 	return (
 		<div

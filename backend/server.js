@@ -6,6 +6,16 @@ require("./config/migration");
 const app = express();
 const http = require("http").Server(app);
 
+const io = require("socket.io")(http, {
+	cors: {
+		origin: "*",
+	},
+});
+
+// SocketHandlers
+const { createMessage, readMessage } = require("./sockets/messageHandler")(io);
+const { createGroup, getGroup } = require("./sockets/groupHandler")(io);
+
 const CORS_SETTINGS = {
 	origin: "*",
 	allowedHeaders: ["authorization", "mode", "content-type", "accept"],
@@ -19,25 +29,25 @@ app.options("*", cors(CORS_SETTINGS));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const socketIO = require("socket.io")(http, {
-	cors: {
-		origin: "http://localhost:5173",
-	},
-});
 
 // Socket
-socketIO.on("connection", (socket) => {
+const onConnection = (socket) => {
 	console.log(`⚡: ${socket.id} user just connected!`);
 
-	//sends the message to all the users on the server
-	socket.on("message", (data) => {
-		socketIO.emit("messageResponse", data);
-	});
+  // Group
+  socket.on("group:create", createGroup);
+  socket.on("group:read", getGroup);
+
+  // Message
+  socket.on("message:create", createMessage);
+  socket.on("message:read", readMessage);
 
 	socket.on("disconnect", () => {
 		console.log("🔥: A user disconnected");
 	});
-});
+}
+
+io.on("connection", onConnection);
 
 // Routes
 app.use("/api/v1", expressRoutes.user);
