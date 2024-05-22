@@ -1,6 +1,5 @@
 import React from "react";
 import style from './App.module.scss'
-import socketIO from 'socket.io-client';
 
 import Dashboard from './components/Dashboard'
 import Register from './components/Register'
@@ -15,8 +14,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 
 const App = () => {
 
-	const socket = socketIO.connect('http://localhost:8080');
-
 	return (
 		<div className={style.App}>
         <AuthProvider>
@@ -24,7 +21,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/dashboard" element={<Dashboard socket={socket}/>} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
 						
             {/* Other routes */}

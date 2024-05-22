@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Dashboard.module.scss";
 
 import { Divider } from "antd";
+import socketIO from 'socket.io-client';
 
 import Sidebar from "./components/Sidebar";
 import MainPage from "./components/MainPage";
@@ -10,7 +11,9 @@ import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
 import { getAvailableGroupsToJoin, getUsersOrExceptId } from "../../utils/requests";
 
-const index = ({ socket }) => {
+const index = () => {
+
+	const socket = socketIO.connect('http://localhost:8080');
 
 	const State = {
 		GlobalStore: {
