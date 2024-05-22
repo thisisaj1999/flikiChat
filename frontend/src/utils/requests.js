@@ -3,8 +3,8 @@ const BaseUrl = `http://localhost:8080/api/v1`;
 
 const Endpoints = {
 	GET_USERS: `${BaseUrl}/users-list/`,
-	GET_USER_BY_ID: `${BaseUrl}/user/1`,
-	ADD_USER: `${BaseUrl}/add-user`,
+	LOGIN_USER: `${BaseUrl}/login-user/`,
+	REGISTER_USER: `${BaseUrl}/register-user/`,
 	UPDATE_USER: `${BaseUrl}/edit-user/1`,
 	DELETE_USER: `${BaseUrl}/delete-user/1`,
 
@@ -16,9 +16,7 @@ const userLogin = async (payload) => {
 	console.log("userLogin", payload);
 	try {
 		if (payload) {
-			const response = await axios.get(
-				`${Endpoints.GET_USER_BY_ID}/${payload?.id}`
-			);
+			const response = await axios.post(Endpoints.LOGIN_USER, payload);
 			const data = response.data;
 			return data;
 		}
@@ -46,7 +44,7 @@ const getGroups = async () => {
 const registerUser = async (payload) => {
 	try {
 		if (payload) {
-			const response = await axios.post(Endpoints.ADD_USER, payload);
+			const response = await axios.post(Endpoints.REGISTER_USER, payload);
 			const data = response.data;
 			return data;
 		}

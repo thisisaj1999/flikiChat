@@ -2,11 +2,11 @@ const fs = require("fs");
 const db = require("../../config/dbConnection");
 const path = require("path");
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
 	const userData = req.body;
 
 	if (Object.keys(userData).length === 0) {
-		console.log(`🔴  createUser : User's data is required for create`);
+		console.log(`🔴  registerUser : User's data is required for create`);
 		res.json({
 			status: 404,
 			message: `User's data is required for create`,
@@ -41,21 +41,21 @@ const createUser = async (req, res) => {
 			);
 
 			if (create_newUser.rows.length > 0) {
-				console.log(`🟢  createUser : Data inserted to users table`);
+				console.log(`🟢  registerUser : Data inserted to users table`);
 				res.json({
 					status: 200,
 					message: `Data inserted to users table`,
 				});
 			}
 		} else {
-			console.log(`🔴  createUser : This email is already in use`);
+			console.log(`🔴  registerUser : This email is already in use`);
 			res.json({
 				status: 404,
 				message: `This email is already in use`,
 			});
 		}
 	} catch (error) {
-		console.log(`🔴  createUser : Unable to create a new user`, error);
+		console.log(`🔴  registerUser : Unable to create a new user`, error);
 		res.json({
 			status: 404,
 			message: `Unable to create a new user`,
@@ -65,4 +65,4 @@ const createUser = async (req, res) => {
 
 };
 
-module.exports = createUser;
+module.exports = registerUser;

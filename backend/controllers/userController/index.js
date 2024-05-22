@@ -1,7 +1,7 @@
-const createUser = require('./createUser');
+const registerUser = require('./registerUser');
 const deleteUser = require('./deleteUser')
 const editUser = require('./editUser')
-const getUserById = require('./getUserById')
+const loginUser = require('./loginUser')
 const getAllUsers = require('./getAllUsers')
 
-module.exports = {createUser, deleteUser, editUser, getUserById, getAllUsers}
+module.exports = {registerUser, deleteUser, editUser, loginUser, getAllUsers}

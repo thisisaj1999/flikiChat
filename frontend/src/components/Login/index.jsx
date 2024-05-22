@@ -11,6 +11,8 @@ import { useSnackbar } from 'notistack'
 
 import { getRandomColor } from "../../utils/other";
 
+import { userLogin } from "../../utils/requests"
+
 
 const index = () => {
 
@@ -35,7 +37,11 @@ const index = () => {
 	}
 
 	const onFinish = async (values) => {
-    console.log(values)
+    const response = await userLogin(values)
+		if (response?.status === 200) {
+			console.log(response)
+			navigate("/dashboard");
+		}
   };
 
 	return (

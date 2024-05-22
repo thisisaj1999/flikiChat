@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { createUser, deleteUser, editUser, getUserById, getAllUsers } = require('../controllers/userController');
+const { registerUser, deleteUser, editUser, loginUser, getAllUsers } = require('../controllers/userController');
 
 router.get('/users-list', getAllUsers)
 
-router.get('/user/:id', getUserById)
+router.post('/login-user/', (req, res) => {
+    loginUser(req, res)
+})
 
-router.post('/add-user', (req, res) => {
-    createUser(req, res);
+router.post('/register-user', (req, res) => {
+    registerUser(req, res);
 });
 
 router.patch('/edit-user/:id', (req, res) => {
