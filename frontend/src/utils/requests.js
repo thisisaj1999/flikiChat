@@ -8,7 +8,7 @@ const Endpoints = {
 	UPDATE_USER: `${BaseUrl}/edit-user/1`,
 	DELETE_USER: `${BaseUrl}/delete-user/1`,
 
-	GET_GROUPS: `${BaseUrl}/groups-list/`
+	GET_GROUPS: `${BaseUrl}/group-list/`
 };
 
 // Login Requests

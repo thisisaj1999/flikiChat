@@ -1,19 +1,22 @@
 import React from "react";
 import styles from "../Register.module.scss";
-
-// ANTD
 import { Button, Form, Input, Tooltip, Typography } from "antd";
 
 // Hooks
 import { useNavigate } from "react-router-dom";
 
+
 const index = ({ form, handleNext }) => {
+
+	// Navigation
 	const navigate = useNavigate();
 
 	const navigateToLogin = () => {
 		navigate("/login");
 	};
 
+
+	// Next Btn Handler
 	const onFinish = (values) => {
 		handleNext(values);
 	};

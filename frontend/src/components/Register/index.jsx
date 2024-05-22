@@ -1,28 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Register.module.scss";
+import { Form } from "antd";
+
+// Components
 import StepOne from "./layouts/StepOne";
 import StepFinal from "./layouts/StepFinal";
-
-import { Form } from "antd";
 
 // Hooks
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
+// APIs
+import { registerUser, getGroups } from "../../utils/requests"
+
 // Other functions
 import { getRandomColor } from "../../utils/other";
 
-// APIs
-import { registerUser } from "../../utils/requests"
 
 const index = () => {
-	const [formData, setFormData] = useState({});
-	const [step, setStep] = useState(1);
-	const { enqueueSnackbar } = useSnackbar();
+	
 	const [form] = Form.useForm();
-	const [isHovered, setIsHovered] = useState(false);
 	const navigate = useNavigate();
+	const { enqueueSnackbar } = useSnackbar();
 
+	// Data
+	const [formData, setFormData] = useState({});
+	const [initialGroups, setInitialGroups] = useState([])
+
+	// Layout or UI
+	const [step, setStep] = useState(1);
+	const [isHovered, setIsHovered] = useState(false);
+
+	
+	// UI
 	const hoveredStyle = {
 		color: getRandomColor(),
 		transition: "all 0.3s ease-in-out",
@@ -33,6 +43,8 @@ const index = () => {
 		transition: "all 1s ease-in-out",
 	};
 
+
+	//  Button Handlers
 	const handleNext = (values) => {
 		setFormData({
 			...formData,
@@ -58,6 +70,19 @@ const index = () => {
 		console.log("Final Form Data:", finalData);
 	};
 
+	// Initial Groups on Load
+	useEffect(() => {
+		const getAllGroups = async () => {
+			const response = await getGroups();
+			if (response?.status === 200) {
+				setInitialGroups([...initialGroups, ...response?.data?.group_table])
+			}
+		};
+
+		getAllGroups();
+	}, []);
+
+	// Components
 	const steps = [
 		<StepOne key="1" form={form} handleNext={handleNext} />,
 		<StepFinal
@@ -65,6 +90,7 @@ const index = () => {
 			form={form}
 			handleBack={handleBack}
 			handleConfirm={handleConfirm}
+			groups={initialGroups}
 		/>,
 	];
 

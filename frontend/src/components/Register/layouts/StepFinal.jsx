@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../Register.module.scss";
 import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
-import { useNavigate } from "react-router-dom";
+
+// SVG or Images
 import Tick from '../../../assets/tick.svg'
 import UnTick from '../../../assets/untick.svg'
 
-const index = ({ form, handleBack, handleConfirm }) => {
-  const navigate = useNavigate();
+// Hooks
+import { useNavigate } from "react-router-dom";
+
+
+const index = ({ form, handleBack, handleConfirm, groups }) => {
   const [checkedItems, setCheckedItems] = useState([]);
+
+  // Navigation
+  const navigate = useNavigate();
 
   const navigateToLogin = () => {
     navigate("/login");
   };
 
+  // Checkbox Handler
   const handleCheckboxChange = (id) => {
     setCheckedItems((prevCheckedItems) => {
       if (prevCheckedItems.includes(id)) {
@@ -23,36 +31,8 @@ const index = ({ form, handleBack, handleConfirm }) => {
     });
   };
 
-  const renderDivs = () => {
-    const items = Array.from({ length: 100 }, (_, i) => ({
-      id: i + 1,
-      label: `Test Group ${i + 1}`,
-    }));
 
-    return items.map((item) => (
-      <div
-        key={item.id}
-        className={`${styles.GroupInfoHeader} ${checkedItems.includes(item.id) ? styles.checked : ""}`}
-        onClick={() => handleCheckboxChange(item.id)}
-      >
-        <div className={`${styles.roundCheckbox} ${checkedItems.includes(item.id) ? styles.visible : ""}`}>
-          {checkedItems.includes(item.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
-        </div>
-        <Avatar
-          style={{
-            backgroundColor: "dodgerblue",
-            verticalAlign: "middle",
-          }}
-          size={70}
-          gap={0}
-        >
-          G
-        </Avatar>
-        <p>{item.label}</p>
-      </div>
-    ));
-  };
-
+  // Submit Form Callback
   const onFinish = (values) => {
 		const newValues = {
 			name: values?.name,
@@ -77,7 +57,32 @@ const index = ({ form, handleBack, handleConfirm }) => {
       </Form.Item>
 
       <p className={styles.GroupListHeading}>Join Groups</p>
-      <div className={styles.GroupsList}>{renderDivs()}</div>
+      
+      <div className={styles.GroupsList}>
+        {groups.map( (group) => (
+            <div
+              key={group?.id}
+              className={`${styles.GroupInfoHeader} ${checkedItems.includes(group?.id) ? styles.checked : ""}`}
+              onClick={() => handleCheckboxChange(group?.id)}
+            >
+              <div className={`${styles.roundCheckbox} ${checkedItems.includes(group?.id) ? styles.visible : ""}`}>
+                {checkedItems.includes(group?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
+              </div>
+              <Avatar
+                style={{
+                  backgroundColor: "dodgerblue",
+                  verticalAlign: "middle",
+                }}
+                size={70}
+                gap={0}
+                src={`${group?.profile_image_url}`}
+              />
+              <p>{group?.group_name}</p>
+            </div>
+          )
+        )}
+        
+      </div>
 
       <div className={styles.AuthFormStepsSubmitBtns}>
         <Form.Item>
