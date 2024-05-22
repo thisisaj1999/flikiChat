@@ -36,6 +36,11 @@ const createGroup = async (req, res) => {
 		);
 
 		if (create_newGroup.rows.length > 0) {
+			const groupId = create_newGroup.rows[0].id;
+
+			// Insert joined group IDs into the user_groups table
+			await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin) VALUES ($1, $2, $3)`, [owner_id, groupId, true]);
+
 			console.log(`🟢  createGroup : Data inserted to groups table`);
 			res.json({
 				status: 200,

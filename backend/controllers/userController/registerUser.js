@@ -41,6 +41,13 @@ const registerUser = async (req, res) => {
 			);
 
 			if (create_newUser.rows.length > 0) {
+				const userId = create_newUser.rows[0].id;
+
+				// Insert joined group IDs into the user_groups table
+				for (const groupId of joinned_group_ids) {
+					await db.query(`INSERT INTO group_memberships (user_id, group_id) VALUES ($1, $2)`, [userId, groupId]);
+				}
+
 				console.log(`🟢  registerUser : Data inserted to users table`);
 				res.json({
 					status: 200,
