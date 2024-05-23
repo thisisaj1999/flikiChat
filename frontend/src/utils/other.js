@@ -19,4 +19,18 @@ const decodeToken = (token) => {
   }
 };
 
-export { getRandomColor, decodeToken };
+const convertToReadableTime = (isoString) => {
+  const date = new Date(isoString);
+
+  const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+  };
+
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  return formatter.format(date);
+};
+
+
+export { getRandomColor, decodeToken, convertToReadableTime };

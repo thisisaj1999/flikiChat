@@ -9,6 +9,7 @@ import BackgrounImg from '../../../../assets/background.png'
 import EncryptionLock from '../../../../assets/encryption.svg'
 import { useGlobalStore } from "../../../../utils/store";
 import socket from "../../../../utils/socket";
+import { convertToReadableTime } from "../../../../utils/other";
 
 const index = () => {
 	const [form] = Form.useForm();
@@ -132,32 +133,15 @@ const index = () => {
 					<Divider style={{ width: "100%", margin: "0px" }} />
 
 					<div className={styles.MainPageContent}>
-						
-						<div
-							className={`${styles.ChatBubble} ${styles.ChatBubbleLeft}`}
-						>
-							<div className={styles.ChatText}>
-								<p>
-									This one adds a right triangle on the left, flush at
-									the top by using .tri-right and .left-top to specify
-									the location.
-								</p>
-							</div>
-							<p className={styles.TimeStamp}>5:34 pm</p>
-						</div>
 
-						<div
-							className={`${styles.ChatBubble} ${styles.ChatBubbleRight}`}
-						>
-							<div className={styles.ChatText}>
-								<p>
-									This one adds a right triangle on the left, flush at
-									the top by using .tri-right and .left-top to specify
-									the location.
-								</p>
+						{showMessages?.map(message => (
+							<div className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
+								<div className={styles.ChatText}>
+									<p>{message?.message}</p>
+								</div>
+								<p className={styles.TimeStamp}>{convertToReadableTime(message?.created_at)}</p>
 							</div>
-							<p className={styles.TimeStamp}>5:36 pm</p>
-						</div>
+						))}
 					</div>
 
 					<Divider style={{ width: "100%", margin: "0px" }} />
