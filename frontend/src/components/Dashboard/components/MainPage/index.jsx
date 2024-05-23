@@ -9,12 +9,14 @@ import BackgrounImg from '../../../../assets/background.png'
 import EncryptionLock from '../../../../assets/encryption.svg'
 import { useGlobalStore } from "../../../../utils/store";
 import socket from "../../../../utils/socket";
-import { convertToReadableTime } from "../../../../utils/other";
+import { convertToReadableTime, formatUserNames } from "../../../../utils/other";
+import { useChatScroll } from '../../../../hooks/useChatScroll'
 
 const index = () => {
 	const [form] = Form.useForm();
 	const [showMessages, setShowMessages] = useState([]);
 	const [groupDetails, setGroupDetails] = useState(null)
+	const ref = useChatScroll(showMessages)
 	
 	const Update = {
 		GlobalStore: {
@@ -80,9 +82,6 @@ const index = () => {
 		setGroupDetails(groupDetail)
 	},[State.GlobalStore.userDetails?.joinedGroup])
 
-	useEffect(() => {
-		console.log(showMessages)
-	},[showMessages])
 
 	return (
 		<div
@@ -125,23 +124,23 @@ const index = () => {
 						<div className={styles.GroupDetails}>
 							<p className={styles.GroupName}>{groupDetails?.group_name}</p>
 							<p className={styles.GroupParticipantName}>
-								Test, Test, Test
+								{formatUserNames(State.GlobalStore?.joinedGroupDetails?.members)}
 							</p>
 						</div>
 					</div>
 
 					<Divider style={{ width: "100%", margin: "0px" }} />
 
-					<div className={styles.MainPageContent}>
-
+					<div className={styles.MainPageContent} ref={ref}>
 						{showMessages?.map(message => (
-							<div className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
+								<div className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
 								<div className={styles.ChatText}>
 									<p>{message?.message}</p>
 								</div>
 								<p className={styles.TimeStamp}>{convertToReadableTime(message?.created_at)}</p>
 							</div>
-						))}
+							)
+						)}
 					</div>
 
 					<Divider style={{ width: "100%", margin: "0px" }} />

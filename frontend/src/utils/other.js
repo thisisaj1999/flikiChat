@@ -32,5 +32,13 @@ const convertToReadableTime = (isoString) => {
   return formatter.format(date);
 };
 
+const formatUserNames = (users) => {
+  const names = users?.map(user => user.name);
+  let formattedNames = names?.join(', ');
+  if (formattedNames?.length > 30) {
+      formattedNames = formattedNames?.slice(0, 5) + '. . .';
+  }
+  return formattedNames;
+};
 
-export { getRandomColor, decodeToken, convertToReadableTime };
+export { getRandomColor, decodeToken, convertToReadableTime, formatUserNames };
