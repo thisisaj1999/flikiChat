@@ -19,4 +19,4 @@ SELECT
   ) AS last_message_time
 FROM groups g
 JOIN group_memberships gm ON g.id = gm.group_id
-WHERE gm.user_id = 5
+WHERE gm.user_id = $1

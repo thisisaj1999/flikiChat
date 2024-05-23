@@ -2,6 +2,7 @@ const fs = require("fs");
 const db = require("../../config/dbConnection");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const path = require("path");
 
 const loginUser = async (req, res) => {
 	const userData = req.body;
