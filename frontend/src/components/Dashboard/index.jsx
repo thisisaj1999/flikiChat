@@ -34,12 +34,13 @@ const index = () => {
 	},[])
 	
 	// Modal Handler for create or join group
+	const userId = State?.GlobalStore?.userDetails?.user?.id
 	const [renderData, setRenderData] = useState([])
   const checkModalLayout = State?.GlobalStore?.checkModal?.layout;
 
-	const fetchGroupList = useCallback(async () => {
+	const fetchGroupList = useCallback(async (userId) => {
     try {
-      const response = await getAvailableGroupsToJoin(7);
+      const response = await getAvailableGroupsToJoin(userId);
       if (response?.status === 200) {
         setRenderData(prevData => [...prevData, ...response.data.group_table]);
       }
@@ -48,25 +49,25 @@ const index = () => {
     }
   }, [setRenderData]);
 
-  const fetchAllOtherUsers = useCallback(async () => {
+  const fetchAllOtherUsers = useCallback(async (userId) => {
     try {
-      const response = await getUsersOrExceptId(7);
-      if (response?.status === 200) {
-        setRenderData(prevData => [...prevData, ...response.data.user_table]);
-      }
+			const response = await getUsersOrExceptId(userId);
+			if (response?.status === 200) {
+				setRenderData(prevData => [...prevData, ...response.data.user_table]);
+			}
     } catch (error) {
       console.error('Failed to fetch users:', error);
     }
   }, [setRenderData]);
 
 	useEffect(() => {
-    if (checkModalLayout === 0) {
+		if (checkModalLayout === 0) {
 			setRenderData([])
-      fetchGroupList();
-    } else if (checkModalLayout === 1) {
+			fetchGroupList(userId);
+		} else if (checkModalLayout === 1) {
 			setRenderData([])
-      fetchAllOtherUsers();
-    }
+			fetchAllOtherUsers(userId);
+		}
   }, [checkModalLayout, fetchGroupList, fetchAllOtherUsers]);
 	// Modal Handler for create or join group
 
