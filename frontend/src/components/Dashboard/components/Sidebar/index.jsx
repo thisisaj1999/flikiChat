@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 import { useAuth } from "../../../../utils/AuthProvider";
+import socket from "../../../../utils/socket";
 
 const index = () => {
 	const auth = useAuth()
@@ -38,6 +39,7 @@ const index = () => {
 			onClick: () => {
 				auth.logOutUser()
 				enqueueSnackbar("Sign Out successfull", { variant: 'info' });
+				socket.disconnect()
 			}
 		},
 	];

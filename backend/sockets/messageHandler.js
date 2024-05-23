@@ -6,7 +6,7 @@ const insert_messages_table = fs
   .readFileSync(path.join(__dirname, "../sql/insert/insert_messages_table.sql"))
   .toString();
 
-module.exports = (io) => {
+module.exports = (io, socket) => {
   const createMessage = async (payload) => {
     if (payload?.message) {
       const messagePayload = [
@@ -18,7 +18,7 @@ module.exports = (io) => {
         const isMessagePushed = await db.query(insert_messages_table, messagePayload);
         if (isMessagePushed?.rows.length > 0) {
           console.log(`🟢 message:created : New message inserted`);
-          io.emit("message:new", payload);
+          io.to(payload?.group_id).emit("message:new", isMessagePushed?.rows);
         }
       } catch (error) {
         console.error(`🔴 message:created : Error inserting message`, error);
@@ -56,5 +56,6 @@ module.exports = (io) => {
     }
   };
 
-  return { createMessage, readMessage };
+  socket.on("message:create", createMessage);
+  socket.on("message:read", readMessage);
 };

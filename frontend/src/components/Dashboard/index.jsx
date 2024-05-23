@@ -11,10 +11,10 @@ import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
 import { getAvailableGroupsToJoin, getUsersOrExceptId } from "../../utils/requests";
 import { decodeToken } from "../../utils/other";
+import socket from "../../utils/socket";
 
 const index = () => {
 
-	const socket = socketIO.connect('http://localhost:8080');
 
 	const State = {
 		GlobalStore: {
@@ -28,6 +28,10 @@ const index = () => {
 			userDetails: useGlobalStore((State) => State.setUserDetails),
 		},
 	};  
+
+	useEffect(() => {
+		socket.connect()
+	},[])
 	
 	// Modal Handler for create or join group
 	const [renderData, setRenderData] = useState([])
@@ -83,14 +87,14 @@ const index = () => {
 	return (
 		<div className={styles.DashboardBgMain}>
 			<div className={styles.DashboardChatMain}>
-				<Sidebar />
+				<Sidebar/>
 
 				<Divider
 					type="vertical"
 					style={{ height: "100%", margin: "0px" }}
 				/>
 
-				<MainPage socket={socket}/>
+				<MainPage/>
 
 				{State.GlobalStore.isGroupInfoOpen && (
 					<>

@@ -8,8 +8,9 @@ import Send from "../../../../assets/send.svg";
 import BackgrounImg from '../../../../assets/background.png'
 import EncryptionLock from '../../../../assets/encryption.svg'
 import { useGlobalStore } from "../../../../utils/store";
+import socket from "../../../../utils/socket";
 
-const index = ({ socket }) => {
+const index = () => {
 	const [form] = Form.useForm();
 	const [showMessages, setShowMessages] = useState([]);
 	const [groupDetails, setGroupDetails] = useState(null)
@@ -68,7 +69,6 @@ const index = ({ socket }) => {
 		setGroupDetails(groupDetail)
 	},[State.GlobalStore.userDetails?.joinedGroup])
 
-	console.log(groupDetails)
 
 	return (
 		<div

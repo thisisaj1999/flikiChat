@@ -14,8 +14,8 @@ const io = require("socket.io")(http, {
 });
 
 // SocketHandlers
-const { createMessage, readMessage } = require("./sockets/messageHandler")(io);
-const { createGroup, getGroup } = require("./sockets/groupHandler")(io);
+const MessageSocketsHandler = require("./sockets/messageHandler");
+const GroupRoomSocketsHandler = require("./sockets/groupHandler");
 
 const CORS_SETTINGS = {
 	origin: "*",
@@ -34,14 +34,10 @@ app.use(express.urlencoded({ extended: true }));
 // Socket
 const onConnection = (socket) => {
 	console.log(`⚡: ${socket.id} user just connected!`);
+	
+	MessageSocketsHandler(io, socket)
 
-  // Group
-  socket.on("group:create", createGroup);
-  socket.on("group:read", getGroup);
-
-  // Message
-  socket.on("message:create", createMessage);
-  socket.on("message:read", readMessage);
+	GroupRoomSocketsHandler(io, socket)
 
 	socket.on("disconnect", () => {
 		console.log("🔥: A user disconnected");
