@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Dashboard.module.scss";
 
 import { Divider } from "antd";
-import socketIO from 'socket.io-client';
 
 import Sidebar from "./components/Sidebar";
 import MainPage from "./components/MainPage";
@@ -20,6 +19,7 @@ const index = () => {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
 			checkModal: useGlobalStore((State) => State.checkModal),
+			userDetails: useGlobalStore((State) => State.userDetails)
 		},
 	};  
 
@@ -81,6 +81,9 @@ const index = () => {
 					joinedGroup: null
 				});
       }
+			socket.emit("group:join", {
+				userId: decodedToken?.id
+			})
     }
   }, []);
 

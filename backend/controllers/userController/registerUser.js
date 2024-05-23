@@ -47,7 +47,7 @@ const registerUser = async (req, res) => {
 
 				// Insert joined group IDs into the user_groups table
 				for (const groupId of joinned_group_ids) {
-					await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin) VALUES ($1, $2, $3)`, [userId, groupId, false]);
+					await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin, is_online) VALUES ($1, $2, $3, $4)`, [userId, groupId, false, false]);
 				}
 
 				// Authenticate user with jwt

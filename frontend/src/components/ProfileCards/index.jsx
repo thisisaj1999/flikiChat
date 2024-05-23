@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Divider } from "antd";
 import styles from "./ProfileCards.module.scss";
 import { useGlobalStore } from "../../utils/store";
+import socket from "../../utils/socket";
 
 const index = ({ avatarSrc, groupName, groupId }) => {
 
@@ -22,6 +23,10 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 		Update.GlobalStore.userDetails({
 			...State.GlobalStore.userDetails,
 			joinedGroup: groupId
+		})
+		socket.emit("group:join", {
+			groupId: groupId,
+			userId: State.GlobalStore.userDetails?.user?.id
 		})
 	}
 	
