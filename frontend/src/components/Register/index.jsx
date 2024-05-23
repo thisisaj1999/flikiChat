@@ -25,6 +25,7 @@ const index = () => {
 	// Data
 	const [formData, setFormData] = useState({});
 	const [initialGroups, setInitialGroups] = useState([])
+	const [loadingResponse, setLoadingResponse] = useState(false);
 
 	// Layout or UI
 	const [step, setStep] = useState(1);
@@ -57,6 +58,7 @@ const index = () => {
 	};
 
 	const handleConfirm = async (values) => {
+		setLoadingResponse(true)
 		const finalData = {
 			...formData,
 			...values,
@@ -64,9 +66,12 @@ const index = () => {
 		setFormData(finalData);
 		const response = await Auth.registerUser(finalData)
 		if (response?.status === 200) {
-			enqueueSnackbar("Sign Up successfull", { variant: 'success' });
+			setLoadingResponse(false)
+			enqueueSnackbar("Welcome to Fliki Chat", { variant: 'success' });
+		}else{
+			setLoadingResponse(false)
+			enqueueSnackbar(response?.message, { variant: 'info' });
 		}
-		console.log("Final Form Data:", finalData);
 	};
 
 	// Initial Groups on Load
@@ -90,6 +95,7 @@ const index = () => {
 			handleBack={handleBack}
 			handleConfirm={handleConfirm}
 			groups={initialGroups}
+			loadingResponse={loadingResponse}
 		/>,
 	];
 

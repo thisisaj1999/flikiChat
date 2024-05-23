@@ -37,6 +37,7 @@ const loginUser = async (req, res) => {
 					status: 404,
 					message: `Incorrect email and password combination`,
 				});
+				return;
 			}
 
 			const fetchedUserData = isUserExists?.rows[0];

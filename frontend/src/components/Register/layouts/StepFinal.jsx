@@ -10,7 +10,7 @@ import UnTick from '../../../assets/untick.svg'
 import { useNavigate } from "react-router-dom";
 
 
-const index = ({ form, handleBack, handleConfirm, groups }) => {
+const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => {
   const [checkedItems, setCheckedItems] = useState([]);
 
   // Navigation
@@ -91,7 +91,7 @@ const index = ({ form, handleBack, handleConfirm, groups }) => {
           </Button>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" className={styles.AuthFormSubmitBtn} htmlType="submit">
+          <Button type="primary" className={styles.AuthFormSubmitBtn} htmlType="submit" loading={loadingResponse}>
             Finish
           </Button>
         </Form.Item>

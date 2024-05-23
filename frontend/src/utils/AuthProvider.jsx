@@ -14,15 +14,15 @@ const AuthProvider = ({ children }) => {
     try {
       if (payload) {
         const response = await axios.post(Endpoints.LOGIN_USER, payload);
-        const responseData = response.data?.data;
+        const responseData = response.data;
 
-        if(responseData){
-          setUser(responseData?.data);
-          setToken(responseData?.accessToken);
-          localStorage.setItem("site", responseData?.accessToken);
+        if(responseData?.status === 200){
+          setUser(responseData?.data?.data);
+          setToken(responseData?.data?.accessToken);
+          localStorage.setItem("site", responseData?.data?.accessToken);
           navigate("/dashboard");
-          return;
         }
+        return responseData;
       }
     } catch (error) {
       console.error(
@@ -36,14 +36,15 @@ const AuthProvider = ({ children }) => {
     try {
       if (payload) {
         const response = await axios.post(Endpoints.REGISTER_USER, payload);
-        const responseData = response.data?.data;
-        if(responseData){
-          setUser(responseData?.data);
-          setToken(responseData?.accessToken);
-          localStorage.setItem("site", responseData?.accessToken);
+        const responseData = response.data;
+
+        if(responseData?.status === 200){
+          setUser(responseData?.data?.data);
+          setToken(responseData?.data?.accessToken);
+          localStorage.setItem("site", responseData?.data?.accessToken);
           navigate("/dashboard");
-          return;
         }
+        return responseData;
       }
     } catch (error) {
       console.log("registerUser: Failed to register the user:", error.message);

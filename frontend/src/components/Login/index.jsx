@@ -19,6 +19,7 @@ const index = () => {
   const navigate = useNavigate()
 
 	const [isHovered, setIsHovered] = useState(false);
+	const [loadingResponse, setLoadingResponse] = useState(false);
 
 	const hoveredStyle = {
 		color: getRandomColor(),
@@ -35,9 +36,14 @@ const index = () => {
 	}
 
 	const onFinish = async (values) => {
+		setLoadingResponse(true)
     const response = await Auth.userLogin(values)
 		if (response?.status === 200) {
+			setLoadingResponse(false)
 			enqueueSnackbar("Log In successfull", { variant: 'success' });
+		}else{
+			setLoadingResponse(false)
+			enqueueSnackbar(response?.message, { variant: 'info' });
 		}
   };
 
@@ -102,6 +108,7 @@ const index = () => {
 							className={styles.AuthFormSubmitBtn}
 							type="primary"
 							htmlType="submit"
+							loading={loadingResponse}
 						>
 							Sign In
 						</Button>
