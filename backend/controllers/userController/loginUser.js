@@ -18,6 +18,12 @@ const loginUser = async (req, res) => {
 	const email = userData?.email;
 	const password = userData?.password;
 
+	const user_login_data = fs
+	.readFileSync(
+		path.join(__dirname, "../../sql/get/user_login_data.sql")
+	)
+	.toString();
+
 	try {
 
     const isUserExists = await db.query(
@@ -42,19 +48,26 @@ const loginUser = async (req, res) => {
 
 			const fetchedUserData = isUserExists?.rows[0];
 
-			// Authenticate user with jwt
-			const token = jwt.sign({ id: fetchedUserData.id }, process.env.JWT_SECRET, {
+			const getGroupsAndMessages = await db.query(user_login_data, [fetchedUserData.id]);
+
+			const token = jwt.sign({
+				id: fetchedUserData.id,
+				name: fetchedUserData.name,
+				email: fetchedUserData.email,
+				groups: getGroupsAndMessages.rows
+			}, 
+			process.env.JWT_SECRET, 
+			{
 				expiresIn: process.env.JWT_REFRESH_EXPIRATION
-			});
+			})
+
+
 
 			console.log(`🟢  loginUser : User data fetched successfully`);
 			res.json({
 					status: 200,
 					message: `User data fetched successfully`,
 					data: {
-							id: fetchedUserData?.id,
-							name: fetchedUserData?.name,
-							email: fetchedUserData?.email,
 							accessToken: token
 					},
 			});
