@@ -22,10 +22,13 @@ const index = () => {
 			checkModal: useGlobalStore((State) => State.checkModal),
 		},
 	};  
+
+	const Update = {
+		GlobalStore: {
+			userDetails: useGlobalStore((State) => State.setUserDetails),
+		},
+	};  
 	
-	const [userDetails, setUserDetails] = useState(null);
-
-
 	// Modal Handler for create or join group
 	const [renderData, setRenderData] = useState([])
   const checkModalLayout = State?.GlobalStore?.checkModal?.layout;
@@ -66,11 +69,10 @@ const index = () => {
 	// Decode JWT
 	useEffect(() => {
     const token = localStorage.getItem('site');
-		console.log(token)
     if (token) {
       const decodedToken = decodeToken(token);
       if (decodedToken) {
-        setUserDetails(decodedToken);
+        Update.GlobalStore.userDetails(decodedToken);
       }
     }
   }, []);

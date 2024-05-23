@@ -9,18 +9,17 @@ import ProfileCards from '../../../ProfileCards'
 import { useGlobalStore } from "../../../../utils/store";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { isUserAuthenticated } from '../../../../utils/other'
 
 import { useAuth } from "../../../../utils/AuthProvider";
 
 const index = () => {
 	const auth = useAuth()
 	const { enqueueSnackbar } = useSnackbar();
-	const getLocalStorageData = isUserAuthenticated()
 
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
+			userDetails: useGlobalStore((State) => State.userDetails)
 		},
 	};
 
@@ -93,7 +92,7 @@ const index = () => {
 					<p className={styles.GroupsHeading}>Groups</p>
 
 					<div className={styles.ListGroupMain}>
-							{getLocalStorageData?.joinedGroupData?.map(group => (
+							{State.GlobalStore.userDetails?.groups?.map(group => (
 								<ProfileCards avatarSrc={group?.profile_image_url} groupName={group?.group_name}/>
 							))}
 					</div>

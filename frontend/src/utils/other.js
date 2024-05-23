@@ -9,20 +9,6 @@ const getRandomColor = () => {
 	return color;
 };
 
-
-const isUserAuthenticated = () => {
-	const storedDataString = localStorage.getItem('AuthenticatedUser');
-	
-	if (storedDataString) {
-			const storedData = JSON.parse(storedDataString);
-			
-			return storedData;
-	}
-	
-	return false;
-};
-
-
 const decodeToken = (token) => {
   try {
     const decodedToken = jwtDecode(token);
@@ -33,4 +19,4 @@ const decodeToken = (token) => {
   }
 };
 
-export { getRandomColor, decodeToken, isUserAuthenticated };
+export { getRandomColor, decodeToken };
