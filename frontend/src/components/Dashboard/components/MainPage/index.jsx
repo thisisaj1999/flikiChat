@@ -26,17 +26,27 @@ const index = () => {
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
-			userDetails: useGlobalStore((State) => State.userDetails) 
+			userDetails: useGlobalStore((State) => State.userDetails),
+			joinedGroupDetails: useGlobalStore((State) => State.joinedGroupDetails),
 		},
 	};
 
 	useEffect(() => {
-		socket.on("message:read", (data) => {
-			console.log(data)
-			setShowMessages([...showMessages, data])
-		}
-		);
-	}, [socket, showMessages]);
+		const handleNewMessage = (data) => {
+			setShowMessages((prevMessages) => [...prevMessages, ...data]);
+		};
+
+		socket.on("message:new", handleNewMessage);
+
+		return () => {
+				socket.off("message:new", handleNewMessage);
+		};
+	}, [socket]);
+
+
+	useEffect(() => {
+		setShowMessages(State.GlobalStore.joinedGroupDetails?.messages)
+	},[State.GlobalStore.joinedGroupDetails])
 
 
 	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true);
@@ -69,6 +79,9 @@ const index = () => {
 		setGroupDetails(groupDetail)
 	},[State.GlobalStore.userDetails?.joinedGroup])
 
+	useEffect(() => {
+		console.log(showMessages)
+	},[showMessages])
 
 	return (
 		<div
