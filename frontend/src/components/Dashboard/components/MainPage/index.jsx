@@ -133,7 +133,7 @@ const index = () => {
 
 					<div className={styles.MainPageContent} ref={ref}>
 						{showMessages?.slice()?.reverse()?.map(message => (
-								<div className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
+							<div key={message?.id} className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
 								<div className={styles.ChatText}>
 									<p>{message?.message}</p>
 								</div>

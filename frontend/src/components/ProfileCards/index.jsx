@@ -3,8 +3,9 @@ import { Avatar, Divider } from "antd";
 import styles from "./ProfileCards.module.scss";
 import { useGlobalStore } from "../../utils/store";
 import socket from "../../utils/socket";
+import { convertToReadableTime } from "../../utils/other";
 
-const index = ({ avatarSrc, groupName, groupId }) => {
+const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, groupId }) => {
 
 	const State = {
 		GlobalStore: {
@@ -32,7 +33,6 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 
 	
 	const groupClickHandler = (e) => {
-		
 		e.preventDefault()
 		const oldRoomId = State.GlobalStore.userDetails?.joinedGroup;
 
@@ -49,11 +49,11 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 	
 	return (
 		<>
-			<div className={styles.ListGroup} onClick={(e) => groupClickHandler(e)}>
+			<div className={styles.ListGroup} onClick={(e) => from === "sideBar" && groupClickHandler(e)}>
 				{avatarSrc ? (
 					<Avatar
 						style={{
-							backgroundColor: "#f56a00",
+							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
 							verticalAlign: "middle",
 						}}
 						size="medium"
@@ -63,7 +63,7 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 				) : (
 					<Avatar
 						style={{
-							backgroundColor: "#f56a00",
+							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
 							verticalAlign: "middle",
 						}}
 						size="medium"
@@ -74,7 +74,14 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 				)}
 
 				<div className={styles.GroupDetails}>
-					<p>{groupName || 'Temp'}</p>
+					<div className={styles.GroupNameAndNotification}>
+						<span>{groupName}</span>
+						{from === "sideBar" && <span>1</span>}
+					</div>
+					{lastMessage && from === "sideBar" && <div className={styles.GroupDetailsSubHeading}>
+						<span>{lastMessage}</span>
+						<span>{convertToReadableTime(lastMessageTime)}</span>
+					</div>}
 				</div>
 			</div>
 			<Divider style={{ width: "100%", margin: "0px" }} />

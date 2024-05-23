@@ -32,6 +32,35 @@ const convertToReadableTime = (isoString) => {
   return formatter.format(date);
 };
 
+function convertToReadableDays(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffTime = now - date;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return 'today';
+  } else if (diffDays === 1) {
+    return 'yesterday';
+  } else if (diffDays <= 29) {
+    if (diffDays === 2) {
+      return '2 days back';
+    } else if (diffDays === 3) {
+      return '3 days back';
+    } else if (diffDays === 5) {
+      return '5 days back';
+    } else {
+      return `${diffDays} days back`;
+    }
+  } else if (diffDays <= 364) {
+    const diffMonths = Math.floor(diffDays / 30);
+    return `${diffMonths} month${diffMonths > 1 ? 's' : ''} back`;
+  } else {
+    const diffYears = Math.floor(diffDays / 365);
+    return `${diffYears} year${diffYears > 1 ? 's' : ''} back`;
+  }
+}
+
 const formatUserNames = (users) => {
   const names = users?.map(user => user.name);
   let formattedNames = names?.join(', ');
@@ -41,4 +70,8 @@ const formatUserNames = (users) => {
   return formattedNames;
 };
 
-export { getRandomColor, decodeToken, convertToReadableTime, formatUserNames };
+const getUserDisplayName = (user, group) => {
+  return user?.id === group?.owner_id ? "you" : user?.name;
+}
+
+export { getRandomColor, decodeToken, convertToReadableTime, convertToReadableDays, formatUserNames, getUserDisplayName };

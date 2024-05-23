@@ -5,17 +5,29 @@
 	padding: 0.5rem 1rem;
 	height: 3.5rem;
 	cursor: pointer;
+
+	& :global(.ant-avatar){
+		width: 32px;
+	}
 	
 	& .GroupDetails{
-		& p{
+		width: calc(100% - 33px);
+		& .GroupNameAndNotification{
 			font-size: 14px;
 			color: black;
 			transition: color .3s ease-out;
 		}
+
+		& .GroupDetailsSubHeading{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 10px;
+		}
 	}
 	
 	&:hover .GroupDetails{
-		& p{
+		& .GroupNameAndNotification{
 			color: dodgerblue;
 			transition: color .3s ease-out;
 		}
