@@ -12,6 +12,7 @@ import { useGlobalStore } from "../../../../utils/store";
 const index = ({ socket }) => {
 	const [form] = Form.useForm();
 	const [showMessages, setShowMessages] = useState([]);
+	const [groupDetails, setGroupDetails] = useState(null)
 	
 	const Update = {
 		GlobalStore: {
@@ -59,6 +60,15 @@ const index = ({ socket }) => {
 		form.resetFields();
 	};
 
+	useEffect(() => {
+		setGroupDetails(null)
+		const groupId = State.GlobalStore.userDetails?.joinedGroup
+		const groupsArray = State.GlobalStore.userDetails?.user?.groups
+		const groupDetail = groupsArray?.find(group => group?.group_id === groupId);
+		setGroupDetails(groupDetail)
+	},[State.GlobalStore.userDetails?.joinedGroup])
+
+	console.log(groupDetails)
 
 	return (
 		<div
@@ -76,18 +86,30 @@ const index = ({ socket }) => {
 						className={styles.MainPageHeading}
 						onClick={handleOpenGroupInfo}
 					>
-						<Avatar
-							style={{
-								backgroundColor: "dodgerblue",
-								verticalAlign: "middle",
-							}}
-							size="medium"
-							gap={0}
-						>
-							G
-						</Avatar>
+						{groupDetails?.profile_image_url ? (
+							<Avatar
+								style={{
+									backgroundColor: "dodgerblue",
+									verticalAlign: "middle",
+								}}
+								size="medium"
+								gap={0}
+								src={`${groupDetails?.profile_image_url}`}
+							/>
+						) : (
+							<Avatar
+								style={{
+									backgroundColor: "#f56a00",
+									verticalAlign: "middle",
+								}}
+								size="medium"
+								gap={0}
+							>
+								{groupDetails?.profile_image_url[0].toUpperCase()}
+							</Avatar>
+						)}
 						<div className={styles.GroupDetails}>
-							<p className={styles.GroupName}>Test Group</p>
+							<p className={styles.GroupName}>{groupDetails?.group_name}</p>
 							<p className={styles.GroupParticipantName}>
 								Test, Test, Test
 							</p>
