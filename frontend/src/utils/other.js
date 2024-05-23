@@ -1,3 +1,5 @@
+import jwt_decode from 'jsonwebtoken';
+
 
 const getRandomColor = () => {
 	const letters = "0123456789ABCDEF";
@@ -6,19 +8,6 @@ const getRandomColor = () => {
 		color += letters[Math.floor(Math.random() * 16)];
 	}
 	return color;
-};
-
-const storeUserData = (response) => {
-	const userData = response?.data;
-
-	const authenticatedUser = {
-			...userData,
-			isAuth: true  
-	};
-
-	const userDataString = JSON.stringify(authenticatedUser);
-
-	localStorage.setItem('AuthenticatedUser', userDataString);
 };
 
 
@@ -34,4 +23,15 @@ const isUserAuthenticated = () => {
 	return false;
 };
 
-export { getRandomColor, storeUserData, isUserAuthenticated };
+
+const decodeToken = (token) => {
+  try {
+    const decodedToken = jwt_decode(token);
+    return decodedToken;
+  } catch (error) {
+    console.error('Invalid token:', error);
+    return null;
+  }
+};
+
+export { getRandomColor, decodeToken, isUserAuthenticated };

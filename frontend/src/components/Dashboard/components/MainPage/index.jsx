@@ -28,8 +28,10 @@ const index = ({ socket }) => {
 	};
 
 	useEffect(() => {
-		socket.on("messageResponse", (data) =>
+		socket.on("message:read", (data) => {
+			console.log(data)
 			setShowMessages([...showMessages, data])
+		}
 		);
 	}, [socket, showMessages]);
 

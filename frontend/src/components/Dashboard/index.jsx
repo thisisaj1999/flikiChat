@@ -10,6 +10,7 @@ import GroupInfo from "./components/GroupInfo";
 import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
 import { getAvailableGroupsToJoin, getUsersOrExceptId } from "../../utils/requests";
+import { decodeToken } from "../../utils/other";
 
 const index = () => {
 
@@ -20,8 +21,12 @@ const index = () => {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
 			checkModal: useGlobalStore((State) => State.checkModal),
 		},
-	};
+	};  
+	
+	const [userDetails, setUserDetails] = useState(null);
 
+
+	// Modal Handler for create or join group
 	const [renderData, setRenderData] = useState([])
   const checkModalLayout = State?.GlobalStore?.checkModal?.layout;
 
@@ -56,6 +61,21 @@ const index = () => {
       fetchAllOtherUsers();
     }
   }, [checkModalLayout, fetchGroupList, fetchAllOtherUsers]);
+	// Modal Handler for create or join group
+
+	// Decode JWT
+	useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('site'));
+		console.log(token)
+    // if (token) {
+    //   const decodedToken = decodeToken(token);
+    //   if (decodedToken) {
+    //     setUserDetails(decodedToken);
+    //   }
+    // }
+  }, []);
+
+	console.log(userDetails)
 
 
 	return (
