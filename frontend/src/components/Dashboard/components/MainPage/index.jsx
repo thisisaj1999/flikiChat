@@ -36,7 +36,7 @@ const index = () => {
 
 	useEffect(() => {
 		const handleNewMessage = (data) => {
-			setShowMessages((prevMessages) => [...prevMessages, ...data]);
+			setShowMessages((prevMessages) => [...data, ...prevMessages]);
 		};
 
 		socket.on("message:new", handleNewMessage);
@@ -132,7 +132,7 @@ const index = () => {
 					<Divider style={{ width: "100%", margin: "0px" }} />
 
 					<div className={styles.MainPageContent} ref={ref}>
-						{showMessages?.map(message => (
+						{showMessages?.slice()?.reverse()?.map(message => (
 								<div className={`${styles.ChatBubble} ${message?.sender_id === State.GlobalStore.userDetails?.user?.id ? styles.ChatBubbleRight : styles.ChatBubbleLeft}`}>
 								<div className={styles.ChatText}>
 									<p>{message?.message}</p>

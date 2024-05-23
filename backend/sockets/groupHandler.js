@@ -4,13 +4,15 @@ const db = require("../config/dbConnection");
 module.exports = (io, socket) => {
 
     const joinGroupRoom = async (payload) => {
-        const { userId, groupId } = payload;
+        const { userId, groupId, oldRoomId } = payload;
 
         try {
             if (groupId) {
                 await db.query("UPDATE group_memberships SET is_online = false WHERE user_id = $1 AND group_id != $2", [userId, groupId]);
                 await db.query("UPDATE group_memberships SET is_online = true WHERE user_id = $1 AND group_id = $2", [userId, groupId]);
-                socket.join(groupId);
+
+                socket.leave("room"+oldRoomId)
+                socket.join("room"+groupId);
 
                 // Fetch and send group details, messages, and members
                 const groupDetails = await getGroupDetails({ groupId, shouldEmit: false });
@@ -23,7 +25,7 @@ module.exports = (io, socket) => {
                     members: groupMembers
                 };
     
-                io.emit("group:join", payload);
+                io.to(socket?.id).emit("group:join", payload);
 
             } else {
                 await db.query("UPDATE group_memberships SET is_online = false WHERE user_id = $1", [userId]);

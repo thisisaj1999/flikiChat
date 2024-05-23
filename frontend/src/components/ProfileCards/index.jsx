@@ -32,14 +32,18 @@ const index = ({ avatarSrc, groupName, groupId }) => {
 
 	
 	const groupClickHandler = (e) => {
+		
 		e.preventDefault()
+		const oldRoomId = State.GlobalStore.userDetails?.joinedGroup;
+
 		Update.GlobalStore.userDetails({
 			...State.GlobalStore.userDetails,
 			joinedGroup: groupId
 		})
 		socket.emit("group:join", {
 			groupId: groupId,
-			userId: State.GlobalStore.userDetails?.user?.id
+			userId: State.GlobalStore.userDetails?.user?.id,
+			oldRoomId: oldRoomId
 		})
 	}
 	
