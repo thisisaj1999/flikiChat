@@ -4,10 +4,20 @@
 	gap: 0.5rem;
 	padding: 0.5rem 1rem;
 	height: 3.5rem;
-}
-
-.GroupDetails{
-	& p{
-		font-size: 14px;
+	cursor: pointer;
+	
+	& .GroupDetails{
+		& p{
+			font-size: 14px;
+			color: black;
+			transition: color .3s ease-out;
+		}
+	}
+	
+	&:hover .GroupDetails{
+		& p{
+			color: dodgerblue;
+			transition: color .3s ease-out;
+		}
 	}
 }

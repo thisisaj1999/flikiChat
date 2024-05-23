@@ -72,7 +72,10 @@ const index = () => {
     if (token) {
       const decodedToken = decodeToken(token);
       if (decodedToken) {
-        Update.GlobalStore.userDetails(decodedToken);
+        Update.GlobalStore.userDetails({
+					user: decodedToken,
+					joinedGroup: null
+				});
       }
     }
   }, []);

@@ -43,7 +43,7 @@ const index = ({renderData}) => {
 		if (State.GlobalStore.checkModal?.layout === 0) {      
 			newValues = {
         joinned_group_ids: checkedItems,
-        userId: State.GlobalStore.userDetails?.id,
+        userId: State.GlobalStore.userDetails?.user?.id,
       };
 
       response = await joinGroups(newValues);
@@ -62,7 +62,7 @@ const index = ({renderData}) => {
       
 			newValues = {
         group_name: values?.name,
-				owner_id: State.GlobalStore.userDetails?.id,
+				owner_id: State.GlobalStore.userDetails?.user?.id,
 				description: "",
 				profile_image_url: "",
         participant_ids: checkedItems

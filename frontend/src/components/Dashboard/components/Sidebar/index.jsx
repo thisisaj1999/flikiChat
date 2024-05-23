@@ -92,8 +92,8 @@ const index = () => {
 					<p className={styles.GroupsHeading}>Groups</p>
 
 					<div className={styles.ListGroupMain}>
-							{State.GlobalStore.userDetails?.groups?.map(group => (
-								<ProfileCards avatarSrc={group?.profile_image_url} groupName={group?.group_name}/>
+							{State.GlobalStore.userDetails?.user?.groups?.map(group => (
+								<ProfileCards avatarSrc={group?.profile_image_url} groupName={group?.group_name} groupId={group?.group_id}/>
 							))}
 					</div>
 				</div>

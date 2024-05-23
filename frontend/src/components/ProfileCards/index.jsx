@@ -1,11 +1,33 @@
 import React from "react";
 import { Avatar, Divider } from "antd";
 import styles from "./ProfileCards.module.scss";
+import { useGlobalStore } from "../../utils/store";
 
-const index = ({ avatarSrc, groupName }) => {
+const index = ({ avatarSrc, groupName, groupId }) => {
+
+	const Update = {
+		GlobalStore: {
+			userDetails: useGlobalStore((State) => State.setUserDetails),
+		},
+	};
+
+	const State = {
+		GlobalStore: {
+			userDetails: useGlobalStore((State) => State.userDetails),
+		},
+	};
+
+	const groupClickHandler = (e) => {
+		e.preventDefault()
+		Update.GlobalStore.userDetails({
+			...State.GlobalStore.userDetails,
+			joinedGroup: groupId
+		})
+	}
+	
 	return (
 		<>
-			<div className={styles.ListGroup}>
+			<div className={styles.ListGroup} onClick={(e) => groupClickHandler(e)}>
 				{avatarSrc ? (
 					<Avatar
 						style={{
