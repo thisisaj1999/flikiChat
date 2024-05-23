@@ -65,18 +65,15 @@ const index = () => {
 
 	// Decode JWT
 	useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('site'));
+    const token = localStorage.getItem('site');
 		console.log(token)
-    // if (token) {
-    //   const decodedToken = decodeToken(token);
-    //   if (decodedToken) {
-    //     setUserDetails(decodedToken);
-    //   }
-    // }
+    if (token) {
+      const decodedToken = decodeToken(token);
+      if (decodedToken) {
+        setUserDetails(decodedToken);
+      }
+    }
   }, []);
-
-	console.log(userDetails)
-
 
 	return (
 		<div className={styles.DashboardBgMain}>

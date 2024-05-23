@@ -1,5 +1,4 @@
-import jwt_decode from 'jsonwebtoken';
-
+import { jwtDecode } from 'jwt-decode';
 
 const getRandomColor = () => {
 	const letters = "0123456789ABCDEF";
@@ -26,7 +25,7 @@ const isUserAuthenticated = () => {
 
 const decodeToken = (token) => {
   try {
-    const decodedToken = jwt_decode(token);
+    const decodedToken = jwtDecode(token);
     return decodedToken;
   } catch (error) {
     console.error('Invalid token:', error);
