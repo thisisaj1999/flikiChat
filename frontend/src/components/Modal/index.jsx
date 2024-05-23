@@ -135,15 +135,28 @@ const index = ({renderData}) => {
 								<div className={`${styles.roundCheckbox} ${checkedItems.includes(user?.id) ? styles.visible : ""}`}>
 									{checkedItems.includes(user?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
 								</div>
-									<Avatar
-										style={{
-											backgroundColor: "dodgerblue",
-											verticalAlign: "middle",
-										}}
-										size={70}
-										gap={0}
-										src={`${user?.profile_image_url}`}
-									/>
+									{user?.profile_image_url ? (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+											src={`${user?.profile_image_url}`}
+										/>
+									) : (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+										>
+											{user?.name ? user?.name[0].toUpperCase() : ''}
+										</Avatar>
+									)}
 									<p>{user?.name}</p>
 								</div>
 							))
@@ -174,15 +187,28 @@ const index = ({renderData}) => {
 								<div className={`${styles.roundCheckbox} ${checkedItems.includes(group?.id) ? styles.visible : ""}`}>
 									{checkedItems.includes(group?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
 								</div>
-									<Avatar
-										style={{
-											backgroundColor: "dodgerblue",
-											verticalAlign: "middle",
-										}}
-										size={70}
-										gap={0}
-										src={`${group?.profile_image_url}`}
-									/>
+									{group?.profile_image_url ? (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+											src={`${group?.profile_image_url}`}
+										/>
+									) : (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+										>
+											{group?.group_name ? group?.group_name[0].toUpperCase() : ""}
+										</Avatar>
+									)}
 									<p>{group?.group_name}</p>
 								</div>
 							))
