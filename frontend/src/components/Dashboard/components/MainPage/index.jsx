@@ -118,7 +118,7 @@ const index = () => {
 								size="medium"
 								gap={0}
 							>
-								{groupDetails?.profile_image_url[0].toUpperCase()}
+								{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
 							</Avatar>
 						)}
 						<div className={styles.GroupDetails}>
