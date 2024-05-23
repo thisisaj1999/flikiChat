@@ -34,3 +34,5 @@ extension/build.crx
 *.zip
 frontend/.next/*
 frontend/node_modules/*
+
+test/*
