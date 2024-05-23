@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 
-import { Button, Avatar, Dropdown } from 'antd';
+import { Button, Avatar, Dropdown, Tooltip } from 'antd';
 
 import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
 import ProfileCards from '../../../ProfileCards'
 import { useGlobalStore } from "../../../../utils/store";
-import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 import { useAuth } from "../../../../utils/AuthProvider";
@@ -66,17 +65,20 @@ const index = () => {
 		<div className={styles.DashboardSidebar} style={State.GlobalStore.isGroupInfoOpen ? {width: '18rem'} : {width: '15rem'}}>
 			<div className={styles.SidebarGroups}>
 				<div className={styles.SidebarHeader}>
-					<Avatar
-						style={{
-							backgroundColor: "green",
-							verticalAlign: "middle",
-						}}
-						size="medium"
-						gap={0}
-					>
-						Y
-					</Avatar>
-
+					<Tooltip title={State.GlobalStore.userDetails?.user?.name}>
+						<Avatar
+							style={{
+								backgroundColor: "green",
+								verticalAlign: "middle",
+								cursor: 'pointer'
+							}}
+							size="medium"
+							gap={0}
+						>
+							{State.GlobalStore.userDetails?.user?.name.charAt(0).toUpperCase()}
+						</Avatar>
+					</Tooltip>
+					
 					<Dropdown
 						menu={{
 							items: MenuItems,
