@@ -32,7 +32,7 @@ const convertToReadableTime = (isoString) => {
   return formatter.format(date);
 };
 
-function convertToReadableDays(dateString) {
+const convertToReadableDays = (dateString) => {
   const date = new Date(dateString);
   const now = new Date();
   const diffTime = now - date;

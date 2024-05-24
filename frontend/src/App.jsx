@@ -1,6 +1,7 @@
 import React from "react";
 import style from './App.module.scss'
 
+// Components
 import Dashboard from './components/Dashboard'
 import Register from './components/Register'
 import Login from './components/Login'

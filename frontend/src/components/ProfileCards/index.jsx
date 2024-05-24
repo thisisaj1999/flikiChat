@@ -1,9 +1,18 @@
 import React, { useEffect } from "react";
-import { Avatar, Divider } from "antd";
 import styles from "./ProfileCards.module.scss";
+
+// ANTD
+import { Avatar, Divider } from "antd";
+
+// Hooks
 import { useGlobalStore } from "../../utils/store";
+
+// Other utilities funtcions
+import { convertToReadableTime,truncateWords } from "../../utils/other";
+
+// Socket
 import socket from "../../utils/socket";
-import { convertToReadableTime } from "../../utils/other";
+
 
 const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, groupId }) => {
 
@@ -75,8 +84,8 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 
 				<div className={styles.GroupDetails}>
 					<div className={styles.GroupNameAndNotification}>
-						<span>{groupName}</span>
-						{from === "sideBar" && <span>1</span>}
+						<span>{truncateWords(groupName, 12)}</span>
+						{/* {from === "sideBar" && <span>1</span>} */}
 					</div>
 					{lastMessage && from === "sideBar" && <div className={styles.GroupDetailsSubHeading}>
 						<span>{lastMessage}</span>
