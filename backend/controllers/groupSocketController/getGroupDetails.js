@@ -6,15 +6,16 @@ const getGroupDetails = async ({ io, groupId, shouldEmit = true }) => {
       if (groupDetailsData?.rows.length > 0) {
           const group = groupDetailsData.rows[0];
           if (shouldEmit) {
+            console.log(`🟢 [SOCKET] : getGroupDetails: Group details fetched successfully`);
             io.emit("group:resDetail", { 
                 status: 200,
-                message: 'group details fetched successfully',
+                message: 'Group details fetched successfully',
                 data: group
             });
           }
           return group;
       } else {
-          console.log(`🔴 getGroupDetails: No group found ${groupId}`);
+          console.log(`🔴 [SOCKET] :  getGroupDetails: No group found ${groupId}`);
           if (shouldEmit) {
             io.emit("group:resDetail", { 
                 status: 404,
@@ -25,7 +26,7 @@ const getGroupDetails = async ({ io, groupId, shouldEmit = true }) => {
         return null;
       }
   } catch (error) {
-      console.error(`🔴 getGroupDetails: Error fetching group for group ${groupId}`, error);
+      console.error(`🔴 [SOCKET] : getGroupDetails: Error fetching group for group ${groupId}`, error);
       if (shouldEmit) {
         io.emit('group:resDetail', {
             status: 500,

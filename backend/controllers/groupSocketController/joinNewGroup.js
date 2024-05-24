@@ -40,7 +40,7 @@ const joinNewGroup = async (io, payload) => {
 
 		const getGroupsAndMessages = await db.query(user_groups_data, [userId]);
 
-		console.log(`🟢  joinNewGroup : User added to the groups`);
+		console.log(`🟢 [SOCKET] : joinNewGroup : User added to the groups`);
     io.emit("group:resJoinNewGroup", { 
       status: 200,
 			message: `User added to the groups`,
@@ -48,7 +48,7 @@ const joinNewGroup = async (io, payload) => {
     });
 			
 	} catch (error) {
-		console.log(`🔴  joinNewGroup : Unable to join a new group`, error);
+		console.log(`🔴 [SOCKET] : joinNewGroup : Unable to join a new group`, error);
     io.emit("group:resJoinNewGroup", { 
 			status: 404,
 			message: `Unable to join a new group`,

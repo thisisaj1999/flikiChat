@@ -8,7 +8,7 @@ const loginUser = async (req, res) => {
 	const userData = req.body;
 
 	if (Object.keys(userData).length === 0) {
-		console.log(`🔴  loginUser : User's data is required for login`);
+		console.log(`🔴 [POST] : loginUser : User's data is required for login`);
 		res.json({
 			status: 404,
 			message: `User's data is required for login`,
@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
 			const passwordValid = await bcrypt.compare(password, isUserExists.rows[0]?.password);
 
 			if (!passwordValid) {
-				console.log(`🔴  loginUser : Incorrect email and password combination`);
+				console.log(`🔴 [POST] : loginUser : Incorrect email and password combination`);
 				res.json({
 					status: 404,
 					message: `Incorrect email and password combination`,
@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
 
 
 
-			console.log(`🟢  loginUser : User data fetched successfully`);
+			console.log(`🟢 [POST] : loginUser : User data fetched successfully`);
 			res.json({
 					status: 200,
 					message: `User data fetched successfully`,
@@ -74,14 +74,14 @@ const loginUser = async (req, res) => {
 			});
 			
 		} else {
-			console.log(`🔴  loginUser : The user doesn't exixts`);
+			console.log(`🔴 [POST] : loginUser : The user doesn't exixts`);
 			res.json({
 				status: 404,
 				message: `The user doesn't exists`,
 			});
 		}
 	} catch (error) {
-		console.log(`🔴  loginUser : Unable to login the user`, error);
+		console.log(`🔴 [POST] : loginUser : Unable to login the user`, error);
 		res.json({
 			status: 404,
 			message: `Unable to login the user`,

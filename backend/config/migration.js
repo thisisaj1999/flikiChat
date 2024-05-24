@@ -17,6 +17,7 @@ const create_group_memberships_table = fs.readFileSync("./sql/create/create_grou
 
 
 dbMigration.connect((err) => {
+	console.log("\n==== DB Logs ====")
 	if (err) {
 		console.log(`🔴  Connection Failed : \n`, err);
 		return;
@@ -91,7 +92,7 @@ dbMigration.connect((err) => {
 				return;
 			}
 			console.log(`🟢  Group Memberships Table Created`);
+			console.log("==== DB Logs ====\n")
 		});
-
 	});
 });

@@ -9,7 +9,7 @@ const registerUser = async (req, res) => {
 	const userData = req.body;
 
 	if (!userData || Object.keys(userData).length === 0) {
-		console.log(`🔴  registerUser : User's data is required for create`);
+		console.log(`🔴 [GET] : registerUser : User's data is required for create`);
 		res.json({
 			status: 404,
 			message: `User's data is required for create`,
@@ -64,7 +64,7 @@ const registerUser = async (req, res) => {
 					expiresIn: process.env.JWT_REFRESH_EXPIRATION
 				})
 	
-				console.log(`🟢  registerUser : Data inserted to users table`);
+				console.log(`🟢 [GET] : registerUser : Data inserted to users table`);
 				res.json({
 					status: 200,
 					message: `Data inserted to users table`,
@@ -74,14 +74,14 @@ const registerUser = async (req, res) => {
 				});
 			}
 		} else {
-			console.log(`🔴  registerUser : This email is already in use`);
+			console.log(`🔴 [GET] : registerUser : This email is already in use`);
 			res.json({
 				status: 404,
 				message: `This email is already in use`,
 			});
 		}
 	} catch (error) {
-		console.log(`🔴  registerUser : Unable to create a new user`, error);
+		console.log(`🔴 [GET] : registerUser : Unable to create a new user`, error);
 		res.json({
 			status: 404,
 			message: `Unable to create a new user`,

@@ -4,7 +4,7 @@ const getAllGroupsForUser = async (req, res) => {
 	const allGroupsData = await db.query("Select * from groups");
 
 	if (allGroupsData?.rows.length > 0) {
-		console.log(`🟢  getAllGroupsForUser : All groups data fetched successfully`);
+		console.log(`🟢 [GET] : getAllGroupsForUser : All groups data fetched successfully`);
 		res.json({
 			status: 200,
 			message: `All groups data fetched successfully`,
@@ -13,7 +13,7 @@ const getAllGroupsForUser = async (req, res) => {
 			},
 		});
 	} else {
-		console.log(`🔴  getAllGroupsForUser : No group found`);
+		console.log(`🔴 [GET] : getAllGroupsForUser : No group found`);
 		res.json({
 			status: 404,
 			message: `No group found`,

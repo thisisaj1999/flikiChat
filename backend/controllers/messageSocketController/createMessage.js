@@ -16,14 +16,14 @@ const createMessage = async (io, payload) => {
     try {
       const isMessagePushed = await db.query(insert_messages_table, messagePayload);
       if (isMessagePushed?.rows.length > 0) {
-        console.log(`🟢 message:created : New message inserted`);
+        console.log(`🟢 [SOCKET] : message:created : New message inserted`);
         io.to("room"+payload?.group_id).emit("message:new", isMessagePushed.rows);
       }
     } catch (error) {
-      console.error(`🔴 message:created : Error inserting message`, error);
+      console.error(`🔴 [SOCKET] : message:created : Error inserting message`, error);
     }
   } else {
-    console.log(`🔴 message:created : No message provided`);
+    console.log(`🔴 [SOCKET] : message:created : No message provided`);
   }
 };
 
