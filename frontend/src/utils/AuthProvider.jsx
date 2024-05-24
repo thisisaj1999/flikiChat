@@ -2,6 +2,7 @@ import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Endpoints } from "./requests";
 import axios from "axios";
+import { useGlobalStore } from "./store";
 
 const AuthContext = createContext();
 
@@ -9,6 +10,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
+
+  const Update = {
+    Global: {
+      userGroups: useGlobalStore((State) => State.setUserGroups)
+    }
+  }
 
   const userLogin = async (payload) => {
     try {
@@ -20,6 +27,8 @@ const AuthProvider = ({ children }) => {
           setUser(responseData?.data?.data);
           setToken(responseData?.data?.accessToken);
           localStorage.setItem("site", responseData?.data?.accessToken);
+          Update.Global.userGroups(responseData?.data?.groups)
+          localStorage.setItem("userGroups", JSON.stringify(responseData?.data?.groups));
           navigate("/dashboard");
         }
         return responseData;
@@ -42,6 +51,8 @@ const AuthProvider = ({ children }) => {
           setUser(responseData?.data?.data);
           setToken(responseData?.data?.accessToken);
           localStorage.setItem("site", responseData?.data?.accessToken);
+          Update.Global.userGroups(responseData?.data?.groups)
+          localStorage.setItem("userGroups", JSON.stringify(responseData?.data?.groups));
           navigate("/dashboard");
         }
         return responseData;

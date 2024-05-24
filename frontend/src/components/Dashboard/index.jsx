@@ -38,11 +38,15 @@ const index = () => {
 		GlobalStore: {
 			userDetails: useGlobalStore((State) => State.setUserDetails),
 			checkModal: useGlobalStore((State) => State.setCheckModal),
+			userGroups: useGlobalStore((State) => State.setUserGroups),
 		},
 	};  
 
 	useEffect(() => {
 		socket.connect()
+
+		const storedUserGroups = JSON.parse(localStorage.getItem("userGroups"));
+		Update.GlobalStore.userGroups(storedUserGroups)
 	},[])
 	
 	// Modal Handler for create or join group

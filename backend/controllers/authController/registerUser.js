@@ -56,8 +56,7 @@ const registerUser = async (req, res) => {
 				const token = jwt.sign({
 					id: userId,
 					name: name,
-					email: email,
-					groups: getGroupsAndMessages.rows
+					email: email
 				}, 
 				process.env.JWT_SECRET, 
 				{
@@ -70,6 +69,7 @@ const registerUser = async (req, res) => {
 					message: `Data inserted to users table`,
 					data: {
 						accessToken: token,
+						groups: getGroupsAndMessages.rows
 					}
 				});
 			}

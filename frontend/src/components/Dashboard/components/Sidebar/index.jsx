@@ -25,7 +25,8 @@ const index = () => {
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
-			userDetails: useGlobalStore((State) => State.userDetails)
+			userDetails: useGlobalStore((State) => State.userDetails),
+			userGroups: useGlobalStore((State) => State.userGroups)
 		},
 	};
 
@@ -101,7 +102,7 @@ const index = () => {
 					<p className={styles.GroupsHeading}>Groups</p>
 
 					<div className={styles.ListGroupMain}>
-							{State.GlobalStore.userDetails?.user?.groups?.map(group => (
+							{State.GlobalStore.userGroups?.map(group => (
 								<ProfileCards key={group?.group_id} from="sideBar" lastMessage={group?.last_message} lastMessageTime={group?.last_message_time} avatarSrc={group?.profile_image_url} groupName={group?.group_name} groupId={group?.group_id}/>
 							))}
 					</div>

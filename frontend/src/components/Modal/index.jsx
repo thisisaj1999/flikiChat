@@ -29,7 +29,8 @@ const index = ({renderData}) => {
 	const Update = {
 		GlobalStore: {
 			checkModal: useGlobalStore((State) => State.setCheckModal),
-			userDetails: useGlobalStore((State) => State.setUserDetails)
+			userDetails: useGlobalStore((State) => State.setUserDetails),
+			userGroups: useGlobalStore((State) => State.setUserGroups)
 		},
 	};
 	
@@ -59,15 +60,10 @@ const index = ({renderData}) => {
 						isOpen: false,
 						layout: null,
 					});
-					
-					Update.GlobalStore.userDetails({
-						...State.GlobalStore.userDetails,
-						user: {
-							...State.GlobalStore.userDetails?.user,
-							groups: [...res?.data]
-						}	
-					});
-					
+
+					Update.GlobalStore.userGroups([...res?.data])
+					localStorage.setItem("userGroups", JSON.stringify(res?.data));
+
 					setCheckedItems([])
 					form.resetFields()
 				}
@@ -90,13 +86,8 @@ const index = ({renderData}) => {
 						layout: null,
 					});
 
-					Update.GlobalStore.userDetails({
-						...State.GlobalStore.userDetails,
-						user: {
-							...State.GlobalStore.userDetails?.user,
-							groups: [...res?.data]
-						}	
-					});
+					Update.GlobalStore.userGroups([...res?.data])
+					localStorage.setItem("userGroups", JSON.stringify(res?.data));
 
 					setCheckedItems([])
 					form.resetFields()

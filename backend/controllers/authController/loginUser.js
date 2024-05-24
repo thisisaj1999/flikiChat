@@ -54,8 +54,7 @@ const loginUser = async (req, res) => {
 			const token = jwt.sign({
 				id: fetchedUserData.id,
 				name: fetchedUserData.name,
-				email: fetchedUserData.email,
-				groups: getGroupsAndMessages.rows
+				email: fetchedUserData.email
 			}, 
 			process.env.JWT_SECRET, 
 			{
@@ -69,7 +68,8 @@ const loginUser = async (req, res) => {
 					status: 200,
 					message: `User data fetched successfully`,
 					data: {
-							accessToken: token
+							accessToken: token,
+							groups: getGroupsAndMessages.rows
 					},
 			});
 			
