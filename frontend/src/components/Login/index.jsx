@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 import { useAuth } from "../../utils/AuthProvider";
 
+// Other utilities funtcions
 import { getRandomColor } from "../../utils/other";
 
 
@@ -18,9 +19,12 @@ const index = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate()
 
-	const [isHovered, setIsHovered] = useState(false);
 	const [loadingResponse, setLoadingResponse] = useState(false);
 
+	// Layout or UI
+	const [isHovered, setIsHovered] = useState(false);
+
+	// UI
 	const hoveredStyle = {
 		color: getRandomColor(),
 		transition: "all 0.3s ease-in-out",
@@ -35,6 +39,7 @@ const index = () => {
 		navigate("/register");	
 	}
 
+	//  Button Handlers
 	const onFinish = async (values) => {
 		setLoadingResponse(true)
     const response = await Auth.userLogin(values)

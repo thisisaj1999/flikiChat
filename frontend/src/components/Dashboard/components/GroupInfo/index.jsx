@@ -1,12 +1,23 @@
 import React from "react";
 import styles from "./GroupInfo.module.scss";
+
+// ANTD
 import { Button, Avatar, Dropdown } from "antd";
-import { useGlobalStore } from "../../../../utils/store";
+
+// Components
 import ProfileCards from '../../../ProfileCards'
+
+// Hooks
+import { useGlobalStore } from "../../../../utils/store";
+
+// SVG or Images
 import Close from "../../../../assets/close.svg";
-import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../../../utils/other";
 import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
+
+// Other utilities funtcions
+import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../../../utils/other";
+
 
 const index = () => {
 	const State = {
@@ -29,6 +40,7 @@ const index = () => {
 	const groupMembersDetails = State.GlobalStore.joinedGroupDetails?.members
 	const userDetails = State.GlobalStore.userDetails?.user
 
+	// Layout or UI
 	const GroupInfoOpenStyles = {
 		width: "18rem",
 	};

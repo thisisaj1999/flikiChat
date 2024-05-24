@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MainPage.module.scss";
 
+// ANTD
 import { Divider, Input, Button, Avatar, Form } from "antd";
 const { TextArea } = Input;
 
+// Hooks
+import { useChatScroll } from '../../../../hooks/useChatScroll'
+import { useGlobalStore } from "../../../../utils/store";
+
+// SVG or Images
 import Send from "../../../../assets/send.svg";
 import BackgrounImg from '../../../../assets/background.png'
 import EncryptionLock from '../../../../assets/encryption.svg'
-import { useGlobalStore } from "../../../../utils/store";
-import socket from "../../../../utils/socket";
+
+// Other utilities funtcions
 import { convertToReadableTime, formatUserNames } from "../../../../utils/other";
-import { useChatScroll } from '../../../../hooks/useChatScroll'
+
+// Socket
+import socket from "../../../../utils/socket";
+
 
 const index = () => {
 	const [form] = Form.useForm();
@@ -51,9 +60,9 @@ const index = () => {
 		setShowMessages(State.GlobalStore.joinedGroupDetails?.messages)
 	},[State.GlobalStore.joinedGroupDetails])
 
-
 	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true);
 
+	// Layout or UI
 	const GroupOpenInfoWidth = {
 		width: "calc(100% - 30rem)",
 		transition: "width 0.3s ease-in-out",
@@ -64,6 +73,7 @@ const index = () => {
 		transition: "width 0.3s ease-out",
 	};
 
+	//  Button Handlers
 	const onFinish = (values) => {
 		socket.emit('message:create', {
 			message: values.message,

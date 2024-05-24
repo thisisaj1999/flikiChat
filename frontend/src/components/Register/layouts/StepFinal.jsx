@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../Register.module.scss";
+
+// ANTD
 import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
 
 // SVG or Images

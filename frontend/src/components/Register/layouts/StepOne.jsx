@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../Register.module.scss";
+
+// ANTD
 import { Button, Form, Input, Tooltip, Typography } from "antd";
 
 // Hooks
@@ -14,7 +16,6 @@ const index = ({ form, handleNext }) => {
 	const navigateToLogin = () => {
 		navigate("/login");
 	};
-
 
 	// Next Btn Handler
 	const onFinish = (values) => {

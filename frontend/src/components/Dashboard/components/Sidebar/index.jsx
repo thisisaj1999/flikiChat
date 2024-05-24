@@ -1,16 +1,22 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 
+// ANTD
 import { Button, Avatar, Dropdown, Tooltip } from 'antd';
 
+// SVG or Images
 import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
 import ProfileCards from '../../../ProfileCards'
+
+// Hooks
 import { useGlobalStore } from "../../../../utils/store";
 import { useSnackbar } from "notistack";
-
 import { useAuth } from "../../../../utils/AuthProvider";
+
+// Socket
 import socket from "../../../../utils/socket";
+
 
 const index = () => {
 	const auth = useAuth()
@@ -29,7 +35,7 @@ const index = () => {
 		},
 	};
 
-
+	// Dropdown menu items
 	const MenuItems = [
 		{
 			label: <>Sign Out</>,
@@ -43,9 +49,9 @@ const index = () => {
 		},
 	];
 
+	//  Button Handlers
 	const handleJoinGroups = (e) => {
 		e.preventDefault()
-		console.log('handleJoinGroups')
 		Update.GlobalStore.checkModal({
 			isOpen: true,
 			layout: 0
@@ -54,7 +60,6 @@ const index = () => {
 	
 	const handleCreateGroup = (e) => {
 		e.preventDefault()
-		console.log('handleCreateGroup')
 		Update.GlobalStore.checkModal({
 			isOpen: true,
 			layout: 1

@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Avatar, Modal } from "antd";
 import styles from "./Modal.module.scss";
 
+// ANTD
+import { Button, Form, Input, Avatar, Modal } from "antd";
+
+// Hooks
 import { useGlobalStore } from "../../utils/store";
 
+// SVG or Images
 import UnTick from '../../assets/untick.svg'
 import Tick from '../../assets/tick.svg'
 
+// Socket
 import socket from '../../utils/socket'
 
+// Other utilities funtcions
 import { truncateWords } from "../../utils/other"
+
 
 const index = ({renderData}) => {
 	const State = {
