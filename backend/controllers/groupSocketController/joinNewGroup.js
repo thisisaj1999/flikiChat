@@ -3,6 +3,7 @@ const db = require("../../config/dbConnection");
 const path = require("path");
 
 const joinNewGroup = async (io, payload) => {
+	console.log(payload)
 
 	if (Object.keys(payload).length === 0) {
 		console.log(`🔴  joinNewGroup : Group Id's data is required for joining`);
@@ -28,7 +29,7 @@ const joinNewGroup = async (io, payload) => {
 		for (const groupId of joinned_group_ids) {
 			await db.query(
 				insert_group_memberships_table,
-				[groupId, userId, false]
+				[groupId, userId, false, false]
 			);
 		}
 

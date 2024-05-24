@@ -4,10 +4,12 @@ import styles from "./Modal.module.scss";
 
 import { useGlobalStore } from "../../utils/store";
 
-import { joinGroups, createGroup } from "../../utils/requests";
-
 import UnTick from '../../assets/untick.svg'
 import Tick from '../../assets/tick.svg'
+
+import socket from '../../utils/socket'
+
+import { truncateWords } from "../../utils/other"
 
 const index = ({renderData}) => {
 	const State = {
@@ -37,47 +39,43 @@ const index = ({renderData}) => {
 	};
 
 	const onFinish = async (values) => {
-		let newValues;
-    let response;
+		if (State.GlobalStore.checkModal?.layout === 0) {      	
+			const joinned_group_ids = checkedItems;
+			const userId = State.GlobalStore.userDetails?.user?.id;
 		
-		if (State.GlobalStore.checkModal?.layout === 0) {      
-			newValues = {
-        joinned_group_ids: checkedItems,
-        userId: State.GlobalStore.userDetails?.user?.id,
-      };
-
-      response = await joinGroups(newValues);
-
-			if(response?.status === 200) {
-				Update.GlobalStore.checkModal({
-					isOpen: false,
-					layout: null,
-				});
-				setCheckedItems([])
-				form.resetFields()
-			}
-
-
+			socket.emit('group:reqJoinNewGroup', {joinned_group_ids, userId});
+		
+			socket.on('group:resJoinNewGroup', (res) => {
+				if(res?.status === 200) {
+					Update.GlobalStore.checkModal({
+						isOpen: false,
+						layout: null,
+					});
+					setCheckedItems([])
+					form.resetFields()
+				}
+			});
     } else if (State.GlobalStore.checkModal?.layout === 1) {
-      
-			newValues = {
-        group_name: values?.name,
-				owner_id: State.GlobalStore.userDetails?.user?.id,
-				description: "",
-				profile_image_url: "",
-        participant_ids: checkedItems
-      };
-
-      response = await createGroup(newValues);
 			
-			if(response?.status === 200) {
-				Update.GlobalStore.checkModal({
-					isOpen: false,
-					layout: null,
-				});
-				setCheckedItems([])
-				form.resetFields()
-			}
+			const group_name = values?.name;
+			const owner_id = State.GlobalStore.userDetails?.user?.id;
+			const description = "";
+			const profile_image_url = "";
+			const participant_ids = checkedItems;
+      
+
+			socket.emit('group:reqCreateNewGroup', {group_name, owner_id, description, profile_image_url, participant_ids});
+			
+			socket.on('group:resCreateNewGroup', (res) => {
+				if(res?.status === 200) {
+					Update.GlobalStore.checkModal({
+						isOpen: false,
+						layout: null,
+					});
+					setCheckedItems([])
+					form.resetFields()
+				}
+			});
     } 
 	};
 
@@ -108,19 +106,19 @@ const index = ({renderData}) => {
 			{State.GlobalStore.checkModal?.layout === 1 ? (
 				<Form layout="vertical" form={form} onFinish={onFinish} autoComplete="on">
 					<Form.Item
-						label="Name"
+						label="Group Name"
 						name="name"
 						rules={[
 							{
 								required: true,
-								message: "Please input your Name",
+								message: "Please input Group Name",
 							},
 						]}
 					>
 						<Input
 							style={{ height: "40px" }}
 							type="text"
-							placeholder="John Doe"
+							placeholder="Mighty Raju Fan Page"
 						/>
 					</Form.Item>
 
@@ -157,7 +155,7 @@ const index = ({renderData}) => {
 											{user?.name ? user?.name[0].toUpperCase() : ''}
 										</Avatar>
 									)}
-									<p>{user?.name}</p>
+									<p>{user?.name && truncateWords(user?.name, 12)}</p>
 								</div>
 							))
 						}
@@ -209,7 +207,7 @@ const index = ({renderData}) => {
 											{group?.group_name ? group?.group_name[0].toUpperCase() : ""}
 										</Avatar>
 									)}
-									<p>{group?.group_name}</p>
+									<p>{group?.group_name && truncateWords(group?.group_name)}</p>
 								</div>
 							))
 						}

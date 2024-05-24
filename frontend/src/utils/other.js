@@ -74,4 +74,12 @@ const getUserDisplayName = (user, group) => {
   return user?.id === group?.owner_id ? "you" : user?.name;
 }
 
-export { getRandomColor, decodeToken, convertToReadableTime, convertToReadableDays, formatUserNames, getUserDisplayName };
+const truncateWords = (text, maxWords = 8) => {
+  if(text.length > maxWords){
+    return text.slice(0, maxWords) + ' . . .'
+  }else{
+    return text
+  }
+};
+
+export { getRandomColor, decodeToken, convertToReadableTime, convertToReadableDays, formatUserNames, getUserDisplayName, truncateWords };
