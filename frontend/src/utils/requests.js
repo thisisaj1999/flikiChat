@@ -43,40 +43,6 @@ const getUsersOrExceptId = async (userId) => {
 	}
 };
 
-const updateUserProfile = async (payload) => {
-	console.log("updateUserProfile", payload);
-	try {
-		if (payload) {
-			const response = await axios.patch(
-				`${Endpoints.UPDATE_USER}/${payload?.id}`,
-				payload
-			);
-			const data = response.data;
-			return data;
-		}
-	} catch (error) {
-		console.log("updateUserProfile: Failed to update the user profile:", error.message);
-		return;
-	}
-};
-
-const deleteUserAccount = async (payload) => {
-	console.log("deleteUserAccount", payload);
-	try {
-		if (payload) {
-			const response = await axios.patch(
-				`${Endpoints.DELETE_USER}/${payload?.id}`,
-				payload
-			);
-			const data = response.data;
-			return data;
-		}
-	} catch (error) {
-		console.log("deleteUserAccount: Failed to delete the user account:", error.message);
-		return;
-	}
-};
-
 const getAvailableGroupsToJoin = async (userId) => {
 	try {
 		if (userId) {
@@ -127,9 +93,7 @@ const createGroup = async (payload) => {
 
 export { 
 	getGroups, 
-	getUsersOrExceptId, 
-	updateUserProfile, 
-	deleteUserAccount, 
+	getUsersOrExceptId,
 	getAvailableGroupsToJoin, 
 	joinGroups, 
 	createGroup};
