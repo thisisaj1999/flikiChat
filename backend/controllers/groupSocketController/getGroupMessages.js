@@ -1,13 +1,19 @@
+const fs = require("fs");
 const db = require("../../config/dbConnection");
+const path = require("path");
 
 const getGroupMessages = async ({ socket, io, groupId, offset = 0, limit = 100, shouldEmit = true }) => {
+
+  const group_messages = fs
+  .readFileSync(
+    path.join(__dirname, "../../sql/get/group_messages.sql")
+  )
+  .toString();
+
   try {
-      const messagesQuery = `
-      SELECT * FROM messages
-      WHERE group_id = $1
-      ORDER BY created_at DESC
-      LIMIT $2 OFFSET $3`;
-      const messagesData = await db.query(messagesQuery, [groupId, limit, offset]);
+
+      const messagesData = await db.query(group_messages, [groupId, limit, offset]);
+      
       const messages = messagesData.rows;
       if (shouldEmit) {
           console.log(`🟢 [SOCKET] : ${socket?.id} : getGroupMessages : Group messages fetched successfully`);

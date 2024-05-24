@@ -148,7 +148,10 @@ const index = () => {
 								<div className={styles.ChatText}>
 									<p>{message?.message}</p>
 								</div>
-								<p className={styles.TimeStamp}>{convertToReadableTime(message?.created_at)}</p>
+								<div className={styles.MessageDetails}>
+									<p>{message?.sender_id === State.GlobalStore.userDetails?.user?.id ? "You" : message?.sender_name}</p>
+									<p>{convertToReadableTime(message?.created_at)}</p>
+								</div>
 							</div>
 							)
 						)}
