@@ -30,10 +30,11 @@ yarn-error.log*
 # vercel
 .vercel
 backend/node_modules/*
+backend/package-lock.json
 extension/build.crx
 *.zip
 frontend/.next/*
 frontend/node_modules/*
 frontend/dist/*
-
+frontend/package-lock.json
 test/*
