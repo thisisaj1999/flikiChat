@@ -1,10 +1,10 @@
 const db = require("../../config/dbConnection");
 
-const getAllGroups = async (req, res) => {
+const getAllGroupsForUser = async (req, res) => {
 	const allGroupsData = await db.query("Select * from groups");
 
 	if (allGroupsData?.rows.length > 0) {
-		console.log(`🟢  getAllGroups : All groups data fetched successfully`);
+		console.log(`🟢  getAllGroupsForUser : All groups data fetched successfully`);
 		res.json({
 			status: 200,
 			message: `All groups data fetched successfully`,
@@ -13,7 +13,7 @@ const getAllGroups = async (req, res) => {
 			},
 		});
 	} else {
-		console.log(`🔴  getAllGroups : No group found`);
+		console.log(`🔴  getAllGroupsForUser : No group found`);
 		res.json({
 			status: 404,
 			message: `No group found`,
@@ -21,4 +21,4 @@ const getAllGroups = async (req, res) => {
 	}
 };
 
-module.exports = getAllGroups;
+module.exports = getAllGroupsForUser;

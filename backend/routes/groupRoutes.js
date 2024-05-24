@@ -6,12 +6,10 @@ const {
 	deleteGroup,
 	editGroup,
 	getGroupById,
-	getAllGroups,
 	getAvailableGroups,
 	joinGroup
 } = require("../controllers/groupController");
 
-router.get("/group-list", getAllGroups);
 
 router.get("/group/:id", getGroupById);
 
