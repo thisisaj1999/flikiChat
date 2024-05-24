@@ -1,11 +1,11 @@
 const db = require("../../config/dbConnection");
 
-const getGroupsUserNotIn = async (io, payload) => {
+const getGroupsUserNotIn = async (socket, io, payload) => {
 
   const userId = payload?.userId
 
   if (!userId) {
-    console.log(`🔴 [SOCKET] : getGroupsUserNotIn : User ID is missing`);
+    console.log(`🔴 [SOCKET] : ${socket?.id} : getGroupsUserNotIn : User ID is missing`);
     return io.emit('group:resAvailableGroups', {
       status: 400,
       message: 'User ID is missing',
@@ -21,7 +21,7 @@ const getGroupsUserNotIn = async (io, payload) => {
     `, [userId]);
 
     if (allGroupsData.rows.length > 0) {
-      console.log(`🟢 [SOCKET] : getGroupsUserNotIn : Groups where user is not present fetched successfully`);
+      console.log(`🟢 [SOCKET] : ${socket?.id} : getGroupsUserNotIn : Groups where user is not present fetched successfully`);
       io.emit('group:resAvailableGroups', {
         status: 200,
         message: 'Groups where user is not present fetched successfully',
@@ -30,14 +30,14 @@ const getGroupsUserNotIn = async (io, payload) => {
         },
       });
     } else {
-      console.log(`🔴 [SOCKET] : getGroupsUserNotIn : No groups found where user is not present`);
+      console.log(`🔴 [SOCKET] : ${socket?.id} : getGroupsUserNotIn : No groups found where user is not present`);
       io.emit('group:resAvailableGroups', {
         status: 404,
         message: 'No groups found where user is not present',
       });
     }
   } catch (error) {
-    console.log(`🔴 [SOCKET] : getGroupsUserNotIn : Error fetching groups - ${error.message}`);
+    console.log(`🔴 [SOCKET] : ${socket?.id} : getGroupsUserNotIn : Error fetching groups - ${error.message}`);
     io.emit('group:resAvailableGroups', {
       status: 500,
       message: 'Internal server error',

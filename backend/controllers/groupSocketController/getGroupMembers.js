@@ -1,6 +1,6 @@
 const db = require("../../config/dbConnection");
 
-const getGroupMembers = async ({ io, groupId, shouldEmit = true }) => {
+const getGroupMembers = async ({ socket, io, groupId, shouldEmit = true }) => {
   try {
       const membersQuery = `
       SELECT users.* FROM users
@@ -9,7 +9,7 @@ const getGroupMembers = async ({ io, groupId, shouldEmit = true }) => {
       const membersData = await db.query(membersQuery, [groupId]);
       const members = membersData.rows;
       if (shouldEmit) {
-        console.log(`🟢 [SOCKET] : getGroupDetails: Group members fetched successfully`);
+        console.log(`🟢 [SOCKET] : ${socket?.id} : getGroupMembers : Group members fetched successfully`);
         io.emit("group:resMembers", { 
             status: 200,
             message: 'Group members fetched successfully',
@@ -18,7 +18,7 @@ const getGroupMembers = async ({ io, groupId, shouldEmit = true }) => {
       }
       return members;
   } catch (error) {
-      console.error(`🔴 [SOCKET] : getGroupMembers: Error fetching members for group ${groupId}`, error);
+      console.error(`🔴 [SOCKET] : ${socket?.id} : getGroupMembers : Error fetching members for group ${groupId}`, error);
       if (shouldEmit) {
         io.emit('group:resMembers', {
             status: 500,

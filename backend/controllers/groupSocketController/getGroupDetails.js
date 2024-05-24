@@ -1,12 +1,12 @@
 const db = require("../../config/dbConnection");
 
-const getGroupDetails = async ({ io, groupId, shouldEmit = true }) => {
+const getGroupDetails = async ({ socket, io, groupId, shouldEmit = true }) => {
   try {
       const groupDetailsData = await db.query("SELECT * FROM groups WHERE id = $1", [groupId]);
       if (groupDetailsData?.rows.length > 0) {
           const group = groupDetailsData.rows[0];
           if (shouldEmit) {
-            console.log(`🟢 [SOCKET] : getGroupDetails: Group details fetched successfully`);
+            console.log(`🟢 [SOCKET] : ${socket?.id} : getGroupDetails : Group details fetched successfully`);
             io.emit("group:resDetail", { 
                 status: 200,
                 message: 'Group details fetched successfully',
@@ -15,7 +15,7 @@ const getGroupDetails = async ({ io, groupId, shouldEmit = true }) => {
           }
           return group;
       } else {
-          console.log(`🔴 [SOCKET] :  getGroupDetails: No group found ${groupId}`);
+          console.log(`🔴 [SOCKET] : ${socket?.id} : getGroupDetails : No group found ${groupId}`);
           if (shouldEmit) {
             io.emit("group:resDetail", { 
                 status: 404,
@@ -26,7 +26,7 @@ const getGroupDetails = async ({ io, groupId, shouldEmit = true }) => {
         return null;
       }
   } catch (error) {
-      console.error(`🔴 [SOCKET] : getGroupDetails: Error fetching group for group ${groupId}`, error);
+      console.error(`🔴 [SOCKET] : ${socket?.id} : getGroupDetails : Error fetching group for group ${groupId}`, error);
       if (shouldEmit) {
         io.emit('group:resDetail', {
             status: 500,

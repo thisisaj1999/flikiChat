@@ -6,7 +6,8 @@ const insert_messages_table = fs
   .readFileSync(path.join(__dirname, "../../sql/insert/insert_messages_table.sql"))
   .toString();
 
-const createMessage = async (io, payload) => {
+const createMessage = async (socket, io, payload) => {
+
   if (payload?.message) {
     const messagePayload = [
       payload.message,
@@ -16,14 +17,14 @@ const createMessage = async (io, payload) => {
     try {
       const isMessagePushed = await db.query(insert_messages_table, messagePayload);
       if (isMessagePushed?.rows.length > 0) {
-        console.log(`🟢 [SOCKET] : message:created : New message inserted`);
+        console.log(`🟢 [SOCKET] : ${socket?.id} : message:created : New message inserted`);
         io.to("room"+payload?.group_id).emit("message:new", isMessagePushed.rows);
       }
     } catch (error) {
-      console.error(`🔴 [SOCKET] : message:created : Error inserting message`, error);
+      console.error(`🔴 [SOCKET] : ${socket?.id} : message:created : Error inserting message`, error);
     }
   } else {
-    console.log(`🔴 [SOCKET] : message:created : No message provided`);
+    console.log(`🔴 [SOCKET] : ${socket?.id} : message:created : No message provided`);
   }
 };
 

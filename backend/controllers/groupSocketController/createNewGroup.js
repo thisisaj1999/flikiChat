@@ -2,10 +2,10 @@ const fs = require("fs");
 const db = require("../../config/dbConnection");
 const path = require("path");
 
-const createNewGroup = async (io, payload) => {
+const createNewGroup = async (socket, io, payload) => {
 
 	if (Object.keys(payload).length === 0) {
-		console.log(`🔴 [SOCKET] : createNewGroup : Group's data is required for create`);
+		console.log(`🔴 [SOCKET] : ${socket?.id} : createNewGroup : Group's data is required for create`);
     io.emit("group:resCreateNewGroup", { 
       status: 404,
       message: `Group's data is required for create`
@@ -52,7 +52,7 @@ const createNewGroup = async (io, payload) => {
 
 			const getGroupsAndMessages = await db.query(user_groups_data, [owner_id]);
 
-			console.log(`🟢 [SOCKET] : createNewGroup : Data inserted to groups table`);
+			console.log(`🟢 [SOCKET] : ${socket?.id} : createNewGroup : Data inserted to groups table`);
       io.emit("group:resCreateNewGroup", { 
         status: 200,
 				message: `Data inserted to groups table`,
@@ -61,7 +61,7 @@ const createNewGroup = async (io, payload) => {
 		}
 
 	} catch (error) {
-		console.log(`🔴 [SOCKET] : createNewGroup : Unable to create a new group`, error);
+		console.log(`🔴 [SOCKET] : ${socket?.id} : createNewGroup : Unable to create a new group`, error);
     io.emit("group:resCreateNewGroup", { 
       status: 404,
 			message: `Unable to create a new group`,

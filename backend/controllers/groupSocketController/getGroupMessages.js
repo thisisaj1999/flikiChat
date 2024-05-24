@@ -1,6 +1,6 @@
 const db = require("../../config/dbConnection");
 
-const getGroupMessages = async ({ io, groupId, offset = 0, limit = 100, shouldEmit = true }) => {
+const getGroupMessages = async ({ socket, io, groupId, offset = 0, limit = 100, shouldEmit = true }) => {
   try {
       const messagesQuery = `
       SELECT * FROM messages
@@ -10,7 +10,7 @@ const getGroupMessages = async ({ io, groupId, offset = 0, limit = 100, shouldEm
       const messagesData = await db.query(messagesQuery, [groupId, limit, offset]);
       const messages = messagesData.rows;
       if (shouldEmit) {
-          console.log(`🟢 [SOCKET] : getGroupDetails: Group messages fetched successfully`);
+          console.log(`🟢 [SOCKET] : ${socket?.id} : getGroupMessages : Group messages fetched successfully`);
           io.emit("group:resMessages", {
             status: 200,
             message: 'Group messages fetched successfully',
@@ -19,7 +19,7 @@ const getGroupMessages = async ({ io, groupId, offset = 0, limit = 100, shouldEm
       }
       return messages;
   } catch (error) {
-      console.error(`🔴 [SOCKET] : getGroupMessages: Error fetching messages for group ${groupId}`, error);
+      console.error(`🔴 [SOCKET] : ${socket?.id} : getGroupMessages : Error fetching messages for group ${groupId}`, error);
       if (shouldEmit) {
         io.emit('group:resMessages', {
             status: 500,

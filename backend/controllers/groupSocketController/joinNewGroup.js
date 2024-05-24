@@ -2,10 +2,10 @@ const fs = require("fs");
 const db = require("../../config/dbConnection");
 const path = require("path");
 
-const joinNewGroup = async (io, payload) => {
+const joinNewGroup = async (socket, io, payload) => {
 
 	if (Object.keys(payload).length === 0) {
-		console.log(`🔴  joinNewGroup : Group Id's data is required for joining`);
+		console.log(`🔴 [SOCKET] : ${socket?.id} : joinNewGroup : Group Id's data is required for joining`);
     io.emit("group:resJoinNewGroup", { 
       status: 404,
       message: `Group Id's data is required for joining`,
@@ -40,7 +40,7 @@ const joinNewGroup = async (io, payload) => {
 
 		const getGroupsAndMessages = await db.query(user_groups_data, [userId]);
 
-		console.log(`🟢 [SOCKET] : joinNewGroup : User added to the groups`);
+		console.log(`🟢 [SOCKET] : ${socket?.id} : joinNewGroup : User added to the groups`);
     io.emit("group:resJoinNewGroup", { 
       status: 200,
 			message: `User added to the groups`,
@@ -48,7 +48,7 @@ const joinNewGroup = async (io, payload) => {
     });
 			
 	} catch (error) {
-		console.log(`🔴 [SOCKET] : joinNewGroup : Unable to join a new group`, error);
+		console.log(`🔴 [SOCKET] : ${socket?.id} : joinNewGroup : Unable to join a new group`, error);
     io.emit("group:resJoinNewGroup", { 
 			status: 404,
 			message: `Unable to join a new group`,
