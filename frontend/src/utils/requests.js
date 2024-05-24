@@ -1,5 +1,7 @@
 import axios from "axios";
-const BaseUrl = `http://localhost:8080/api/v1`;
+
+const isProduction = false;
+const BaseUrl = isProduction ? `https://flikichat.onrender.com/api/v1` : `http://localhost:8080/api/v1`;
 
 export const Endpoints = {
 	LOGIN_USER: `${BaseUrl}/login-user/`,
