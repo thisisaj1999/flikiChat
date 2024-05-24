@@ -25,6 +25,12 @@ const createNewGroup = async (io, payload) => {
 		)
 		.toString();
 
+	const user_groups_data = fs
+		.readFileSync(
+			path.join(__dirname, "../../sql/get/user_login_data.sql")
+		)
+		.toString();
+
 	try {
 
 		const groupValues = [group_name, owner_id, profile_image_url, description];
@@ -38,17 +44,19 @@ const createNewGroup = async (io, payload) => {
 			const groupId = create_newGroup.rows[0].id;
 
 			// Insert joined group IDs into the user_groups table
-			await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin, is_online) VALUES ($1, $2, $3, $4)`, [owner_id, groupId, true, false]);
+			await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin, is_online) VALUES ($1, $2, $3, $4)`, [owner_id, groupId, true, true]);
 
 			for (const userId of participant_ids) {
 				await db.query(`INSERT INTO group_memberships (user_id, group_id, is_admin, is_online) VALUES ($1, $2, $3, $4)`, [userId, groupId, false, false]);
 			}
 
+			const getGroupsAndMessages = await db.query(user_groups_data, [owner_id]);
+
 			console.log(`🟢  createNewGroup : Data inserted to groups table`);
       io.emit("group:resCreateNewGroup", { 
         status: 200,
 				message: `Data inserted to groups table`,
-				data: create_newGroup.rows[0]
+				data: getGroupsAndMessages.rows
       });
 		}
 

@@ -3,7 +3,6 @@ const db = require("../../config/dbConnection");
 const path = require("path");
 
 const joinNewGroup = async (io, payload) => {
-	console.log(payload)
 
 	if (Object.keys(payload).length === 0) {
 		console.log(`🔴  joinNewGroup : Group Id's data is required for joining`);
@@ -22,6 +21,12 @@ const joinNewGroup = async (io, payload) => {
 			path.join(__dirname, "../../sql/insert/insert_group_memberships_table.sql")
 		)
 		.toString();
+	
+	const user_groups_data = fs
+		.readFileSync(
+			path.join(__dirname, "../../sql/get/user_login_data.sql")
+		)
+		.toString();
 
 	try {
 
@@ -29,14 +34,17 @@ const joinNewGroup = async (io, payload) => {
 		for (const groupId of joinned_group_ids) {
 			await db.query(
 				insert_group_memberships_table,
-				[groupId, userId, false, false]
+				[groupId, userId, false, true]
 			);
 		}
+
+		const getGroupsAndMessages = await db.query(user_groups_data, [userId]);
 
 		console.log(`🟢  joinNewGroup : User added to the groups`);
     io.emit("group:resJoinNewGroup", { 
       status: 200,
 			message: `User added to the groups`,
+			data: getGroupsAndMessages.rows
     });
 			
 	} catch (error) {

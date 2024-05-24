@@ -22,6 +22,7 @@ const index = ({renderData}) => {
 	const Update = {
 		GlobalStore: {
 			checkModal: useGlobalStore((State) => State.setCheckModal),
+			userDetails: useGlobalStore((State) => State.setUserDetails)
 		},
 	};
 	
@@ -51,6 +52,15 @@ const index = ({renderData}) => {
 						isOpen: false,
 						layout: null,
 					});
+					
+					Update.GlobalStore.userDetails({
+						...State.GlobalStore.userDetails,
+						user: {
+							...State.GlobalStore.userDetails?.user,
+							groups: [...res?.data]
+						}	
+					});
+					
 					setCheckedItems([])
 					form.resetFields()
 				}
@@ -72,6 +82,15 @@ const index = ({renderData}) => {
 						isOpen: false,
 						layout: null,
 					});
+
+					Update.GlobalStore.userDetails({
+						...State.GlobalStore.userDetails,
+						user: {
+							...State.GlobalStore.userDetails?.user,
+							groups: [...res?.data]
+						}	
+					});
+
 					setCheckedItems([])
 					form.resetFields()
 				}

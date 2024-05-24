@@ -2,18 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import styles from "./Dashboard.module.scss";
 
 import { Divider } from "antd";
-
+import { useSnackbar } from "notistack";
 import Sidebar from "./components/Sidebar";
 import MainPage from "./components/MainPage";
 import GroupInfo from "./components/GroupInfo";
 import Modal from '../Modal'
 import { useGlobalStore } from "../../utils/store";
-import { getAvailableGroupsToJoin, getUsersOrExceptId } from "../../utils/requests";
 import { decodeToken } from "../../utils/other";
 import socket from "../../utils/socket";
 
 const index = () => {
-
+  
+	const { enqueueSnackbar } = useSnackbar();
 
 	const State = {
 		GlobalStore: {
@@ -26,6 +26,7 @@ const index = () => {
 	const Update = {
 		GlobalStore: {
 			userDetails: useGlobalStore((State) => State.setUserDetails),
+			checkModal: useGlobalStore((State) => State.setCheckModal),
 		},
 	};  
 
@@ -46,7 +47,15 @@ const index = () => {
 			});
 	
 			socket.on('group:resAvailableGroups', (res) => {
-				setRenderData(res.data?.availableGroups);
+				if(res?.status === 200){
+					setRenderData(res.data?.availableGroups);
+				}else if (res?.status === 404){
+					Update.GlobalStore.checkModal({
+						isOpen: false,
+						layout: null,
+					});
+					enqueueSnackbar(res?.message, { variant: 'info' });
+				}
 			});
 	
 			socket.on('error', (error) => {
@@ -66,8 +75,15 @@ const index = () => {
 			});
 	
 			socket.on('group:resAvailableUsers', (res) => {
-				console.log(res)
-				setRenderData(res.data?.availableUsers);
+				if(res?.status === 200){
+					setRenderData(res.data?.availableUsers);
+				}else if (res?.status === 404){
+					Update.GlobalStore.checkModal({
+						isOpen: false,
+						layout: null,
+					});
+					enqueueSnackbar(res?.message, { variant: 'info' });
+				}
 			});
 	
 			socket.on('error', (error) => {
@@ -121,7 +137,7 @@ const index = () => {
 					</>
 				)}
 			</div>
-			<Modal renderData={renderData}/>
+			{renderData.length > 0 && <Modal renderData={renderData}/>}
 		</div>
 	);
 };
