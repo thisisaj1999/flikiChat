@@ -7,6 +7,7 @@ const joinGroupRoom = require("./joinGroupRoom");
 const getAllUsersForCreateGroup = require("./getAllUsersForCreateGroup");
 const getAvailableGroups = require("./getAvailableGroups");
 const getUserGroups = require("./getUserGroups");
+const leaveGroup = require("./leaveGroup");
 
 module.exports = {
 	createNewGroup,
@@ -18,4 +19,5 @@ module.exports = {
 	getAllUsersForCreateGroup,
 	getAvailableGroups,
 	getUserGroups,
+	leaveGroup
 };

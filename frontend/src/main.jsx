@@ -8,7 +8,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 			<BrowserRouter>
 				<SnackbarProvider
-					maxSnack={1}
 					autoHideDuration={1500}
 					preventDuplicate
 					anchorOrigin={{

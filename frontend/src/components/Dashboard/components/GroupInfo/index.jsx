@@ -9,6 +9,7 @@ import ProfileCards from '../../../ProfileCards'
 
 // Hooks
 import { useGlobalStore } from "../../../../utils/store";
+import { useSnackbar } from "notistack";
 
 // SVG or Images
 import Close from "../../../../assets/close.svg";
@@ -18,6 +19,8 @@ import Logout from '../../../../assets/logout.svg'
 // Other utilities funtcions
 import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../../../utils/other";
 
+// Socket
+import socket from "../../../../utils/socket";
 
 const index = () => {
 	const State = {
@@ -30,11 +33,13 @@ const index = () => {
 
 	const Update = {
 		GlobalStore: {
-			isGroupInfoOpen: useGlobalStore(
-				(State) => State.setIsGroupInfoOpen
-			),
+			isGroupInfoOpen: useGlobalStore((State) => State.setIsGroupInfoOpen),
+			userGroups: useGlobalStore((State) => State.setUserGroups),
+			userDetails: useGlobalStore((State) => State.setUserDetails),
 		},
 	};
+
+	const { enqueueSnackbar } = useSnackbar();
 
 	const groupDetails = State.GlobalStore.joinedGroupDetails?.group
 	const groupMembersDetails = State.GlobalStore.joinedGroupDetails?.members
@@ -58,8 +63,28 @@ const index = () => {
 			key: '0',
 			icon: <img src={Logout} alt="Sign Out" width={20}/>,
 			onClick: () => {
-				console.log('Leave group')
-				// enqueueSnackbar("Sign Out successfull", { variant: 'info' });
+				const groupId = groupDetails?.id
+				const userId = userDetails?.id
+				const groupName = groupDetails?.group_name
+				socket.emit('group:reqLeaveGroup', {userId, groupId})
+
+				socket.on('group:resLeaveGroup', (res) => {
+					if(res?.status === 200) {
+						enqueueSnackbar(`You left ${groupName} group`, { variant: 'info', autoHideDuration: 2000 });
+						Update.GlobalStore.userGroups([...res?.data])
+						localStorage.setItem("userGroups", JSON.stringify(res?.data));
+						handleCloseGroupInfo()
+						Update.GlobalStore.userDetails({
+							user: {
+								...userDetails
+							},
+							joinedGroup: null
+						});
+					}else{
+						enqueueSnackbar(`Unable to leave ${groupName} group`, { variant: 'info', autoHideDuration: 2000 });
+					}
+				});
+
 			}
 		},
 	];

@@ -34,7 +34,7 @@ const joinNewGroup = async (socket, io, payload) => {
 		for (const groupId of joinned_group_ids) {
 			await db.query(
 				insert_group_memberships_table,
-				[groupId, userId, false, true]
+				[groupId, userId, false, false]
 			);
 		}
 
