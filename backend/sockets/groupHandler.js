@@ -4,7 +4,8 @@ const {
 	getGroupMembers,
 	getGroupMessages,
 	joinGroupRoom,
-	getAllUsersForCreateGroup
+	getAllUsersForCreateGroup,
+	getAvailableGroups
 } = require("../controllers/groupSocketController");
 
 module.exports = (io, socket) => {
@@ -14,4 +15,5 @@ module.exports = (io, socket) => {
 	socket.on("group:members", (payload) => getGroupMembers(io, payload));
 	socket.on("group:messages", (payload) => getGroupMessages(io, payload));
 	socket.on("group:reqAvailableUsers", (payload) => getAllUsersForCreateGroup(io, payload));
+	socket.on("group:reqAvailableGroups", (payload) => getAvailableGroups(io, payload));
 };

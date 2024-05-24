@@ -9,12 +9,22 @@ const getGroupMembers = async ({ io, groupId, shouldEmit = true }) => {
       const membersData = await db.query(membersQuery, [groupId]);
       const members = membersData.rows;
       if (shouldEmit) {
-          io.emit("group:members", { groupId, members });
+        io.emit("group:resMembers", { 
+            status: 200,
+            message: 'group members fetched successfully',
+            data: {groupId, members}
+        });
       }
       return members;
   } catch (error) {
       console.error(`🔴 getGroupMembers: Error fetching members for group ${groupId}`, error);
-      throw error;
+      if (shouldEmit) {
+        io.emit('group:resMembers', {
+            status: 500,
+            message: 'Internal server error',
+        });
+      }
+      
   }
 };
 
