@@ -40,6 +40,7 @@ const index = () => {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
 			userDetails: useGlobalStore((State) => State.userDetails),
 			joinedGroupDetails: useGlobalStore((State) => State.joinedGroupDetails),
+			userGroups: useGlobalStore((State) => State.userGroups),
 		},
 	};
 
@@ -87,7 +88,7 @@ const index = () => {
 	useEffect(() => {
 		setGroupDetails(null)
 		const groupId = State.GlobalStore.userDetails?.joinedGroup
-		const groupsArray = State.GlobalStore.userDetails?.user?.groups
+		const groupsArray = State.GlobalStore.userGroups
 		const groupDetail = groupsArray?.find(group => group?.group_id === groupId);
 		setGroupDetails(groupDetail)
 	},[State.GlobalStore.userDetails?.joinedGroup])
@@ -112,7 +113,7 @@ const index = () => {
 						{groupDetails?.profile_image_url ? (
 							<Avatar
 								style={{
-									backgroundColor: "dodgerblue",
+									backgroundColor: "black",
 									verticalAlign: "middle",
 								}}
 								size="medium"
@@ -122,7 +123,7 @@ const index = () => {
 						) : (
 							<Avatar
 								style={{
-									backgroundColor: "#f56a00",
+									backgroundColor: "black",
 									verticalAlign: "middle",
 								}}
 								size="medium"
