@@ -26,7 +26,7 @@ const getGroupsUserNotIn = async (io, payload) => {
         status: 200,
         message: 'Groups where user is not present fetched successfully',
         data: {
-          group_table: allGroupsData.rows,
+          availableGroups: allGroupsData.rows,
         },
       });
     } else {

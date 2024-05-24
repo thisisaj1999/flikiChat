@@ -9,14 +9,14 @@ const getAllUsersForCreateGroup = async (io, payload) => {
           io.emit("group:resAvailableUsers", { 
             status: 200,
             message: 'Users list fetched successfully',
-            data: availableUsers
+            data: {availableUsers}
           });
       } else {
           console.log(`🔴 getAllUsersForCreateGroup: No user found ${userId}`);
           io.emit('group:resAvailableUsers', { 
             status: 404,
             message: 'No user left to create group',
-            data: [] 
+            data: []
         });
       }
   } catch (error) {

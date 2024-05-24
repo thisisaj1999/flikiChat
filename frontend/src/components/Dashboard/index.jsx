@@ -38,38 +38,48 @@ const index = () => {
 	const [renderData, setRenderData] = useState([])
   const checkModalLayout = State?.GlobalStore?.checkModal?.layout;
 
-	const fetchGroupList = useCallback(async (userId) => {
-    try {
-      const response = await getAvailableGroupsToJoin(userId);
-      if (response?.status === 200) {
-        setRenderData(prevData => [...prevData, ...response.data.group_table]);
-      }
-    } catch (error) {
-      console.error('Failed to fetch group list:', error);
-    }
-  }, [setRenderData]);
-
-  const fetchAllOtherUsers = useCallback(async (userId) => {
-    try {
-			const response = await getUsersOrExceptId(userId);
-			if (response?.status === 200) {
-				setRenderData(prevData => [...prevData, ...response.data.user_table]);
-			}
-    } catch (error) {
-      console.error('Failed to fetch users:', error);
-    }
-  }, [setRenderData]);
-
-	useEffect(() => {
-		if (checkModalLayout === 0) {
+  useEffect(() => {
+		if(checkModalLayout === 0 && userId){
 			setRenderData([])
-			fetchGroupList(userId);
-		} else if (checkModalLayout === 1) {
-			setRenderData([])
-			fetchAllOtherUsers(userId);
+			socket.emit('group:reqAvailableGroups', {
+				userId: userId
+			});
+	
+			socket.on('group:resAvailableGroups', (res) => {
+				setRenderData(res.data?.availableGroups);
+			});
+	
+			socket.on('error', (error) => {
+				console.error('Error from server:', error.message);
+			});
+	
+			return () => {
+				socket.off('group:availableUsers');
+				socket.off('error');
+			};
 		}
-  }, [checkModalLayout, fetchGroupList, fetchAllOtherUsers]);
-	// Modal Handler for create or join group
+	
+		if(checkModalLayout === 1 && userId){
+			setRenderData([])
+			socket.emit('group:reqAvailableUsers', {
+				userId: userId
+			});
+	
+			socket.on('group:resAvailableUsers', (res) => {
+				console.log(res)
+				setRenderData(res.data?.availableUsers);
+			});
+	
+			socket.on('error', (error) => {
+				console.error('Error from server:', error.message);
+			});
+	
+			return () => {
+				socket.off('group:availableUsers');
+				socket.off('error');
+			};
+		}
+  }, [checkModalLayout, userId]);
 
 	// Decode JWT
 	useEffect(() => {
