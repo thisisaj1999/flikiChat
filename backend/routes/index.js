@@ -1,9 +1,5 @@
-const auth = require('./authRoutes');
-const user = require('./userRoutes');
-const group = require('./groupRoutes');
+const auth = require("./authRoutes");
 
 module.exports = {
-    auth,
-    user,
-    group
-}
+	auth,
+};

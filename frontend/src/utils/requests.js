@@ -2,6 +2,8 @@ import axios from "axios";
 const BaseUrl = `http://localhost:8080/api/v1`;
 
 export const Endpoints = {
+	LOGIN_USER: `${BaseUrl}/login-user/`,
+	REGISTER_USER: `${BaseUrl}/register-user/`,
 	GET_GROUPS: `${BaseUrl}/group-list/`,
 };
 
