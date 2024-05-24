@@ -118,6 +118,7 @@ const index = ({renderData}) => {
 		  onCancel={handleCancel}
   		footer={null}
 			width={800}
+			forceRender
 			className={styles.ModalMain}
 		>
 			{State.GlobalStore.checkModal?.layout === 1 ? (
