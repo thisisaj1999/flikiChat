@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const isProduction = true;
+const isProduction = false;
 const BaseUrl = isProduction ? `https://flikichat.onrender.com/api/v1` : `http://localhost:8080/api/v1`;
 
 export const Endpoints = {
