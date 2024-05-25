@@ -3,67 +3,46 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
+	
+	& .AuthFormMain {
+		width: 25rem;
+		padding: 2rem;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+			rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+		border-radius: 10px;
+		transition: width .3s ease-in-out;
 
-.AuthFormMain {
-	width: 25rem;
-	padding: 2rem;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-	border-radius: 10px;
-}
+		& .AuthFormHeading {
+			margin-bottom: 2rem;
+		}
 
-.AuthFormHeading {
-	margin-bottom: 2rem;
-}
+		& .AuthFormSubmitBtn {
+			margin-top: 0.5rem;
+			background-color: black;
+			height: 40px;
 
-.AuthFormSubmitBtn {
-	margin-top: 0.5rem;
-	background-color: black;
-	height: 40px;
-}
+			&:hover {
+				background-color: rgb(48, 48, 48) !important;
+			}
+		}
 
-.AuthFormSubmitBtn:hover {
-	background-color: rgb(48, 48, 48) !important;
-}
-
-.AuthFormChecksAndLinks {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-}
-
-.AuthFormCheckbox{
-	user-select: none;
-}
-
-.AuthFormLink,
-.AuthFormCheckbox {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.AuthFormLink {
-	margin-top: 0.5rem;
-	font-weight: 600;
-}
-
-@media screen and (max-width: 425px) {
-    .AuthFormHeading {
-        text-align: center;
-    }
-    
-	.AuthFormMain {
-		width: 90%;
+		& .AuthFormLink {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 0.5rem;
+			font-weight: 600;
+		}
 	}
+}
 
-	.AuthFormChecksAndLinks {
-		justify-content: flex-start;
-	}
 
-	.AuthFormLink,
-	.AuthFormCheckbox {
-		justify-content: flex-start;
+@media screen and (max-width: 430px) {
+	.AuthBgMain{
+		& .AuthFormMain {
+			box-shadow: none;
+			width: 100%;
+			transition: all .3s ease-in-out;
+		}
 	}
 }
