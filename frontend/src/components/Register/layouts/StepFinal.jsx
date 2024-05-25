@@ -10,13 +10,18 @@ import UnTick from '../../../assets/untick.svg'
 
 // Hooks
 import { useNavigate } from "react-router-dom";
+import useScreenWidth from "../../../hooks/useScreenWidth";
 
+// Other utilities funtcions
+import { truncateWords } from "../../../utils/other";
 
 const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => {
   const [checkedItems, setCheckedItems] = useState([]);
 
   // Navigation
   const navigate = useNavigate();
+  const width = useScreenWidth();
+
 
   const navigateToLogin = () => {
     navigate("/login");
@@ -61,7 +66,7 @@ const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => 
       <p className={styles.GroupListHeading}>Join Groups</p>
       
       <div className={styles.GroupsList}>
-        {groups.map( (group) => (
+        {groups.map((group) => (
             <div
               key={group?.id}
               className={`${styles.GroupInfoHeader} ${checkedItems.includes(group?.id) ? styles.checked : ""}`}
@@ -70,16 +75,29 @@ const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => 
               <div className={`${styles.roundCheckbox} ${checkedItems.includes(group?.id) ? styles.visible : ""}`}>
                 {checkedItems.includes(group?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
               </div>
-              <Avatar
-                style={{
-                  backgroundColor: "dodgerblue",
-                  verticalAlign: "middle",
-                }}
-                size={70}
-                gap={0}
-                src={`${group?.profile_image_url}`}
-              />
-              <p>{group?.group_name}</p>
+              {group?.profile_image_url ? (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+											src={`${group?.profile_image_url}`}
+										/>
+									) : (
+										<Avatar
+											style={{
+												backgroundColor: "black",
+												verticalAlign: "middle",
+											}}
+											size={70}
+											gap={0}
+										>
+											{group?.group_name ? group?.group_name[0].toUpperCase() : ''}
+										</Avatar>
+									)}
+              <p>{group?.group_name && (width > 430 ? truncateWords(group?.group_name) : truncateWords(group?.group_name, 25)) }</p>
             </div>
           )
         )}

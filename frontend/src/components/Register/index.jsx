@@ -72,6 +72,7 @@ const index = () => {
 		}else{
 			setLoadingResponse(false)
 			enqueueSnackbar(response?.message, { variant: 'info' });
+			setStep(1)
 		}
 	};
 
