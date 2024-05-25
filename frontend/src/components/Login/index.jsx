@@ -87,6 +87,7 @@ const index = () => {
 								message: "Please input your Email",
 							},
 						]}
+						className={styles.LoginEmail}
 					>
 						<Input
 							style={{ height: "40px" }}
@@ -104,6 +105,7 @@ const index = () => {
 								message: "Please input your password!",
 							},
 						]}
+						className={styles.LoginPassword}
 					>
 						<Input.Password style={{ height: "40px" }} />
 					</Form.Item>
