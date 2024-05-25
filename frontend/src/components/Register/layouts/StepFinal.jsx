@@ -59,6 +59,7 @@ const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => 
             message: "Please input your Name",
           },
         ]}
+        className={styles.LoginEmail}
       >
         <Input style={{ height: "40px" }} type="text" placeholder="John Doe" />
       </Form.Item>
