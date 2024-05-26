@@ -1,6 +1,6 @@
 .DashboardMainPage {
 	height: 100%;
-	& .MainPageHeading {
+	& .MainPageHeader {
 		padding: 0.5rem 1rem;
 		cursor: pointer;
 		height: 3.5rem;
@@ -8,22 +8,30 @@
 		align-items: center;
 		gap: 0.5rem;
 
-		& .GroupDetails {
-			& .GroupName {
-				color: black;
-				transition: color 0.3s ease-in;
-			}
-
-			&:hover .GroupName {
-				color: dodgerblue;
-				transition: color 0.3s ease-out;
-			}
-
-			& .GroupParticipantName {
-				font-size: 12px;
-				color: gray;
+		& .MainPageHeading{
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			cursor: pointer;
+			
+			& .GroupDetails {
+				& .GroupName {
+					color: black;
+					transition: color 0.3s ease-in;
+				}
+	
+				&:hover .GroupName {
+					color: dodgerblue;
+					transition: color 0.3s ease-out;
+				}
+	
+				& .GroupParticipantName {
+					font-size: 12px;
+					color: gray;
+				}
 			}
 		}
+
 	}
 
 	& .MainPageContent {

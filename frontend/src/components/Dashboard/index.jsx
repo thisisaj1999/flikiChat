@@ -20,10 +20,12 @@ import { decodeToken } from "../../utils/other";
 
 // Socket
 import socket from "../../utils/socket";
+import useScreenWidth from "../../hooks/useScreenWidth";
 
 
 const index = () => {
   
+	const width = useScreenWidth()
 	const { enqueueSnackbar } = useSnackbar();
 
 	const State = {
@@ -41,6 +43,8 @@ const index = () => {
 			userGroups: useGlobalStore((State) => State.setUserGroups),
 		},
 	};  
+
+	const isGroupSelected = State.GlobalStore.userDetails?.joinedGroup
 
 	useEffect(() => {
 		socket.connect()
@@ -129,19 +133,62 @@ const index = () => {
     }
   }, []);
 
+
+	const isGroupNotSelectedSideBar = () => {
+		if(width <= 650) {
+			return {
+				width: '100%',
+				opacity: '1',
+				display: 'block',
+				// transition: 'width .3s ease-in-out'
+			}
+		} 
+	}
+
+	const isGroupSelectedSideBar = () => {
+		if(width <= 650) {
+			return {
+				width: '0%',
+				opacity: '0',
+				display: 'none',
+			}
+		} 
+	}
+
+	const isGroupNotSelectedChat = () => {
+			if(width <= 650) {
+				return {
+					width: "0%",
+					opacity: '0',
+					display: 'none',
+				}
+			} 
+	}
+
+	const isGroupSelectedChat = () => {
+			if(width <= 650) {
+				return {
+					width: "100%",
+					opacity: '1',
+					display: 'block',
+				}
+			} 
+	}
+
+
 	return (
 		<div className={styles.DashboardBgMain}>
 			<div className={styles.DashboardChatSection}>
-				<div className={styles.DashboardSidebarMain}>
+				<div className={styles.DashboardSidebarMain} style={isGroupSelected === null ?  isGroupNotSelectedSideBar() : isGroupSelectedSideBar()}>
 					<Sidebar/>	
 				</div>
 
-				<Divider
+				{width > 650 && <Divider
 						type="vertical"
 						style={{ height: "100%", margin: "0px" }}
-				/>
+				/>}
 				
-				<div className={styles.DashboardChatMain}>
+				<div className={styles.DashboardChatMain} style={isGroupSelected === null ?  isGroupNotSelectedChat() : isGroupSelectedChat()}>
 					<MainPage/>
 
 					{State.GlobalStore.isGroupInfoOpen && (

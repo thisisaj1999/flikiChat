@@ -14,9 +14,10 @@ import useScreenWidth from '../../../../hooks/useScreenWidth'
 import Send from "../../../../assets/send.svg";
 import BackgrounImg from '../../../../assets/background.png'
 import EncryptionLock from '../../../../assets/encryption.svg'
+import BackBtn from '../../../../assets/arrow.svg'
 
 // Other utilities funtcions
-import { convertToReadableTime, formatUserNames } from "../../../../utils/other";
+import { convertToReadableTime, formatUserNames, truncateWords } from "../../../../utils/other";
 
 // Socket
 import socket from "../../../../utils/socket";
@@ -32,9 +33,8 @@ const index = () => {
 	
 	const Update = {
 		GlobalStore: {
-			isGroupInfoOpen: useGlobalStore(
-				(State) => State.setIsGroupInfoOpen
-			),
+			isGroupInfoOpen: useGlobalStore((State) => State.setIsGroupInfoOpen),
+			userDetails: useGlobalStore((State) => State.setUserDetails),
 		},
 	};
 
@@ -91,6 +91,17 @@ const index = () => {
 		}
 	};
 
+
+	const mobileTrunctateGroupNameValue = () => {
+		if(width >= 425){
+			return 42
+		}else if (width >= 375){
+			return 32
+		}else if (width >= 320){
+			return 28
+		}
+	}
+
 	const GroupCloseInfoWidth = {
 		width: "100%",
 		transition: "width 0.3s ease-in-out",
@@ -106,6 +117,13 @@ const index = () => {
 		});
 		form.resetFields();
 	};
+
+	const handleBackBtn = () => {
+		Update.GlobalStore.userDetails({
+			...State.GlobalStore.userDetails,
+			joinedGroup: null
+		})
+	}
 
 	useEffect(() => {
 		setGroupDetails(null)
@@ -128,37 +146,39 @@ const index = () => {
 			{
 				State.GlobalStore.userDetails?.joinedGroup ? 
 				<>
-					<div
-						className={styles.MainPageHeading}
-						onClick={handleOpenGroupInfo}
-					>
-						{groupDetails?.profile_image_url ? (
-							<Avatar
-								style={{
-									backgroundColor: "black",
-									verticalAlign: "middle",
-								}}
-								size="medium"
-								gap={0}
-								src={`${groupDetails?.profile_image_url}`}
-							/>
-						) : (
-							<Avatar
-								style={{
-									backgroundColor: "black",
-									verticalAlign: "middle",
-								}}
-								size="medium"
-								gap={0}
-							>
-								{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
-							</Avatar>
-						)}
-						<div className={styles.GroupDetails}>
-							<p className={styles.GroupName}>{groupDetails?.group_name}</p>
-							<p className={styles.GroupParticipantName}>
-								{formatUserNames(State.GlobalStore?.joinedGroupDetails?.members)}
-							</p>
+					<div className={styles.MainPageHeader}>
+						<Button type="text" shape="circle" onClick={(e) => handleBackBtn(e)}>
+							<img src={BackBtn} alt="Back Button" width={22}/>
+						</Button>
+						<div onClick={handleOpenGroupInfo} className={styles.MainPageHeading}>
+							{groupDetails?.profile_image_url ? (
+								<Avatar
+									style={{
+										backgroundColor: "black",
+										verticalAlign: "middle",
+									}}
+									size="medium"
+									gap={0}
+									src={`${groupDetails?.profile_image_url}`}
+								/>
+							) : (
+								<Avatar
+									style={{
+										backgroundColor: "black",
+										verticalAlign: "middle",
+									}}
+									size="medium"
+									gap={0}
+								>
+									{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
+								</Avatar>
+							)}
+							{groupDetails?.group_name && <div className={styles.GroupDetails}>
+								<p className={styles.GroupName}>{truncateWords(groupDetails?.group_name, mobileTrunctateGroupNameValue())}</p>
+								<p className={styles.GroupParticipantName}>
+									{formatUserNames(State.GlobalStore?.joinedGroupDetails?.members)}
+								</p>
+							</div>}
 						</div>
 					</div>
 

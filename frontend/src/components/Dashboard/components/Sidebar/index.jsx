@@ -8,18 +8,24 @@ import { Button, Avatar, Dropdown, Tooltip } from 'antd';
 import Menu from '../../../../assets/menu.svg'
 import Logout from '../../../../assets/logout.svg'
 import ProfileCards from '../../../ProfileCards'
+import CreateGroup from '../../../../assets/plus.svg'
+import JoinGroup from '../../../../assets/group.svg'
 
 // Hooks
 import { useGlobalStore } from "../../../../utils/store";
 import { useSnackbar } from "notistack";
 import { useAuth } from "../../../../utils/AuthProvider";
+import useScreenWidth from "../../../../hooks/useScreenWidth";
 
 // Socket
 import socket from "../../../../utils/socket";
 
 
 const index = () => {
+
 	const auth = useAuth()
+	const width = useScreenWidth()
+
 	const { enqueueSnackbar } = useSnackbar();
 
 	const State = {
@@ -50,17 +56,47 @@ const index = () => {
 		},
 	];
 
+	// Dropdown menu items
+	const MobileMenuItems = [
+		{
+			label: <>Create group</>,
+			key: '0',
+			icon: <img src={CreateGroup} alt="Create group" width={20}/>,
+			onClick: () => handleCreateGroup()
+		},
+		{
+			type: 'divider',
+		},
+		{
+			label: <>Join group</>,
+			key: '1',
+			icon: <img src={JoinGroup} alt="Join group" width={20}/>,
+			onClick: () => handleJoinGroups()
+		},
+		{
+			type: 'divider',
+		},
+		{
+			label: <>Sign Out</>,
+			key: '2',
+			icon: <img src={Logout} alt="Sign Out" width={20}/>,
+			onClick: () => {
+				auth.logOutUser()
+				enqueueSnackbar("Sign Out successfull", { variant: 'info' });
+				socket.disconnect()
+			}
+		},
+	];
+
 	//  Button Handlers
-	const handleJoinGroups = (e) => {
-		e.preventDefault()
+	const handleJoinGroups = () => {
 		Update.GlobalStore.checkModal({
 			isOpen: true,
 			layout: 0
 		})
 	}
 	
-	const handleCreateGroup = (e) => {
-		e.preventDefault()
+	const handleCreateGroup = () => {
 		Update.GlobalStore.checkModal({
 			isOpen: true,
 			layout: 1
@@ -85,6 +121,7 @@ const index = () => {
 						</Avatar>
 					</Tooltip>
 					
+					{width > 650 ? 
 					<Dropdown
 						menu={{
 							items: MenuItems,
@@ -96,6 +133,19 @@ const index = () => {
 							<img src={Menu} alt="" width={20} />
 						</Button>
 					</Dropdown>
+					:
+					<Dropdown
+						menu={{
+							items: MobileMenuItems,
+						}}
+						placement="bottomRight"
+						trigger={['click']}
+					>
+						<Button type="text" shape="circle">
+							<img src={Menu} alt="" width={20} />
+						</Button>
+					</Dropdown>	
+				}
 				</div>
 
 				<div className={styles.GroupScrollStyles}>
@@ -110,14 +160,14 @@ const index = () => {
 
 			</div>
 
-			<div className={styles.SidebarOptions}>
+			{width > 650 && <div className={styles.SidebarOptions}>
 				<Button type="primary" block onClick={(e) => handleCreateGroup(e)}>
 					Create
 				</Button>
 				<Button type="primary" block onClick={(e) => handleJoinGroups(e)}>
 					Join
 				</Button>
-			</div>
+			</div>}
 		</div>
 	);
 };

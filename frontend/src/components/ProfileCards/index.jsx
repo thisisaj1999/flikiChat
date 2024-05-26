@@ -6,15 +6,18 @@ import { Avatar, Divider } from "antd";
 
 // Hooks
 import { useGlobalStore } from "../../utils/store";
+import useScreenWidth from "../../hooks/useScreenWidth"
 
 // Other utilities funtcions
-import { convertToReadableTime,truncateWords } from "../../utils/other";
+import { convertToReadableTime, truncateWords } from "../../utils/other";
 
 // Socket
 import socket from "../../utils/socket";
 
 
 const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, groupId }) => {
+
+	const width = useScreenWidth()
 
 	const State = {
 		GlobalStore: {
@@ -56,6 +59,26 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 		})
 	}
 	
+	const mobileTrunctateMsgValue = () => {
+		if(width >= 425){
+			return 45
+		}else if (width >= 375){
+			return 35
+		}else if (width >= 320){
+			return 25
+		}
+	}
+
+	const mobileTrunctateGroupNameValue = () => {
+		if(width >= 425){
+			return 42
+		}else if (width >= 375){
+			return 32
+		}else if (width >= 320){
+			return 28
+		}
+	}
+
 	return (
 		<>
 			<div className={styles.ListGroup} onClick={(e) => from === "sideBar" && groupClickHandler(e)}>
@@ -84,11 +107,11 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 
 				<div className={styles.GroupDetails}>
 					<div className={styles.GroupNameAndNotification}>
-						<span>{truncateWords(groupName, 12)}</span>
+						<span>{truncateWords(groupName, mobileTrunctateGroupNameValue())}</span>
 						{/* {from === "sideBar" && <span>1</span>} */}
 					</div>
 					{lastMessage && from === "sideBar" && <div className={styles.GroupDetailsSubHeading}>
-						<span>{truncateWords(lastMessage, 10)}</span>
+						<span>{truncateWords(lastMessage, mobileTrunctateMsgValue())}</span>
 						<span>{convertToReadableTime(lastMessageTime)}</span>
 					</div>}
 				</div>
