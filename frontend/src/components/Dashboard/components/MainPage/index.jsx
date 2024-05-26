@@ -65,13 +65,13 @@ const index = () => {
 
 	// Layout or UI
 	const GroupOpenInfoWidth = {
-		width: "calc(100% - 30rem)",
-		transition: "width 0.3s ease-in-out",
+		width: "calc(100% - 16rem)",
+		transition: "width .2s ease-in-out",
 	};
 
 	const GroupCloseInfoWidth = {
-		width: "calc(100% - 15rem)",
-		transition: "width 0.3s ease-out",
+		width: "100%",
+		transition: "width 0.3s ease-in-out",
 	};
 
 	//  Button Handlers

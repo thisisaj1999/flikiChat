@@ -88,7 +88,7 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 						{/* {from === "sideBar" && <span>1</span>} */}
 					</div>
 					{lastMessage && from === "sideBar" && <div className={styles.GroupDetailsSubHeading}>
-						<span>{lastMessage}</span>
+						<span>{truncateWords(lastMessage, 15)}</span>
 						<span>{convertToReadableTime(lastMessageTime)}</span>
 					</div>}
 				</div>

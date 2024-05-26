@@ -6,9 +6,9 @@
 	flex-direction: column;
 }
 
-.DashboardChatMain {
-	width: calc(100% - 20vw);
-	height: calc(100% - 8vh);
+.DashboardChatSection {
+	width: 90%;
+	height: 90%;
 	overflow: hidden;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
 		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -16,3 +16,17 @@
 	display: flex;
 }
 
+.DashboardSidebarMain{
+	height: 100%;
+	width: 16rem;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.DashboardChatMain{
+	height: 100%;
+	width: calc(100% - 16rem);
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	display: flex;
+}

@@ -47,7 +47,7 @@ const index = () => {
 
 	// Layout or UI
 	const GroupInfoOpenStyles = {
-		width: "18rem",
+		width: "16rem",
 	};
 
 	const GroupInfoCloseStyles = {

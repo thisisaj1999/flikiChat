@@ -131,26 +131,30 @@ const index = () => {
 
 	return (
 		<div className={styles.DashboardBgMain}>
-			<div className={styles.DashboardChatMain}>
-				<Sidebar/>
+			<div className={styles.DashboardChatSection}>
+				<div className={styles.DashboardSidebarMain}>
+					<Sidebar/>	
+				</div>
 
 				<Divider
-					type="vertical"
-					style={{ height: "100%", margin: "0px" }}
+						type="vertical"
+						style={{ height: "100%", margin: "0px" }}
 				/>
+				
+				<div className={styles.DashboardChatMain}>
+					<MainPage/>
 
-				<MainPage/>
+					{State.GlobalStore.isGroupInfoOpen && (
+						<>
+							<Divider
+								type="vertical"
+								style={{ height: "100%", margin: "0px" }}
+							/>
 
-				{State.GlobalStore.isGroupInfoOpen && (
-					<>
-						<Divider
-							type="vertical"
-							style={{ height: "100%", margin: "0px" }}
-						/>
-
-						<GroupInfo />
-					</>
-				)}
+							<GroupInfo />
+						</>
+					)}
+				</div>
 			</div>
 			{renderData.length > 0 && <Modal renderData={renderData}/>}
 		</div>

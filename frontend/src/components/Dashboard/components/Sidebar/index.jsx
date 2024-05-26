@@ -68,7 +68,7 @@ const index = () => {
 	}
  
 	return (
-		<div className={styles.DashboardSidebar} style={State.GlobalStore.isGroupInfoOpen ? {width: '18rem'} : {width: '15rem'}}>
+		<div className={styles.DashboardSidebar}>
 			<div className={styles.SidebarGroups}>
 				<div className={styles.SidebarHeader}>
 					<Tooltip title={State.GlobalStore.userDetails?.user?.name}>
