@@ -73,16 +73,21 @@ const index = () => {
 				width: "calc(100% - 16rem)",
 				transition: "width .3s ease-in-out",
 			};
-		} else if (width >= 768) {
+		} else if (width >= 1024) {
+			return {
+				width: "calc(100% - 14rem)",
+				transition: "width .3s ease-in-out",
+			};
+		} else if(width >= 650){
 			return {
 				width: "calc(100% - 12rem)",
 				transition: "width .3s ease-in-out",
-			};
-		} else {
+			}
+		} else{
 			return {
 				width: "100%",
 				transition: "width .3s ease-in-out",
-			};
+			}
 		}
 	};
 

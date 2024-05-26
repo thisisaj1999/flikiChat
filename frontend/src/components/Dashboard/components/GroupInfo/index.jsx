@@ -54,7 +54,11 @@ const index = () => {
 			return {
 				width: "16rem",
 			}
-		} else if(width >= 768){
+		} else if(width >= 1024){
+			return {
+				width: "14rem",
+			}
+		} else if(width >= 650){
 			return {
 				width: "12rem",
 			}

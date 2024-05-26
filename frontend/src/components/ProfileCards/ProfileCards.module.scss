@@ -33,3 +33,13 @@
 		}
 	}
 }
+
+@media screen and (max-width: 768px) {
+	.ListGroup {		
+		& .GroupDetails{
+			& .GroupNameAndNotification{
+				font-size: 13px;
+			}
+		}
+	}
+}
