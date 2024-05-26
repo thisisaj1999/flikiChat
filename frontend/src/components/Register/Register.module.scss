@@ -145,7 +145,7 @@
 			}	
 
 			& :global(.ant-form-item){
-				margin-bottom: 2rem;
+				margin-bottom: 1.5rem;
 			}
 
 			& :global(.ant-col){
@@ -175,6 +175,7 @@
 			}
 
 			& .GroupsList{
+				max-height: 14rem;
 				display: flex;
 				flex-direction: column;
 				border: none;
@@ -192,7 +193,7 @@
 			}
 
 			& .AuthFormSubmitBtn {
-				height: 45px;
+				height: 45px !important;
 				width: 6rem;
 				font-size: 14px;
 				font-weight: 600;
