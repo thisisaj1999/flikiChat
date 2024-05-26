@@ -8,6 +8,7 @@ const { TextArea } = Input;
 // Hooks
 import { useChatScroll } from '../../../../hooks/useChatScroll'
 import { useGlobalStore } from "../../../../utils/store";
+import useScreenWidth from '../../../../hooks/useScreenWidth'
 
 // SVG or Images
 import Send from "../../../../assets/send.svg";
@@ -22,6 +23,8 @@ import socket from "../../../../utils/socket";
 
 
 const index = () => {
+
+	const width = useScreenWidth();
 	const [form] = Form.useForm();
 	const [showMessages, setShowMessages] = useState([]);
 	const [groupDetails, setGroupDetails] = useState(null)
@@ -64,9 +67,23 @@ const index = () => {
 	const handleOpenGroupInfo = () => Update.GlobalStore.isGroupInfoOpen(true);
 
 	// Layout or UI
-	const GroupOpenInfoWidth = {
-		width: "calc(100% - 16rem)",
-		transition: "width .2s ease-in-out",
+	const GroupOpenInfoWidth = () => {
+		if (width >= 1440) {
+			return {
+				width: "calc(100% - 16rem)",
+				transition: "width .3s ease-in-out",
+			};
+		} else if (width >= 768) {
+			return {
+				width: "calc(100% - 12rem)",
+				transition: "width .3s ease-in-out",
+			};
+		} else {
+			return {
+				width: "100%",
+				transition: "width .3s ease-in-out",
+			};
+		}
 	};
 
 	const GroupCloseInfoWidth = {
@@ -99,7 +116,7 @@ const index = () => {
 			className={styles.DashboardMainPage}
 			style={
 				State.GlobalStore.isGroupInfoOpen
-					? GroupOpenInfoWidth
+					? GroupOpenInfoWidth()
 					: GroupCloseInfoWidth
 			}
 		>

@@ -10,6 +10,7 @@ import ProfileCards from '../../../ProfileCards'
 // Hooks
 import { useGlobalStore } from "../../../../utils/store";
 import { useSnackbar } from "notistack";
+import useScreenWidth from '../../../../hooks/useScreenWidth'
 
 // SVG or Images
 import Close from "../../../../assets/close.svg";
@@ -23,6 +24,7 @@ import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from
 import socket from "../../../../utils/socket";
 
 const index = () => {
+
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
@@ -40,14 +42,27 @@ const index = () => {
 	};
 
 	const { enqueueSnackbar } = useSnackbar();
+	const width = useScreenWidth()
 
 	const groupDetails = State.GlobalStore.joinedGroupDetails?.group
 	const groupMembersDetails = State.GlobalStore.joinedGroupDetails?.members
 	const userDetails = State.GlobalStore.userDetails?.user
 
 	// Layout or UI
-	const GroupInfoOpenStyles = {
-		width: "16rem",
+	const GroupInfoOpenStyles = () => {
+		if(width >= 1440) {
+			return {
+				width: "16rem",
+			}
+		} else if(width >= 768){
+			return {
+				width: "12rem",
+			}
+		} else{
+			return {
+				width: '0rem'
+			}
+		}
 	};
 
 	const GroupInfoCloseStyles = {
@@ -93,7 +108,7 @@ const index = () => {
 		<div
 			style={
 				State.GlobalStore.isGroupInfoOpen
-					? GroupInfoOpenStyles
+					? GroupInfoOpenStyles()
 					: GroupInfoCloseStyles
 			}
 			className={styles.DashboardGroupInfo}
