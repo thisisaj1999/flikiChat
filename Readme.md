@@ -43,7 +43,7 @@ You have two options to set up your database:
 ## Frontend Setup
 
 1. Navigate to the frontend directory.
-2. Update the backend server IP address in the `socket.js` file located in the `src/utils` directory.
+2. Update the backend server IP address in the `socket.js` and `requests.js` file located in the `src/utils` directory.
 3. Make a copy of the frontend directory if you want to run the client side on different ports.
 4. Change the port in `package.json`:
    ```json
