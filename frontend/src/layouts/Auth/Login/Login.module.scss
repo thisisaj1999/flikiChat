@@ -1,91 +1,61 @@
-.AuthBgMain{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-	
-	& .AuthFormMain {
-		width: 25rem;
-		padding: 2rem;
-		box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-			rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-		border-radius: 10px;
-		transition: width .3s ease-in-out;
+.AuthFormFields {
+	& .AuthFormSubmitBtn {
+		margin-top: 0.5rem;
+		background-color: black;
+		height: 40px;
 
-		& .AuthFormHeading {
-			margin-bottom: 2rem;
+		&:hover {
+			background-color: rgb(48, 48, 48) !important;
 		}
+	}
 
-		& .AuthFormSubmitBtn {
-			margin-top: 0.5rem;
-			background-color: black;
-			height: 40px;
-
-			&:hover {
-				background-color: rgb(48, 48, 48) !important;
-			}
-		}
-
-		& .AuthFormLink {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: 0.5rem;
-			font-weight: 600;
-		}
+	& .AuthFormLink {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 0.5rem;
+		font-weight: 600;
 	}
 }
 
 
 @media screen and (max-width: 430px) {
-	.AuthBgMain{
-		width: 100%;
-		& .AuthFormMain {
-			box-shadow: none;
-			width: 100%;
-			transition: width .3s ease-in-out;
+	.AuthFormFields {
+		& :global(.ant-form-item) {
+			margin-bottom: 1.5rem;
+		}
 
-			& .AuthFormHeading {
-				font-size: 2.5rem;
-			}	
-
-			& :global(.ant-form-item){
-				margin-bottom: 1.5rem;
-			}
-
-			& :global(.ant-col){
-				& label{
-					font-weight: 600;
-					font-size: 14px;
-				}
-			}
-
-			.LoginEmail{
-				& input{
-					font-size: 14px;
-					height: 45px !important;
-				}
-			}
-
-			.LoginPassword{
-				& :global(.ant-input-password){
-					font-size: 14px;
-					height: 45px !important;
-				}
-			}
-
-			& .AuthFormSubmitBtn {
-				height: 45px;
-				width: 6rem;
-				font-size: 14px;
+		& :global(.ant-col) {
+			& label {
 				font-weight: 600;
-			}
-
-			& .AuthFormLink {
 				font-size: 14px;
-				font-weight: 600;
 			}
-			
+		}
+
+		& .LoginEmail {
+			& input {
+				font-size: 14px;
+				height: 45px !important;
+			}
+		}
+
+		& .LoginPassword {
+			& :global(.ant-input-password) {
+				font-size: 14px;
+				height: 45px !important;
+			}
+		}
+
+		& .AuthFormSubmitBtn {
+			height: 45px;
+			width: 6rem;
+			font-size: 14px;
+			font-weight: 600;
+		}
+
+		& .AuthFormLink {
+			font-size: 14px;
+			font-weight: 600;
 		}
 	}
 }
