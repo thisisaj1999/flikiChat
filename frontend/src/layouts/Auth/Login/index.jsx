@@ -27,7 +27,7 @@ const loginFields = [
 
 const index = () => {
   return (
-    <WpHeader>
+    <WpHeader width={'25rem'} comp={"Login"}>
       <LoginForm fields={loginFields} />
     </WpHeader>
   );

@@ -7,6 +7,7 @@ import { Form } from "antd";
 // Components
 import StepOne from "./steps/StepOne";
 import StepFinal from "./steps/StepFinal";
+import WpHeader from "../../../components/Form/WpHeader";
 
 // Hooks
 import { useSnackbar } from "notistack";
@@ -102,22 +103,25 @@ const index = () => {
 	];
 
 	return (
-		<div className={styles.AuthBgMain}>
-			<div
-				className={styles.AuthFormMain}
-				onMouseEnter={() => setIsHovered(true)}
-				onMouseLeave={() => setIsHovered(false)}
-				style={step === 1 ? { width: "25rem" } : { width: "45rem" }}
-			>
-				<h1 className={styles.AuthFormHeading}>
-					Regis
-					<span style={isHovered ? hoveredStyle : notHoveredStyle}>
-						ter
-					</span>
-				</h1>
-				{steps[step - 1]}
-			</div>
-		</div>
+		<WpHeader width={step === 1 ? '25rem' : '45rem'} comp={"Register"}>
+			{steps[step - 1]}
+		</WpHeader>
+		// <div className={styles.AuthBgMain}>
+		// 	<div
+		// 		className={styles.AuthFormMain}
+		// 		onMouseEnter={() => setIsHovered(true)}
+		// 		onMouseLeave={() => setIsHovered(false)}
+		// 		style={step === 1 ? { width: "25rem" } : { width: "45rem" }}
+		// 	>
+		// 		<h1 className={styles.AuthFormHeading}>
+		// 			Regis
+		// 			<span style={isHovered ? hoveredStyle : notHoveredStyle}>
+		// 				ter
+		// 			</span>
+		// 		</h1>
+				
+		// 	</div>
+		// </div>
 	);
 };
 
