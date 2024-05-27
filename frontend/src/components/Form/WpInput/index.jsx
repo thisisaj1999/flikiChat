@@ -27,6 +27,12 @@ const WpInput = ({ fieldType, label, name, rules, placeholder, className }) => {
           placeholder={placeholder}
         />
       )}
+      {fieldType === 'confirmPassword' && (
+        <Input.Password
+          style={{ height: '40px' }}
+          placeholder={placeholder}
+        />
+      )}
     </Form.Item>
   );
 };
