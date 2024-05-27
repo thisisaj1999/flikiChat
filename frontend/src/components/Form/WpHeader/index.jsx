@@ -4,7 +4,7 @@ import styles from './WpHeader.module.scss';
 // Other Functions
 import { getRandomColor } from '../../../utils/other';
 
-const WpHeader = ({ children }) => {
+const WpHeader = ({ children, width, comp }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const hoveredStyle = {
@@ -23,11 +23,12 @@ const WpHeader = ({ children }) => {
         className={styles.AuthFormMain}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        style={{width: width}}
       >
         <h1 className={styles.AuthFormHeading}>
-          Log{' '}
+          {comp === "Register" ? "Regis" : "Log"}
           <span style={isHovered ? hoveredStyle : notHoveredStyle}>
-            In
+            {comp === "Register" ? "ter" : "In"}
           </span>
         </h1>
         {children}
