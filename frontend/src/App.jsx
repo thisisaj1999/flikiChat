@@ -2,9 +2,9 @@ import React from "react";
 import style from './App.module.scss'
 
 // Components
-import Dashboard from './components/Dashboard'
-import Register from './components/Register'
-import Login from './components/Login'
+import Dashboard from './layouts/Dashboard'
+import Register from './layouts/Auth/Register'
+import Login from './layouts/Auth/Login'
 
 // Routes
 import AuthProvider from "./utils/AuthProvider";

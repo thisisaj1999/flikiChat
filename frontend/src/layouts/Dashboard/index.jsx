@@ -5,10 +5,10 @@ import styles from "./Dashboard.module.scss";
 import { Divider } from "antd";
 
 // Components
-import Sidebar from "./components/Sidebar";
-import MainPage from "./components/MainPage";
-import GroupInfo from "./components/GroupInfo";
-import Modal from '../Modal'
+import Sidebar from "../../components/Sidebar";
+import MainPage from "../../components/MainPage";
+import GroupInfo from "../../components/GroupInfo";
+import Modal from '../../components/Modal'
 
 // Hooks
 import { useSnackbar } from "notistack";

@@ -5,18 +5,18 @@ import styles from "./Register.module.scss";
 import { Form } from "antd";
 
 // Components
-import StepOne from "./layouts/StepOne";
-import StepFinal from "./layouts/StepFinal";
+import StepOne from "./steps/StepOne";
+import StepFinal from "./steps/StepFinal";
 
 // Hooks
 import { useSnackbar } from "notistack";
-import { useAuth } from "../../utils/AuthProvider";
+import { useAuth } from "../../../utils/AuthProvider";
 
 // API functions
-import { getGroups } from "../../utils/requests"
+import { getGroups } from "../../../utils/requests"
 
 // Other utilities funtcions
-import { getRandomColor } from "../../utils/other";
+import { getRandomColor } from "../../../utils/other";
 
 
 const index = () => {

@@ -5,21 +5,23 @@ import Avvvatars from "avvvatars-react";
 // ANTD
 import { Button, Dropdown, Tooltip } from 'antd';
 
+// Components
+import ProfileCards from '../ProfileCards'
+
 // SVG or Images
-import Menu from '../../../../assets/menu.svg'
-import Logout from '../../../../assets/logout.svg'
-import ProfileCards from '../../../ProfileCards'
-import CreateGroup from '../../../../assets/plus.svg'
-import JoinGroup from '../../../../assets/group.svg'
+import Menu from '../../assets/menu.svg'
+import Logout from '../../assets/logout.svg'
+import CreateGroup from '../../assets/plus.svg'
+import JoinGroup from '../../assets/group.svg'
 
 // Hooks
-import { useGlobalStore } from "../../../../utils/store";
+import { useGlobalStore } from "../../utils/store";
 import { useSnackbar } from "notistack";
-import { useAuth } from "../../../../utils/AuthProvider";
-import useScreenWidth from "../../../../hooks/useScreenWidth";
+import { useAuth } from "../../utils/AuthProvider";
+import useScreenWidth from "../../hooks/useScreenWidth";
 
 // Socket
-import socket from "../../../../utils/socket";
+import socket from "../../utils/socket";
 
 
 const index = () => {

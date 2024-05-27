@@ -7,21 +7,21 @@ import { Divider, Input, Button, Avatar, Form } from "antd";
 const { TextArea } = Input;
 
 // Hooks
-import { useChatScroll } from '../../../../hooks/useChatScroll'
-import { useGlobalStore } from "../../../../utils/store";
-import useScreenWidth from '../../../../hooks/useScreenWidth'
+import { useChatScroll } from '../../hooks/useChatScroll'
+import { useGlobalStore } from "../../utils/store";
+import useScreenWidth from '../../hooks/useScreenWidth'
 
 // SVG or Images
-import Send from "../../../../assets/send.svg";
-import BackgrounImg from '../../../../assets/background.png'
-import EncryptionLock from '../../../../assets/encryption.svg'
-import BackBtn from '../../../../assets/arrow.svg'
+import Send from "../../assets/send.svg";
+import BackgrounImg from '../../assets/background.png'
+import EncryptionLock from '../../assets/encryption.svg'
+import BackBtn from '../../assets/arrow.svg'
 
 // Other utilities funtcions
-import { convertToReadableTime, formatUserNames, truncateWords } from "../../../../utils/other";
+import { convertToReadableTime, formatUserNames, truncateWords } from "../../utils/other";
 
 // Socket
-import socket from "../../../../utils/socket";
+import socket from "../../utils/socket";
 
 
 const index = () => {

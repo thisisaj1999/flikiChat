@@ -6,15 +6,15 @@ import Avvvatars from "avvvatars-react";
 import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
 
 // SVG or Images
-import Tick from '../../../assets/tick.svg'
-import UnTick from '../../../assets/untick.svg'
+import Tick from '../../../../assets/tick.svg'
+import UnTick from '../../../../assets/untick.svg'
 
 // Hooks
 import { useNavigate } from "react-router-dom";
-import useScreenWidth from "../../../hooks/useScreenWidth";
+import useScreenWidth from "../../../../hooks/useScreenWidth";
 
 // Other utilities funtcions
-import { truncateWords } from "../../../utils/other";
+import { truncateWords } from "../../../../utils/other";
 
 const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => {
   const [checkedItems, setCheckedItems] = useState([]);

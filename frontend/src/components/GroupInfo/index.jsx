@@ -6,23 +6,23 @@ import Avvvatars from 'avvvatars-react'
 import { Button, Avatar, Dropdown } from "antd";
 
 // Components
-import ProfileCards from '../../../ProfileCards'
+import ProfileCards from '../ProfileCards'
 
 // Hooks
-import { useGlobalStore } from "../../../../utils/store";
+import { useGlobalStore } from "../../utils/store";
 import { useSnackbar } from "notistack";
-import useScreenWidth from '../../../../hooks/useScreenWidth'
+import useScreenWidth from '../../hooks/useScreenWidth'
 
 // SVG or Images
-import Close from "../../../../assets/close.svg";
-import Menu from '../../../../assets/menu.svg'
-import Logout from '../../../../assets/logout.svg'
+import Close from "../../assets/close.svg";
+import Menu from '../../assets/menu.svg'
+import Logout from '../../assets/logout.svg'
 
 // Other utilities funtcions
-import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../../../utils/other";
+import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../utils/other";
 
 // Socket
-import socket from "../../../../utils/socket";
+import socket from "../../utils/socket";
 
 const index = () => {
 

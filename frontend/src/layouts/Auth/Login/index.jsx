@@ -7,10 +7,10 @@ import { Button, Form, Input, Tooltip, Typography } from "antd";
 // Hooks
 import { useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
-import { useAuth } from "../../utils/AuthProvider";
+import { useAuth } from "../../../utils/AuthProvider";
 
 // Other utilities funtcions
-import { getRandomColor } from "../../utils/other";
+import { getRandomColor } from "../../../utils/other";
 
 
 const index = () => {
