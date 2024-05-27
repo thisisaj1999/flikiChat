@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./GroupInfo.module.scss";
+import Avvvatars from 'avvvatars-react'
 
 // ANTD
 import { Button, Avatar, Dropdown } from "antd";
@@ -150,35 +151,12 @@ const index = () => {
 							backgroundColor: "black",
 							verticalAlign: "middle",
 						}}
-						size={{
-							xs: 80,
-							sm: 80,
-							md: 80,
-							lg: 100,
-							xl: 100,
-							xxl: 100,
-						}}
+						size={90}
 						gap={0}
 						src={`${groupDetails?.profile_image_url}`}
 					/>
 				) : (
-					<Avatar
-						style={{
-							backgroundColor: "black",
-							verticalAlign: "middle",
-						}}
-						size={{
-							xs: 80,
-							sm: 80,
-							md: 80,
-							lg: 100,
-							xl: 100,
-							xxl: 100,
-						}}
-						gap={0}
-					>
-						{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
-					</Avatar>
+					<Avvvatars size={90} value={groupDetails?.group_name} style="shape" shadow border borderColor="#e7e7e7" />
 				)}
 					<p>{groupDetails?.group_name}</p>
 				</div>

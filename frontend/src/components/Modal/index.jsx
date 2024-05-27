@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.scss";
+import Avvvatars from "avvvatars-react";
 
 // ANTD
 import { Button, Form, Input, Avatar, Modal } from "antd";
@@ -157,21 +158,12 @@ const index = ({renderData}) => {
 												backgroundColor: "black",
 												verticalAlign: "middle",
 											}}
-											size={70}
+											size={60}
 											gap={0}
 											src={`${user?.profile_image_url}`}
 										/>
 									) : (
-										<Avatar
-											style={{
-												backgroundColor: "black",
-												verticalAlign: "middle",
-											}}
-											size={70}
-											gap={0}
-										>
-											{user?.name ? user?.name[0].toUpperCase() : ''}
-										</Avatar>
+										<Avvvatars size={60} value={user?.name} style="character" shadow border borderColor="#000" />
 									)}
 									<p>{user?.name && truncateWords(user?.name, 12)}</p>
 								</div>
@@ -209,21 +201,12 @@ const index = ({renderData}) => {
 												backgroundColor: "black",
 												verticalAlign: "middle",
 											}}
-											size={70}
+											size={60}
 											gap={0}
 											src={`${group?.profile_image_url}`}
 										/>
 									) : (
-										<Avatar
-											style={{
-												backgroundColor: "black",
-												verticalAlign: "middle",
-											}}
-											size={70}
-											gap={0}
-										>
-											{group?.group_name ? group?.group_name[0].toUpperCase() : ""}
-										</Avatar>
+										<Avvvatars size={60} value={group?.group_name} style="shape" shadow border borderColor="#e7e7e7" />
 									)}
 									<p>{group?.group_name && truncateWords(group?.group_name)}</p>
 								</div>

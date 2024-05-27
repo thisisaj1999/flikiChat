@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./ProfileCards.module.scss";
+import Avvvatars from "avvvatars-react";
 
 // ANTD
 import { Avatar, Divider } from "antd";
@@ -88,21 +89,12 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
 							verticalAlign: "middle",
 						}}
-						size="medium"
+						size={35}
 						gap={0}
 						src={`${avatarSrc}`}
 					/>
 				) : (
-					<Avatar
-						style={{
-							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
-							verticalAlign: "middle",
-						}}
-						size="medium"
-						gap={0}
-					>
-						{groupName ? groupName[0].toUpperCase() : 'V'}
-					</Avatar>
+					<Avvvatars size={35} value={groupName} style={`${from === 'sideBar' ? 'shape' : 'character'}`} shadow border borderColor={`${from === 'sideBar' ? '#e7e7e7' : '#000'}`} />
 				)}
 
 				<div className={styles.GroupDetails}>

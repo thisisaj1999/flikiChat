@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MainPage.module.scss";
+import Avvvatars from "avvvatars-react";
 
 // ANTD
 import { Divider, Input, Button, Avatar, Form } from "antd";
@@ -157,21 +158,12 @@ const index = () => {
 										backgroundColor: "black",
 										verticalAlign: "middle",
 									}}
-									size="medium"
+									size={35}
 									gap={0}
 									src={`${groupDetails?.profile_image_url}`}
 								/>
 							) : (
-								<Avatar
-									style={{
-										backgroundColor: "black",
-										verticalAlign: "middle",
-									}}
-									size="medium"
-									gap={0}
-								>
-									{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
-								</Avatar>
+								<Avvvatars size={35} value={groupDetails?.group_name} style="shape" shadow border borderColor="#e7e7e7" />
 							)}
 							{groupDetails?.group_name && <div className={styles.GroupDetails}>
 								<p className={styles.GroupName}>{truncateWords(groupDetails?.group_name, mobileTrunctateGroupNameValue())}</p>

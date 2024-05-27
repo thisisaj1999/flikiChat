@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "antd": "^5.17.3",
+    "avvvatars-react": "^0.4.2",
     "axios": "^1.7.2",
     "jwt-decode": "^4.0.0",
     "notistack": "^3.0.1",

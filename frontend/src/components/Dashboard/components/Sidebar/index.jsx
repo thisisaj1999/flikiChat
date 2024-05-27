@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
+import Avvvatars from "avvvatars-react";
 
 // ANTD
-import { Button, Avatar, Dropdown, Tooltip } from 'antd';
+import { Button, Dropdown, Tooltip } from 'antd';
 
 // SVG or Images
 import Menu from '../../../../assets/menu.svg'
@@ -108,17 +109,7 @@ const index = () => {
 			<div className={styles.SidebarGroups}>
 				<div className={styles.SidebarHeader}>
 					<Tooltip title={State.GlobalStore.userDetails?.user?.name}>
-						<Avatar
-							style={{
-								backgroundColor: "green",
-								verticalAlign: "middle",
-								cursor: 'pointer'
-							}}
-							size="medium"
-							gap={0}
-						>
-							{State.GlobalStore.userDetails?.user?.name.charAt(0).toUpperCase()}
-						</Avatar>
+						<Avvvatars size={35} value={State.GlobalStore.userDetails?.user?.name} style="character" shadow border borderColor="#000" />
 					</Tooltip>
 					
 					{width > 650 ? 
