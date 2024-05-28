@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import styles from './Login.module.scss';
 
 // ANTD
-import { Button, Form, Tooltip, Typography } from 'antd';
+import { Form } from 'antd';
 
 // Hooks
-import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useAuth } from '../../../utils/AuthProvider';
 
 // Components
-import WpInput from '../../../components/Form/WpInput';
+import WInput from '../../../components/Form/WInput';
+import WButton from '../../../components/Form/WButton';
+import WLink from '../../../components/Form/WLink';
 
 
 const LoginForm = ({ fields }) => {
   
   const Auth = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
   
   const [loadingResponse, setLoadingResponse] = useState(false);
 
@@ -33,10 +33,6 @@ const LoginForm = ({ fields }) => {
     }
   };
 
-  const navigateToRegister = () => {
-    navigate('/register');
-  };
-
   return (
     <Form
       layout="vertical"
@@ -46,7 +42,7 @@ const LoginForm = ({ fields }) => {
       className={styles.AuthFormFields}
     >
       {fields.map((field, index) => (
-        <WpInput
+        <WInput
           key={index}
           fieldType={field.fieldType}
           label={field.label}
@@ -57,23 +53,10 @@ const LoginForm = ({ fields }) => {
         />
       ))}
       <Form.Item>
-        <Button
-          className={styles.AuthFormSubmitBtn}
-          type="primary"
-          htmlType="submit"
-          loading={loadingResponse}
-        >
-          Sign In
-        </Button>
+        <WButton label={"Sign In"} type={"primary"} className={"AuthFormSubmitBtn"} submit={true} loading={loadingResponse}/>
       </Form.Item>
 
-      <div className={styles.AuthFormLink}>
-        <Tooltip title="Sign Up">
-          <Typography.Link onClick={navigateToRegister}>
-            {"You don't have an account?"}
-          </Typography.Link>
-        </Tooltip>
-      </div>
+      <WLink className={"AuthFormLink"} toolTipTitle={"Sign Up"} link={"register"} label={"You don't have an account?"}/>
     </Form>
   );
 };

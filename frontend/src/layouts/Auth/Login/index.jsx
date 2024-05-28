@@ -1,5 +1,5 @@
 import React from 'react';
-import WpHeader from '../../../components/Form/WpHeader';
+import WHeader from '../../../components/Form/WHeader';
 import LoginForm from './LoginForm';
 
 
@@ -27,9 +27,9 @@ const loginFields = [
 
 const index = () => {
   return (
-    <WpHeader width={'25rem'} comp={"Login"}>
+    <WHeader width={'25rem'} comp={"Login"}>
       <LoginForm fields={loginFields} />
-    </WpHeader>
+    </WHeader>
   );
 };
 
