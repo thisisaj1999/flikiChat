@@ -67,7 +67,15 @@ const index = () => {
 	
 			socket.on('group:resAvailableGroups', (res) => {
 				if(res?.status === 200){
-					setRenderData(res.data?.availableGroups);
+					const result = res.data?.availableGroups?.reduce((acc, group) => {
+						acc.push({
+								id: group?.id,
+								name: group?.group_name,
+								image: group?.profile_image_url || null
+						});
+						return acc;
+					}, []);
+					setRenderData(result);
 				}else if (res?.status === 404){
 					Update.GlobalStore.checkModal({
 						isOpen: false,
@@ -95,7 +103,15 @@ const index = () => {
 	
 			socket.on('group:resAvailableUsers', (res) => {
 				if(res?.status === 200){
-					setRenderData(res.data?.availableUsers);
+					const result = res.data?.availableUsers?.reduce((acc, group) => {
+						acc.push({
+								id: group?.id,
+								name: group?.name,
+								image: group?.profile_image_url || null
+						});
+						return acc;
+					}, []);
+					setRenderData(result);
 				}else if (res?.status === 404){
 					Update.GlobalStore.checkModal({
 						isOpen: false,

@@ -66,7 +66,15 @@ const index = () => {
 		const getAllGroups = async () => {
 			const response = await getGroups();
 			if (response?.status === 200) {
-				setInitialGroups([...initialGroups, ...response?.data?.group_table])
+				const result = response?.data?.group_table?.reduce((acc, group) => {
+					acc.push({
+							id: group?.id,
+							name: group?.group_name,
+							image: group?.profile_image_url || null
+					});
+					return acc;
+				}, []);
+				setInitialGroups([...initialGroups, ...result])
 			}
 		};
 

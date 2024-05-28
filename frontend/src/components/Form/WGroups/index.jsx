@@ -17,7 +17,7 @@ import useScreenWidth from "../../../hooks/useScreenWidth";
 
 import PropTypes from 'prop-types';
 
-const WGroups = ({ dataArray, label, setCheck }) => {
+const WGroups = ({ dataArray, label, setCheck, renderingFrom }) => {
 
   const width = useScreenWidth()
   const [checkedItems, setCheckedItems] = useState([]);
@@ -39,32 +39,32 @@ const WGroups = ({ dataArray, label, setCheck }) => {
 
 	return (
 		<div className={styles.GroupShowcase}>
-			<p className={styles.GroupListHeading}>{label}</p>
-			<div className={styles.GroupsList}>
-				{dataArray.map((group) => (
+			{label && <p className={styles.GroupListHeading}>{label}</p>}
+			<div className={styles.GroupsList} style={{maxHeight: renderingFrom === "CreateGroupModal" ? '18rem' : renderingFrom === 'JoinGroupModal' ? '20rem' : null}}>
+				{dataArray.map((data) => (
 					<div
-						key={group?.id}
+						key={data?.id}
 						className={`${styles.GroupInfoHeader} ${
-							checkedItems.includes(group?.id)
+							checkedItems.includes(data?.id)
 								? styles.checked
 								: ""
 						}`}
-						onClick={() => handleCheckboxChange(group?.id)}
+						onClick={() => handleCheckboxChange(data?.id)}
 					>
 						<div
 							className={`${styles.roundCheckbox} ${
-								checkedItems.includes(group?.id)
+								checkedItems.includes(data?.id)
 									? styles.visible
 									: ""
 							}`}
 						>
-							{checkedItems.includes(group?.id) ? (
+							{checkedItems.includes(data?.id) ? (
 								<img src={Tick} alt="Tick" width={20} />
 							) : (
 								<img src={UnTick} alt="UnTick" width={20} />
 							)}
 						</div>
-						{group?.profile_image_url ? (
+						{data?.image ? (
 							<Avatar
 								style={{
 									backgroundColor: "black",
@@ -72,23 +72,23 @@ const WGroups = ({ dataArray, label, setCheck }) => {
 								}}
 								size={60}
 								gap={0}
-								src={`${group?.profile_image_url}`}
+								src={`${data?.image}`}
 							/>
 						) : (
 							<Avvvatars
 								size={60}
-								value={group?.group_name}
-								style="shape"
+								value={data?.name}
+								style={renderingFrom === "CreateGroupModal" ? 'character' : 'shape'}
 								shadow
 								border
 								borderColor="#e7e7e7"
 							/>
 						)}
 						<p>
-							{group?.group_name &&
+							{data?.name &&
 								(width > 430
-									? truncateWords(group?.group_name)
-									: truncateWords(group?.group_name, 25))}
+									? truncateWords(data?.name)
+									: truncateWords(data?.name, 25))}
 						</p>
 					</div>
 				))}
