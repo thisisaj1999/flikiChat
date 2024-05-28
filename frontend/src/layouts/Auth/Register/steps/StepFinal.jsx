@@ -1,44 +1,22 @@
 import React, { useState } from "react";
 import styles from "../Register.module.scss";
-import Avvvatars from "avvvatars-react";
 
 // ANTD
-import { Button, Form, Input, Tooltip, Typography, Avatar } from "antd";
+import { Form } from "antd";
 
-// SVG or Images
-import Tick from '../../../../assets/tick.svg'
-import UnTick from '../../../../assets/untick.svg'
+// Components
+import WInput from "../../../../components/Form/WInput";
+import WButton from "../../../../components/Form/WButton";
+import WGroups from "../../../../components/Form/WGroups";
+import WLink from "../../../../components/Form/WLink";
 
-// Hooks
-import { useNavigate } from "react-router-dom";
-import useScreenWidth from "../../../../hooks/useScreenWidth";
-
-// Other utilities funtcions
-import { truncateWords } from "../../../../utils/other";
 
 const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => {
   const [checkedItems, setCheckedItems] = useState([]);
 
-  // Navigation
-  const navigate = useNavigate();
-  const width = useScreenWidth();
-
-
-  const navigateToLogin = () => {
-    navigate("/login");
-  };
-
-  // Checkbox Handler
-  const handleCheckboxChange = (id) => {
-    setCheckedItems((prevCheckedItems) => {
-      if (prevCheckedItems.includes(id)) {
-        return prevCheckedItems.filter((itemId) => itemId !== id);
-      } else {
-        return [...prevCheckedItems, id];
-      }
-    });
-  };
-
+  const setCheck = (val) => {
+    setCheckedItems(val)
+  }
 
   // Submit Form Callback
   const onFinish = (values) => {
@@ -49,74 +27,46 @@ const index = ({ form, handleBack, handleConfirm, groups, loadingResponse }) => 
     handleConfirm(newValues);
   };
 
+  const registerFields = [
+		{
+			fieldType: 'text',
+			label: 'Name',
+			name: 'name',
+			rules: [
+				{ required: true, message: 'Please input your Name' },
+			],
+			placeholder: 'John Doe',
+			className: 'LoginEmail',
+		},
+  ]
+
   return (
     <Form form={form} onFinish={onFinish} layout="vertical" autoComplete="on">
-      <Form.Item
-        label="Name"
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: "Please input your Name",
-          },
-        ]}
-        className={styles.LoginEmail}
-      >
-        <Input style={{ height: "40px" }} type="text" placeholder="John Doe" />
-      </Form.Item>
+      {registerFields.map((field, index) => (
+        <WInput
+          key={index}
+          fieldType={field.fieldType}
+          label={field.label}
+          name={field.name}
+          rules={field.rules}
+          placeholder={field.placeholder}
+          className={styles[field.className]}
+        />
+      ))}
 
-      <p className={styles.GroupListHeading}>Join Groups</p>
-      
-      <div className={styles.GroupsList}>
-        {groups.map((group) => (
-            <div
-              key={group?.id}
-              className={`${styles.GroupInfoHeader} ${checkedItems.includes(group?.id) ? styles.checked : ""}`}
-              onClick={() => handleCheckboxChange(group?.id)}
-            >
-              <div className={`${styles.roundCheckbox} ${checkedItems.includes(group?.id) ? styles.visible : ""}`}>
-                {checkedItems.includes(group?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
-              </div>
-              {group?.profile_image_url ? (
-										<Avatar
-											style={{
-												backgroundColor: "black",
-												verticalAlign: "middle",
-											}}
-											size={60}
-											gap={0}
-											src={`${group?.profile_image_url}`}
-										/>
-									) : (
-                    <Avvvatars size={60} value={group?.group_name} style='shape' shadow border borderColor='#e7e7e7' />
-									)}
-              <p>{group?.group_name && (width > 430 ? truncateWords(group?.group_name) : truncateWords(group?.group_name, 25)) }</p>
-            </div>
-          )
-        )}
-        
-      </div>
+      <WGroups dataArray={groups} label="Join Groups" setCheck={setCheck}/>
 
       <div className={styles.AuthFormStepsSubmitBtns}>
         <Form.Item>
-          <Button type="primary" className={styles.AuthFormSubmitBtn} onClick={handleBack}>
-            Back
-          </Button>
+          <WButton label={"Back"} type={"primary"} className={"AuthFormSubmitBtn"} action={handleBack} submit={false} loading={false}/>
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" className={styles.AuthFormSubmitBtn} htmlType="submit" loading={loadingResponse}>
-            Finish
-          </Button>
-        </Form.Item>
-      </div>
 
-      <div className={styles.AuthFormLink}>
-        <Tooltip title="Log In">
-          <Typography.Link onClick={navigateToLogin}>
-            You already have an account ?
-          </Typography.Link>
-        </Tooltip>
+        <Form.Item>
+          <WButton label={"Finish"} type={"primary"} className={"AuthFormSubmitBtn"} submit={true} loading={loadingResponse}/>
+        </Form.Item>
       </div>
+			
+      <WLink className={"AuthFormLink"} toolTipTitle={"Sign In"} link={"login"} label={"You already have an account ?"}/>
     </Form>
   );
 };
