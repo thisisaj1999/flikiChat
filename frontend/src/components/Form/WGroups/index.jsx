@@ -100,7 +100,7 @@ const WGroups = ({ dataArray, label, setCheck }) => {
 WGroups.propTypes = {
   dataArray: PropTypes.array.isRequired,
   label: PropTypes.string.isRequired,
-  setCheck: PropTypes.array.isRequired,
+  setCheck: PropTypes.func.isRequired,
 };
 
 

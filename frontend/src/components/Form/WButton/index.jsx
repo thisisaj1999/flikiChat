@@ -14,7 +14,7 @@ const WButton = ({ label, type, className, submit, loading, action }) => {
         type={type}
         htmlType={submit && "submit"}
         loading={loading}
-        onClick={!submit && action}
+        onClick={!submit ? action : null}
       >
         {label}
       </Button>
