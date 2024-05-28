@@ -1,0 +1,19 @@
+.AuthFormSubmitBtn {
+  margin-top: 0.5rem;
+  background-color: black;
+  height: 40px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(48, 48, 48) !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .AuthFormSubmitBtn {
+    height: 45px;
+    width: 6rem;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
