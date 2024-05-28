@@ -1,0 +1,120 @@
+.GroupShowcase{
+  margin-bottom: 24px;
+  & .GroupListHeading{
+    padding: 0 0 8px;
+    &::before{
+      display: inline-block;
+      margin-inline-end: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      font-family: SimSun, sans-serif;
+      line-height: 1;
+      content: "*";
+    }
+  }
+
+  & .GroupsList{
+    max-height: 18rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    overflow: hidden;
+    overflow-y: scroll;
+    gap: 1rem;
+  
+    & .GroupInfoHeader{
+      box-shadow: rgba(217, 217, 217, 0.66) 0px 1px 4px;
+      border-radius: 6px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem;
+      position: relative;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+  
+      &:hover{
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+  
+        & .roundCheckbox {
+          display: block;
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+  
+      & .roundCheckbox {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        display: none;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+  
+      & .visible {
+        display: block !important;
+        opacity: 1 !important;
+      }
+    }
+  
+    & .checked {
+      & .roundCheckbox {
+        display: block;
+      }
+    }
+    
+    & .GroupsName {
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .GroupShowcase{
+    & .GroupsList{
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media screen and (min-height: 670px) {
+  .GroupShowcase{
+    & .GroupsList{
+      max-height: 25rem;
+    }
+  }
+}
+
+
+@media screen and (max-width: 430px) {
+  .GroupShowcase{
+    & .GroupListHeading{
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    & .GroupsList{
+      max-height: 14rem;
+      display: flex;
+      flex-direction: column;
+      border: none;
+      box-shadow: rgb(204, 219, 232) 0px 0px 10px -1px inset;
+    
+      & .GroupInfoHeader{
+        justify-content: flex-start;
+        flex-direction: row;
+        
+        & :global(.ant-avatar){
+          width: 50px !important;
+          height: 50px !important;
+        }
+      }
+    }
+  }
+}

@@ -8,32 +8,35 @@ import PropTypes from 'prop-types';
 
 const WInput = ({ fieldType, label, name, rules, placeholder, className }) => {
   return (
-    <Form.Item
-      label={label}
-      name={name}
-      rules={rules}
-      className={styles[className]}
-    >
-      {fieldType === 'email' && (
-        <Input
-          style={{ height: '40px' }}
-          type="email"
-          placeholder={placeholder}
-        />
-      )}
-      {fieldType === 'password' && (
-        <Input.Password
-          style={{ height: '40px' }}
-          placeholder={placeholder}
-        />
-      )}
-      {fieldType === 'confirmPassword' && (
-        <Input.Password
-          style={{ height: '40px' }}
-          placeholder={placeholder}
-        />
-      )}
-    </Form.Item>
+    <div className={styles.FormFields}>      
+      <Form.Item
+          label={label}
+          name={name}
+          rules={rules}
+          className={styles[className]}
+        >
+          {fieldType === 'email' && (
+            <Input
+              style={{ height: '40px' }}
+              type="email"
+              placeholder={placeholder}
+            />
+          )}
+          {fieldType === 'password' && (
+            <Input.Password
+              style={{ height: '40px' }}
+              placeholder={placeholder}
+            />
+          )}
+          {fieldType === 'text' && (
+            <Input
+              style={{ height: '40px' }}
+              type="text"
+              placeholder={placeholder}
+            />
+          )}
+        </Form.Item>
+    </div>
   );
 };
 

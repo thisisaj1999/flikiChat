@@ -6,16 +6,19 @@ import { Button } from 'antd';
 
 import PropTypes from 'prop-types';
 
-const WButton = ({ label, type, className, submit, loading }) => {
+const WButton = ({ label, type, className, submit, loading, action }) => {
   return (
-    <Button
-    className={styles[className]}
-    type={type}
-    htmlType={submit && "submit"}
-    loading={loading}
-  >
-    {label}
-  </Button>
+    <div className={styles.ButtonStyles}>
+      <Button
+        className={styles[className]}
+        type={type}
+        htmlType={submit && "submit"}
+        loading={loading}
+        onClick={!submit && action}
+      >
+        {label}
+      </Button>
+    </div>
   );
 };
 
