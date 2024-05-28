@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './WpInput.module.scss';
+import styles from './WInput.module.scss';
 
 // ANTD
 import { Form, Input } from 'antd';
 
 import PropTypes from 'prop-types';
 
-const WpInput = ({ fieldType, label, name, rules, placeholder, className }) => {
+const WInput = ({ fieldType, label, name, rules, placeholder, className }) => {
   return (
     <Form.Item
       label={label}
@@ -37,7 +37,7 @@ const WpInput = ({ fieldType, label, name, rules, placeholder, className }) => {
   );
 };
 
-WpInput.propTypes = {
+WInput.propTypes = {
   fieldType: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -46,4 +46,4 @@ WpInput.propTypes = {
   className: PropTypes.string.isRequired,
 };
 
-export default WpInput;
+export default WInput;

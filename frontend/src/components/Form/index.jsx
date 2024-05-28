@@ -1,5 +1,5 @@
-import WpHeader from './WpHeader';
-import WpInput from './WpInput';
-import WpGroups from './WpGroups';
+import WHeader from './WHeader';
+import WInput from './WInput';
+import WGroups from './WGroups';
 
-export { WpHeader, WpInput, WpGroups };
+export { WHeader, WInput, WGroups };

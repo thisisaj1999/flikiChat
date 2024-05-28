@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import styles from './WpHeader.module.scss';
+import styles from './WHeader.module.scss';
 
 // Other Functions
 import { getRandomColor } from '../../../utils/other';
 
-const WpHeader = ({ children, width, comp }) => {
+const WHeader = ({ children, width, comp }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const hoveredStyle = {
@@ -37,4 +37,4 @@ const WpHeader = ({ children, width, comp }) => {
   );
 };
 
-export default WpHeader;
+export default WHeader;
