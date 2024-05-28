@@ -1,28 +1,31 @@
 import React from "react";
 import styles from "./GroupInfo.module.scss";
+import Avvvatars from 'avvvatars-react'
 
 // ANTD
 import { Button, Avatar, Dropdown } from "antd";
 
 // Components
-import ProfileCards from '../../../ProfileCards'
+import ProfileCards from '../ProfileCards'
 
 // Hooks
-import { useGlobalStore } from "../../../../utils/store";
+import { useGlobalStore } from "../../utils/store";
 import { useSnackbar } from "notistack";
+import useScreenWidth from '../../hooks/useScreenWidth'
 
 // SVG or Images
-import Close from "../../../../assets/close.svg";
-import Menu from '../../../../assets/menu.svg'
-import Logout from '../../../../assets/logout.svg'
+import Close from "../../assets/close.svg";
+import Menu from '../../assets/menu.svg'
+import Logout from '../../assets/logout.svg'
 
 // Other utilities funtcions
-import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../../../utils/other";
+import { convertToReadableTime, convertToReadableDays, getUserDisplayName } from "../../utils/other";
 
 // Socket
-import socket from "../../../../utils/socket";
+import socket from "../../utils/socket";
 
 const index = () => {
+
 	const State = {
 		GlobalStore: {
 			isGroupInfoOpen: useGlobalStore((State) => State.isGroupInfoOpen),
@@ -40,14 +43,31 @@ const index = () => {
 	};
 
 	const { enqueueSnackbar } = useSnackbar();
+	const width = useScreenWidth()
 
 	const groupDetails = State.GlobalStore.joinedGroupDetails?.group
 	const groupMembersDetails = State.GlobalStore.joinedGroupDetails?.members
 	const userDetails = State.GlobalStore.userDetails?.user
 
 	// Layout or UI
-	const GroupInfoOpenStyles = {
-		width: "18rem",
+	const GroupInfoOpenStyles = () => {
+		if(width >= 1440) {
+			return {
+				width: "16rem",
+			}
+		} else if(width >= 1024){
+			return {
+				width: "14rem",
+			}
+		} else if(width >= 650){
+			return {
+				width: "12rem",
+			}
+		} else{
+			return {
+				width: '0rem'
+			}
+		}
 	};
 
 	const GroupInfoCloseStyles = {
@@ -93,7 +113,7 @@ const index = () => {
 		<div
 			style={
 				State.GlobalStore.isGroupInfoOpen
-					? GroupInfoOpenStyles
+					? GroupInfoOpenStyles()
 					: GroupInfoCloseStyles
 			}
 			className={styles.DashboardGroupInfo}
@@ -131,35 +151,12 @@ const index = () => {
 							backgroundColor: "black",
 							verticalAlign: "middle",
 						}}
-						size={{
-							xs: 80,
-							sm: 80,
-							md: 80,
-							lg: 100,
-							xl: 100,
-							xxl: 100,
-						}}
+						size={90}
 						gap={0}
 						src={`${groupDetails?.profile_image_url}`}
 					/>
 				) : (
-					<Avatar
-						style={{
-							backgroundColor: "black",
-							verticalAlign: "middle",
-						}}
-						size={{
-							xs: 80,
-							sm: 80,
-							md: 80,
-							lg: 100,
-							xl: 100,
-							xxl: 100,
-						}}
-						gap={0}
-					>
-						{groupDetails?.group_name && groupDetails?.group_name[0].toUpperCase()}
-					</Avatar>
+					<Avvvatars size={90} value={groupDetails?.group_name} style="shape" shadow border borderColor="#e7e7e7" />
 				)}
 					<p>{groupDetails?.group_name}</p>
 				</div>

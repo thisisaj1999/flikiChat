@@ -1,0 +1,14 @@
+.AuthFormLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 430px) {
+  .AuthFormLink {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

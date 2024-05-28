@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Register.module.scss";
 
 // ANTD
 import { Form } from "antd";
 
 // Components
-import StepOne from "./layouts/StepOne";
-import StepFinal from "./layouts/StepFinal";
+import StepOne from "./steps/StepOne";
+import StepFinal from "./steps/StepFinal";
+import WHeader from "../../../components/Form/WHeader";
 
 // Hooks
 import { useSnackbar } from "notistack";
-import { useAuth } from "../../utils/AuthProvider";
+import { useAuth } from "../../../utils/AuthProvider";
 
 // API functions
-import { getGroups } from "../../utils/requests"
-
-// Other utilities funtcions
-import { getRandomColor } from "../../utils/other";
+import { getGroups } from "../../../utils/requests"
 
 
 const index = () => {
@@ -32,18 +29,6 @@ const index = () => {
 
 	// Layout or UI
 	const [step, setStep] = useState(1);
-	const [isHovered, setIsHovered] = useState(false);
-	
-	// UI
-	const hoveredStyle = {
-		color: getRandomColor(),
-		transition: "all 0.3s ease-in-out",
-	};
-
-	const notHoveredStyle = {
-		color: "black",
-		transition: "all 1s ease-in-out",
-	};
 
 	//  Button Handlers
 	const handleNext = (values) => {
@@ -72,6 +57,7 @@ const index = () => {
 		}else{
 			setLoadingResponse(false)
 			enqueueSnackbar(response?.message, { variant: 'info' });
+			setStep(1)
 		}
 	};
 
@@ -80,7 +66,15 @@ const index = () => {
 		const getAllGroups = async () => {
 			const response = await getGroups();
 			if (response?.status === 200) {
-				setInitialGroups([...initialGroups, ...response?.data?.group_table])
+				const result = response?.data?.group_table?.reduce((acc, group) => {
+					acc.push({
+							id: group?.id,
+							name: group?.group_name,
+							image: group?.profile_image_url || null
+					});
+					return acc;
+				}, []);
+				setInitialGroups([...initialGroups, ...result])
 			}
 		};
 
@@ -101,22 +95,9 @@ const index = () => {
 	];
 
 	return (
-		<div className={styles.AuthBgMain}>
-			<div
-				className={styles.AuthFormMain}
-				onMouseEnter={() => setIsHovered(true)}
-				onMouseLeave={() => setIsHovered(false)}
-				style={step === 1 ? { width: "25rem" } : { width: "45rem" }}
-			>
-				<h1 className={styles.AuthFormHeading}>
-					Regis
-					<span style={isHovered ? hoveredStyle : notHoveredStyle}>
-						ter
-					</span>
-				</h1>
-				{steps[step - 1]}
-			</div>
-		</div>
+		<WHeader width={step === 1 ? '25rem' : '45rem'} comp={"Register"}>
+			{steps[step - 1]}
+		</WHeader>
 	);
 };
 

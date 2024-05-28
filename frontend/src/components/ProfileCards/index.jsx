@@ -1,20 +1,24 @@
 import React, { useEffect } from "react";
 import styles from "./ProfileCards.module.scss";
+import Avvvatars from "avvvatars-react";
 
 // ANTD
 import { Avatar, Divider } from "antd";
 
 // Hooks
 import { useGlobalStore } from "../../utils/store";
+import useScreenWidth from "../../hooks/useScreenWidth"
 
 // Other utilities funtcions
-import { convertToReadableTime,truncateWords } from "../../utils/other";
+import { convertToReadableTime, truncateWords } from "../../utils/other";
 
 // Socket
 import socket from "../../utils/socket";
 
 
 const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, groupId }) => {
+
+	const width = useScreenWidth()
 
 	const State = {
 		GlobalStore: {
@@ -56,6 +60,30 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 		})
 	}
 	
+	const mobileTrunctateMsgValue = () => {
+		if(width >= 650 && width <= 1024){
+			return 10
+		}else if(width >= 425){
+			return 45
+		}else if (width >= 375){
+			return 35
+		}else if (width >= 320){
+			return 25
+		}
+	}
+
+	const mobileTrunctateGroupNameValue = () => {
+		if(width >= 650 && width <= 1024){
+			return 10	
+		}else if(width >= 425){
+			return 42
+		}else if (width >= 375){
+			return 32
+		}else if (width >= 320){
+			return 28
+		}
+	}
+
 	return (
 		<>
 			<div className={styles.ListGroup} onClick={(e) => from === "sideBar" && groupClickHandler(e)}>
@@ -65,30 +93,21 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
 							verticalAlign: "middle",
 						}}
-						size="medium"
+						size={35}
 						gap={0}
 						src={`${avatarSrc}`}
 					/>
 				) : (
-					<Avatar
-						style={{
-							backgroundColor: from === "sideBar" ? "black" : "dodgerblue",
-							verticalAlign: "middle",
-						}}
-						size="medium"
-						gap={0}
-					>
-						{groupName ? groupName[0].toUpperCase() : 'V'}
-					</Avatar>
+					<Avvvatars size={35} value={groupName} style={`${from === 'sideBar' ? 'shape' : 'character'}`} shadow border borderColor={`${from === 'sideBar' ? '#e7e7e7' : '#000'}`} />
 				)}
 
 				<div className={styles.GroupDetails}>
 					<div className={styles.GroupNameAndNotification}>
-						<span>{truncateWords(groupName, 12)}</span>
+						<span>{truncateWords(groupName, mobileTrunctateGroupNameValue())}</span>
 						{/* {from === "sideBar" && <span>1</span>} */}
 					</div>
 					{lastMessage && from === "sideBar" && <div className={styles.GroupDetailsSubHeading}>
-						<span>{lastMessage}</span>
+						<span>{truncateWords(lastMessage, mobileTrunctateMsgValue())}</span>
 						<span>{convertToReadableTime(lastMessageTime)}</span>
 					</div>}
 				</div>

@@ -5,10 +5,10 @@ import styles from "./Dashboard.module.scss";
 import { Divider } from "antd";
 
 // Components
-import Sidebar from "./components/Sidebar";
-import MainPage from "./components/MainPage";
-import GroupInfo from "./components/GroupInfo";
-import Modal from '../Modal'
+import Sidebar from "../../components/Sidebar";
+import MainPage from "../../components/MainPage";
+import GroupInfo from "../../components/GroupInfo";
+import Modal from '../../components/Modal'
 
 // Hooks
 import { useSnackbar } from "notistack";
@@ -20,10 +20,12 @@ import { decodeToken } from "../../utils/other";
 
 // Socket
 import socket from "../../utils/socket";
+import useScreenWidth from "../../hooks/useScreenWidth";
 
 
 const index = () => {
   
+	const width = useScreenWidth()
 	const { enqueueSnackbar } = useSnackbar();
 
 	const State = {
@@ -41,6 +43,8 @@ const index = () => {
 			userGroups: useGlobalStore((State) => State.setUserGroups),
 		},
 	};  
+
+	const isGroupSelected = State.GlobalStore.userDetails?.joinedGroup
 
 	useEffect(() => {
 		socket.connect()
@@ -63,7 +67,15 @@ const index = () => {
 	
 			socket.on('group:resAvailableGroups', (res) => {
 				if(res?.status === 200){
-					setRenderData(res.data?.availableGroups);
+					const result = res.data?.availableGroups?.reduce((acc, group) => {
+						acc.push({
+								id: group?.id,
+								name: group?.group_name,
+								image: group?.profile_image_url || null
+						});
+						return acc;
+					}, []);
+					setRenderData(result);
 				}else if (res?.status === 404){
 					Update.GlobalStore.checkModal({
 						isOpen: false,
@@ -91,7 +103,15 @@ const index = () => {
 	
 			socket.on('group:resAvailableUsers', (res) => {
 				if(res?.status === 200){
-					setRenderData(res.data?.availableUsers);
+					const result = res.data?.availableUsers?.reduce((acc, group) => {
+						acc.push({
+								id: group?.id,
+								name: group?.name,
+								image: group?.profile_image_url || null
+						});
+						return acc;
+					}, []);
+					setRenderData(result);
 				}else if (res?.status === 404){
 					Update.GlobalStore.checkModal({
 						isOpen: false,
@@ -129,28 +149,75 @@ const index = () => {
     }
   }, []);
 
+
+	const isGroupNotSelectedSideBar = () => {
+		if(width <= 650) {
+			return {
+				width: '100%',
+				opacity: '1',
+				display: 'block',
+				// transition: 'width .3s ease-in-out'
+			}
+		} 
+	}
+
+	const isGroupSelectedSideBar = () => {
+		if(width <= 650) {
+			return {
+				width: '0%',
+				opacity: '0',
+				display: 'none',
+			}
+		} 
+	}
+
+	const isGroupNotSelectedChat = () => {
+			if(width <= 650) {
+				return {
+					width: "0%",
+					opacity: '0',
+					display: 'none',
+				}
+			} 
+	}
+
+	const isGroupSelectedChat = () => {
+			if(width <= 650) {
+				return {
+					width: "100%",
+					opacity: '1',
+					display: 'block',
+				}
+			} 
+	}
+
+
 	return (
 		<div className={styles.DashboardBgMain}>
-			<div className={styles.DashboardChatMain}>
-				<Sidebar/>
+			<div className={styles.DashboardChatSection}>
+				<div className={styles.DashboardSidebarMain} style={isGroupSelected === null ?  isGroupNotSelectedSideBar() : isGroupSelectedSideBar()}>
+					<Sidebar/>	
+				</div>
 
-				<Divider
-					type="vertical"
-					style={{ height: "100%", margin: "0px" }}
-				/>
+				{width > 650 && <Divider
+						type="vertical"
+						style={{ height: "100%", margin: "0px" }}
+				/>}
+				
+				<div className={styles.DashboardChatMain} style={isGroupSelected === null ?  isGroupNotSelectedChat() : isGroupSelectedChat()}>
+					<MainPage/>
 
-				<MainPage/>
+					{State.GlobalStore.isGroupInfoOpen && (
+						<>
+							<Divider
+								type="vertical"
+								style={{ height: "100%", margin: "0px" }}
+							/>
 
-				{State.GlobalStore.isGroupInfoOpen && (
-					<>
-						<Divider
-							type="vertical"
-							style={{ height: "100%", margin: "0px" }}
-						/>
-
-						<GroupInfo />
-					</>
-				)}
+							<GroupInfo />
+						</>
+					)}
+				</div>
 			</div>
 			{renderData.length > 0 && <Modal renderData={renderData}/>}
 		</div>

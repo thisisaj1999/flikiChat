@@ -1,0 +1,34 @@
+.AuthBgMain{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+	
+	& .AuthFormMain {
+		padding: 2rem;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+			rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+		border-radius: 10px;
+		transition: width .3s ease-in-out;
+
+		& .AuthFormHeading {
+			margin-bottom: 2rem;
+		}
+	}
+}
+
+
+@media screen and (max-width: 430px) {
+	.AuthBgMain{
+		width: 100%;
+		& .AuthFormMain {
+			box-shadow: none;
+			width: 100%;
+			transition: width .3s ease-in-out;
+
+			& .AuthFormHeading {
+				font-size: 2.5rem;
+			}	
+		}
+	}
+}
