@@ -61,7 +61,9 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 	}
 	
 	const mobileTrunctateMsgValue = () => {
-		if(width >= 425){
+		if(width >= 650 && width <= 1024){
+			return 10
+		}else if(width >= 425){
 			return 45
 		}else if (width >= 375){
 			return 35
@@ -71,7 +73,9 @@ const index = ({ from, lastMessage, lastMessageTime, avatarSrc, groupName, group
 	}
 
 	const mobileTrunctateGroupNameValue = () => {
-		if(width >= 425){
+		if(width >= 650 && width <= 1024){
+			return 10	
+		}else if(width >= 425){
 			return 42
 		}else if (width >= 375){
 			return 32

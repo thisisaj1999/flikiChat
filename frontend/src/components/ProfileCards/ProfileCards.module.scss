@@ -12,6 +12,10 @@
 	
 	& .GroupDetails{
 		width: calc(100% - 33px);
+		display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+		
 		& .GroupNameAndNotification{
 			font-size: 14px;
 			color: black;
