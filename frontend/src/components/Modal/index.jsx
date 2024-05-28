@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.scss";
-import Avvvatars from "avvvatars-react";
 
 // ANTD
-import { Button, Form, Input, Avatar, Modal } from "antd";
+import { Form, Modal } from "antd";
+
+// Component
+import WGroups from "../Form/WGroups";
+import WInput from "../Form/WInput";
+import WButton from "../Form/WButton";
 
 // Hooks
 import { useGlobalStore } from "../../utils/store";
 
-// SVG or Images
-import UnTick from '../../assets/untick.svg'
-import Tick from '../../assets/tick.svg'
-
 // Socket
 import socket from '../../utils/socket'
-
-// Other utilities funtcions
-import { truncateWords } from "../../utils/other"
 
 
 const index = ({renderData}) => {
@@ -97,16 +94,22 @@ const index = ({renderData}) => {
     } 
 	};
 
-  // Checkbox Handler
-  const handleCheckboxChange = (id) => {
-    setCheckedItems((prevCheckedItems) => {
-      if (prevCheckedItems.includes(id)) {
-        return prevCheckedItems.filter((itemId) => itemId !== id);
-      } else {
-        return [...prevCheckedItems, id];
-      }
-    });
-  };
+	const setCheck = (value) => {
+		setCheckedItems(value)
+	}
+
+  const inputFields = [
+		{
+			fieldType: 'text',
+			label: 'Name',
+			name: 'name',
+			rules: [
+				{ required: true, message: 'Please input Group name' },
+			],
+			placeholder: 'Mighty Raju Fan Page',
+			className: 'LoginEmail',
+		},
+  ]
 
 	return (
 		<Modal
@@ -124,106 +127,33 @@ const index = ({renderData}) => {
 		>
 			{State.GlobalStore.checkModal?.layout === 1 ? (
 				<Form layout="vertical" form={form} onFinish={onFinish} autoComplete="on">
-					<Form.Item
-						label="Group Name"
-						name="name"
-						rules={[
-							{
-								required: true,
-								message: "Please input Group Name",
-							},
-						]}
-					>
-						<Input
-							style={{ height: "40px" }}
-							type="text"
-							placeholder="Mighty Raju Fan Page"
+					{inputFields.map((field, index) => (
+						<WInput
+							key={index}
+							fieldType={field.fieldType}
+							label={field.label}
+							name={field.name}
+							rules={field.rules}
+							placeholder={field.placeholder}
+							className={styles[field.className]}
 						/>
-					</Form.Item>
-
-					<p className={styles.GroupListHeading}>Add Participants</p>
-					<div className={styles.GroupsList} style={{maxHeight: '18rem'}}>
-						{renderData.map( (user) => (
-							<div
-								key={user?.id}
-								className={`${styles.GroupInfoHeader} ${checkedItems.includes(user?.id) ? styles.checked : ""}`}
-								onClick={() => handleCheckboxChange(user?.id)}
-							>
-								<div className={`${styles.roundCheckbox} ${checkedItems.includes(user?.id) ? styles.visible : ""}`}>
-									{checkedItems.includes(user?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
-								</div>
-									{user?.profile_image_url ? (
-										<Avatar
-											style={{
-												backgroundColor: "black",
-												verticalAlign: "middle",
-											}}
-											size={60}
-											gap={0}
-											src={`${user?.profile_image_url}`}
-										/>
-									) : (
-										<Avvvatars size={60} value={user?.name} style="character" shadow border borderColor="#000" />
-									)}
-									<p>{user?.name && truncateWords(user?.name, 12)}</p>
-								</div>
-							))
-						}
-					</div>
-
+					))}
+					<WGroups dataArray={renderData} label="Add Participants" setCheck={setCheck} renderingFrom="CreateGroupModal"/>
 					<div className={styles.AuthFormStepsSubmitBtns}>
 						<div></div>
-
-						<Button
-							type="primary"
-							className={styles.AuthFormSubmitBtn}
-							htmlType="submit"
-						>
-							Create
-						</Button>
+						<Form.Item>
+							<WButton label={"Create"} type={"primary"} className={"AuthFormSubmitBtn"} submit={true} loading={false}/>
+						</Form.Item>
 					</div>
 				</Form>
 			) : (
 				<Form layout="vertical" onFinish={onFinish} autoComplete="on">
-					<div className={styles.GroupsList} style={{maxHeight: '20rem'}}>
-						{renderData.map((group) => (
-							<div
-								key={group?.id}
-								className={`${styles.GroupInfoHeader} ${checkedItems.includes(group?.id) ? styles.checked : ""}`}
-								onClick={() => handleCheckboxChange(group?.id)}
-							>
-								<div className={`${styles.roundCheckbox} ${checkedItems.includes(group?.id) ? styles.visible : ""}`}>
-									{checkedItems.includes(group?.id) ? <img src={Tick} alt="Tick" width={20}/> : <img src={UnTick} alt="UnTick" width={20}/>}
-								</div>
-									{group?.profile_image_url ? (
-										<Avatar
-											style={{
-												backgroundColor: "black",
-												verticalAlign: "middle",
-											}}
-											size={60}
-											gap={0}
-											src={`${group?.profile_image_url}`}
-										/>
-									) : (
-										<Avvvatars size={60} value={group?.group_name} style="shape" shadow border borderColor="#e7e7e7" />
-									)}
-									<p>{group?.group_name && truncateWords(group?.group_name)}</p>
-								</div>
-							))
-						}
-					</div>
-
+					<WGroups dataArray={renderData} setCheck={setCheck} renderingFrom="JoinGroupModal"/>
 					<div className={styles.AuthFormStepsSubmitBtns}>
 						<div></div>
-
-						<Button
-							type="primary"
-							className={styles.AuthFormSubmitBtn}
-							htmlType="submit"
-						>
-							Join
-						</Button>
+						<Form.Item>
+							<WButton label={"Join"} type={"primary"} className={"AuthFormSubmitBtn"} submit={true} loading={false}/>
+						</Form.Item>
 					</div>
 				</Form>
 			)}

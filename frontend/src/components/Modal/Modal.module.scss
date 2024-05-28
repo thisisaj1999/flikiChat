@@ -2,102 +2,15 @@
 	& :global(.ant-modal-body) {
 		margin-top: 1rem;
 	}
-}
 
-.GroupListHeading {
-	padding: 0 0 8px;
-	&::before {
-		display: inline-block;
-		margin-inline-end: 4px;
-		color: #ff4d4f;
-		font-size: 14px;
-		font-family: SimSun, sans-serif;
-		line-height: 1;
-		content: "*";
-	}
-}
-
-.GroupsList {
-	max-height: 20rem;
-	border: 1px solid #d9d9d9;
-	border-radius: 6px;
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	justify-items: center;
-	overflow: hidden;
-	overflow-y: scroll;
-	gap: 1.5rem;
-
-	& .GroupInfoHeader {
-		box-shadow: rgba(217, 217, 217, 0.66) 0px 1px 4px;
-		border-radius: 6px;
-		width: 100%;
+	& .AuthFormStepsSubmitBtns {
 		display: flex;
-		flex-direction: column;
-    justify-content: center;
-		gap: 0.5rem;
+		justify-content: space-between;
 		align-items: center;
-		padding: 0.6rem;
-		height: 7.5rem;
-		position: relative;
-		cursor: pointer;
-		transition: box-shadow 0.3s;
-
-		&:hover{
-			box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
-
-			& .roundCheckbox {
-				display: block;
-				transform: scale(1.1);
-				opacity: 1;
-			}
+		margin-top: 1.5rem;
+	
+		& button {
+			margin: 0;
 		}
-
-		& .roundCheckbox {
-			position: absolute;
-			top: 5px;
-			right: 5px;
-			display: none;
-			transition: transform 0.3s, opacity 0.3s;
-		}
-
-		& .visible {
-			display: block !important;
-			opacity: 1 !important;
-		}
-	}
-
-	& .GroupsName {
-		font-size: 12px;
-	}
-}
-
-.AuthFormSubmitBtn {
-	background-color: black;
-	margin-bottom: 0.8rem;
-	height: 40px;
-	cursor: pointer;
-	margin: 0;
-}
-
-.AuthFormSubmitBtn:hover {
-	background-color: rgb(48, 48, 48) !important;
-}
-
-.AuthFormStepsSubmitBtns {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 1.5rem;
-}
-
-.AuthFormStepsSubmitBtns button {
-	margin: 0;
-}
-
-@media screen and (max-width: 425px) {
-	.AuthFormMain {
-		width: 90%;
 	}
 }
